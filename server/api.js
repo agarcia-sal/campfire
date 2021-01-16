@@ -19,7 +19,60 @@ const auth = require("./auth");
 const router = express.Router();
 
 //initialize socket
-const socketManager = require("./server-socket");
+const socket = require("./server-socket");
+
+
+
+var SpotifyWebApi = require('spotify-web-api-node');
+scopes = ['user-read-private', 'user-read-email', 'playlist-modify-public', 'playlist-modify-private', 'user-read-recently-played', 'streaming']
+
+require('dotenv').config();
+
+var spotifyApi = new SpotifyWebApi({
+  clientId: process.env.SPOTIFY_API_ID,
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+  redirectUri: process.env.CALLBACK_URI,
+});
+
+/* GET home page. */
+router.get('/', function (req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+router.get('/spotifyLogin', (req, res) => {
+  console.log("called")
+  var html = spotifyApi.createAuthorizeURL(scopes)
+  console.log(html)
+  res.send({ url: html })
+})
+
+router.get('/callback', async (req, res) => {
+  const { code } = req.query;
+  console.log(code)
+  try {
+    var data = await spotifyApi.authorizationCodeGrant(code)
+    const { access_token, refresh_token } = data.body;
+    spotifyApi.setAccessToken(access_token);
+    spotifyApi.setRefreshToken(refresh_token);
+
+    res.redirect('http://localhost:5000/');
+  } catch (err) {
+    res.redirect('/#/error/invalid token');
+  }
+});
+router.get('/playlists', async (req, res) => {
+  try {
+    var result = await spotifyApi.getUserPlaylists();
+    console.log(result.body);
+    res.status(200).send(result.body);
+  } catch (err) {
+    res.status(400).send(err)
+  }
+
+});
+//am adding the following router.get('api/recentsong')
+
+
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -34,7 +87,7 @@ router.get("/whoami", (req, res) => {
 
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
-  if (req.user) socketManager.addUser(req.user, socketManager.getSocketFromSocketID(req.body.socketid));
+  if (req.user) socket.addUser(req.user, socket.getSocketFromSocketID(req.body.socketid));
   res.send({});
 });
 
