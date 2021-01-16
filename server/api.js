@@ -24,7 +24,7 @@ const socket = require("./server-socket");
 
 
 var SpotifyWebApi = require('spotify-web-api-node');
-scopes = ['user-read-private', 'user-read-email', 'playlist-modify-public', 'playlist-modify-private', 'user-read-recently-played', 'streaming']
+scopes = ['user-read-private', 'user-read-email', 'playlist-modify-public', 'playlist-modify-private', 'user-read-recently-played', 'streaming', 'user-read-playback-state', 'user-modify-playback-state']
 
 require('dotenv').config();
 
@@ -60,9 +60,17 @@ router.get('/callback', async (req, res) => {
     res.redirect('/#/error/invalid token');
   }
 });
+router.get('/token', async (req, res) => {
+  try {
+    const token = spotifyApi.getAccessToken();
+    res.status(200).send({accessToken: token});
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
 router.get('/playlists', async (req, res) => {
   try {
-    var result = await spotifyApi.getUserPlaylists();
+    const result = await spotifyApi.getUserPlaylists();
     console.log(result.body);
     res.status(200).send(result.body);
   } catch (err) {
