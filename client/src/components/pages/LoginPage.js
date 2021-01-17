@@ -3,7 +3,6 @@ import { Link } from "@reach/router";
 import { Route, Redirect } from '@reach/router';
 
 import "../../utilities.css";
-import "./Skeleton.css";
 
 import { get, post } from "../../utilities";
 

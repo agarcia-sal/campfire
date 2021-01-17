@@ -40,7 +40,7 @@ const callback = async (req, res, spotifyApi) => {
         console.log('Something went wrong!', err);
       }).then((user) => {
         req.session.user = user;
-        res.redirect('http://localhost:5000/');
+        res.redirect('http://localhost:5000/home');
       }).catch((err) => {
         console.log(`Failed to log in: ${err}`);
         res.status(401).send({ err });

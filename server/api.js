@@ -11,7 +11,7 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
-
+const Comment = require("./models/comment");
 // import authentication library
 const auth = require("./auth");
 
@@ -43,22 +43,7 @@ router.get('/spotifyLogin', (req, res) => {
   auth.spotifyLogin(req, res, spotifyApi)
 })
 router.get('/callback', async (req, res) => {
-<<<<<<< HEAD
-  const { code } = req.query;
-  console.log(code)
-  try {
-    var data = await spotifyApi.authorizationCodeGrant(code)
-    const { access_token, refresh_token } = data.body;
-    spotifyApi.setAccessToken(access_token);
-    spotifyApi.setRefreshToken(refresh_token);
-
-    res.redirect('http://localhost:5000/home');
-  } catch (err) {
-    res.redirect('/#/error/invalid token');
-  }
-=======
   auth.callback(req, res, spotifyApi)
->>>>>>> 27f949e720daa4b51fe0512058b4335ec93c990f
 });
 
 // router.get('/spotifyLogin', (req, res) => {
@@ -93,14 +78,33 @@ router.get('/token', async (req, res) => {
 router.get('/playlists', async (req, res) => {
   try {
     const result = await spotifyApi.getUserPlaylists();
-    onsole.log(result.body);
+    console.log(result.body);
     console.log(req.session.user)
     console.log(req.user)
     res.status(200).send(result.body);
   } catch (err) {
     res.status(400).send(err)
   }
+});
 
+router.get('/currentTrack', async(req, res) => {
+  try {
+    const track = await spotifyApi.getMyCurrentPlayingTrack();
+    // console.log(track.body);
+    res.status(200).send(track);
+  } catch(err) {
+    res.status(400).send(err)
+  }
+});
+
+router.get('/currentState', async(req, res) => {
+  try {
+    const track = await spotifyApi.getMyCurrentPlaybackState();
+    // console.log(track.body);
+    res.status(200).send(track);
+  } catch(err) {
+    res.status(400).send(err)
+  }
 });
 //am adding the following router.get('api/recentsong')
 
@@ -119,6 +123,7 @@ router.get('/getMe', (req, res) => {
 })
 
 router.post("/logout", (req, res) => { auth.logout(req, res, spotifyApi) });
+
 router.get("/whoami", (req, res) => {
   if (!req.user) {
     // not logged in
@@ -138,6 +143,12 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+router.post("/api/comment", auth.ensureLoggedIn, (req, res) => {
+  const newComment = new Comment({
+    parent: req.body.parent,
+    content: req.body.content,
+  });
+});
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

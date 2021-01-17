@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import GoogleLogin, { GoogleLogout } from "react-google-login";
 import SpotifyPlayer from 'react-spotify-web-playback';
 
 import "../../utilities.css";
@@ -15,6 +14,8 @@ class Home extends Component {
     super(props);
     // Initialize Default State
     this.state = {
+      songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
+      comments: [],
       playing : false,
       topSong : null,
       spotifyPlayerName: '',
@@ -44,12 +45,24 @@ class Home extends Component {
       this.setState({accessToken : data.accessToken, playing : true})
     })
   }
+//   getProgress = () => {
+//     //will change state of something to re-render so i can get the new state
+//     // this.setState({spotifyPlayerName : 'Spotify Web Player'});
+//     this.setState({changeState: true});
+//     console.log(`Progress of the song: ${this.state.songState.progressMs/1000} seconds`);
+//     this.setState({spotifyPlayerName: ''});
+//   }
+
   getProgress = () => {
-    //will change state of something to re-render so i can get the new state
-    // this.setState({spotifyPlayerName : 'Spotify Web Player'});
-    this.setState({changeState: true});
-    console.log(`Progress of the song: ${this.state.songState.progressMs/1000} seconds`);
-    this.setState({spotifyPlayerName: ''});
+    get('api/currentState').then((data) => {
+        console.log('progress: ' + data.body.progress_ms + ' seconds');
+    })
+  }
+  getTrack = () => {
+    // will show currently playing track
+    get('/api/currentTrack').then((data) => {
+        console.log('Song uri: ' + data.body.item.uri);
+    })
   }
 
 
@@ -71,6 +84,7 @@ class Home extends Component {
         <button onClick={this.getPlaylists}>get playlists</button>
         <button onClick={this.playSong}> play song</button>
         <button onClick={this.getProgress}> get progess of song </button>
+        <button onClick={this.getTrack}> get track </button>
         {player}
         <div className="u-flex">
         <input
