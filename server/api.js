@@ -47,6 +47,7 @@ router.get('/callback', async (req, res) => {
   auth.callback(req, res, spotifyApi)
 });
 
+
 // router.get('/spotifyLogin', (req, res) => {
 //   console.log("called")
 //   var html = spotifyApi.createAuthorizeURL(scopes)
@@ -168,6 +169,32 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+<<<<<<< HEAD
+=======
+router.get("/search", async (req, res) => {
+  try {
+    const songTitle = req.query.title;
+    console.log(`song title is ${songTitle}`);
+    const tracks = await spotifyApi.searchTracks(`track:${songTitle}`, {limit:5});
+    res.status(200).send(tracks); //use tracks.body to get titles?
+  } catch (err) {
+    res.status(400).send(err);
+  }
+})
+
+// router.post("/api/comment", auth.ensureLoggedIn, (req, res) => {
+//   const newComment = new Comment({
+//     parent: req.body.parent, //song uri
+//     content: req.body.content, 
+//   });
+// });
+router.post("/song", auth.ensureLoggedIn, (req, res) => {
+  const newSong = new Song ({
+    song_id: req.body.songId,
+  });
+  newSong.save().then((song) => res.send(song));
+});
+>>>>>>> 0fcee0351d14d792e69615973d46888f4eec855c
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

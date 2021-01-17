@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import SpotifyPlayer from 'react-spotify-web-playback';
+<<<<<<< HEAD
 import { NewComment } from '../modules/InputComment.js';
 
+=======
+import NavBar from "../modules/NavBar";
+>>>>>>> 0fcee0351d14d792e69615973d46888f4eec855c
 import "../../utilities.css";
 import "./Home.css";
 
@@ -94,11 +98,20 @@ class Home extends Component {
     });
   };
 
+<<<<<<< HEAD
   addNewComment = (comment) => {
       this.setState({
         comments: [comment].concat(this.state.comments),
       });
   };
+=======
+  searchSongs = () => {
+    get("/api/search", {title:'love'}).then((data) => {
+      console.log(data.body);
+    });
+  }
+
+>>>>>>> 0fcee0351d14d792e69615973d46888f4eec855c
 
   render() {
     console.log('am rerendering');
@@ -118,12 +131,14 @@ class Home extends Component {
     }
     return (
       <>
+        <NavBar addTrack={this.addTrack}/>
         {/* <button onClick={this.handleLogin}>spotify login</button> */}
         {newSong}
         <button onClick={this.getPlaylists}>get playlists</button>
         <button onClick={this.playSong}> play song</button>
         <button onClick={this.getProgressOfSong}> get progess of song </button>
         <button onClick={this.getTrack}> get track </button>
+        <button onClick={this.searchSongs}> look in console for searched songs</button>
         {player}
         <NewComment 
             songId = {this.state.songId} 

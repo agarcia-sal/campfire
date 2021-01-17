@@ -44,32 +44,30 @@ class Skeleton extends Component {
       this.setState({accessToken : data.accessToken, playing : true})
     })
   }
-  getProgress = () => {
-    //will change state of something to re-render so i can get the new state
-    // this.setState({spotifyPlayerName : 'Spotify Web Player'});
-    this.setState({changeState: true});
-    console.log(`Progress of the song: ${this.state.songState.progressMs/1000} seconds`);
-    this.setState({spotifyPlayerName: ''});
-  }
+  
   getMe = () => {
     get("/api/getMe").then((data) => {
       console.log(data.body)
+    })
+  }
+  searchSongs = () => {
+    get("/api/search", {title: 'love'}).then((data) => {
+      console.log(data.body);
     })
   }
 
 
 
   render() {
-    console.log('am rerendering');
     let player = null;
     if(this.state.playing) {
       player = <SpotifyPlayer 
-      name={this.state.spotifyPlayerName}
       token={this.state.accessToken}
       uris={['spotify:track:6sQckd3Z8NPxVVKUnavY1F']}
-      callback={(state) => console.log(`Progress of the song: ${state.progressMs/1000} seconds`)}
+      callback={(state) => this.setState({songState: state})}
     />
     }
+    
     
     return (
       <>
@@ -111,7 +109,9 @@ class Skeleton extends Component {
         <button onClick={this.props.handleLogout}>logout</button>
         <button onClick={this.playSong}> play song</button>
         <button onClick={this.getProgress}> get progess of song </button>
+        <button onClick={this.searchSongs}>look in console for search songs</button>
         {player}
+        
         
         {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
       </>
