@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import SongOption from "./SongOption.js"
 
 import { get, post } from "../../utilities";
 
@@ -6,6 +7,11 @@ import { get, post } from "../../utilities";
 https://medium.com/@pradityadhitama/simple-search-bar-component-functionality-in-react-6589fda3385d
 
 also used to-do react homework
+*/
+
+/** 
+* @param {(songid) => ()} addTrack function that takes in songid, posts it to the database
+* songid should be the uri so- spotify:track:id
 */
 
 
@@ -23,15 +29,14 @@ class SearchBar extends Component {
             this.setState({songs: data.body.tracks.items, keyword: value})
         });
     }
+    // {/*<SongOption name={item.name} uri={item.uri} addTrack={this.props.addTrack}/>*/}
     render () {
-        const songNames = this.state.songs.map((item,index) => (
-            <div className="SearchBar-options">{item.name}</div>
-        ))
+        let songNames = this.state.songs.map((item,index) => (
+            <SongOption key={`random-${index}`} name={item.name} uri={item.uri} addTrack={this.props.addTrack}/>));
         return (
             <div className="SearchBar-container">
                 <input
                     type='text'
-                    key='random1'
                     value={this.props.value}
                     placeholder={'search a song'}
                     onChange={(event) => this.handleInputChange(event)}
