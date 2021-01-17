@@ -43,7 +43,22 @@ router.get('/spotifyLogin', (req, res) => {
   auth.spotifyLogin(req, res, spotifyApi)
 })
 router.get('/callback', async (req, res) => {
+<<<<<<< HEAD
+  const { code } = req.query;
+  console.log(code)
+  try {
+    var data = await spotifyApi.authorizationCodeGrant(code)
+    const { access_token, refresh_token } = data.body;
+    spotifyApi.setAccessToken(access_token);
+    spotifyApi.setRefreshToken(refresh_token);
+
+    res.redirect('http://localhost:5000/home');
+  } catch (err) {
+    res.redirect('/#/error/invalid token');
+  }
+=======
   auth.callback(req, res, spotifyApi)
+>>>>>>> 27f949e720daa4b51fe0512058b4335ec93c990f
 });
 
 // router.get('/spotifyLogin', (req, res) => {

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
+import Login from "./pages/LoginPage.js";
+import Home from "./pages/Home.js";
 
 import "../utilities.css";
 
@@ -47,12 +49,14 @@ class App extends Component {
     return (
       <>
         <Router>
-          <Skeleton
+          <Login
             path="/"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
           />
+          <Home path="/home" />
+          
           <NotFound default />
         </Router>
       </>
