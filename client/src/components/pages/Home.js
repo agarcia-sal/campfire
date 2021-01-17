@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SpotifyPlayer from 'react-spotify-web-playback';
-
+import NavBar from "../modules/NavBar";
 import "../../utilities.css";
 import "./Home.css";
 
@@ -65,6 +65,12 @@ class Home extends Component {
     })
   }
 
+  searchSongs = () => {
+    get("/api/search", {title: 'love'}).then((data) => {
+      console.log(data.body); //data.body.tracks.items.#.name|id| or data.body.tracks.items.#.album.images.#.url
+    })
+  }
+
 
   render() {
     console.log('am rerendering');
@@ -80,11 +86,13 @@ class Home extends Component {
     
     return (
       <>
+        <NavBar />
         {/* <button onClick={this.handleLogin}>spotify login</button> */}
         <button onClick={this.getPlaylists}>get playlists</button>
         <button onClick={this.playSong}> play song</button>
         <button onClick={this.getProgress}> get progess of song </button>
         <button onClick={this.getTrack}> get track </button>
+        <button onClick={this.searchSongs}> look in console for searched songs</button>
         {player}
         <div className="u-flex">
         <input

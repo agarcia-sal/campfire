@@ -144,6 +144,17 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+router.get("/search", async (req, res) => {
+  try {
+    const songTitle = req.query.title;
+    console.log(`song title is ${songTitle}`);
+    const tracks = await spotifyApi.searchTracks(`track:${songTitle}`, {limit:5});
+    res.status(200).send(tracks); //use tracks.body to get titles?
+  } catch (err) {
+    res.status(400).send(err);
+  }
+})
+
 router.post("/api/comment", auth.ensureLoggedIn, (req, res) => {
   const newComment = new Comment({
     parent: req.body.parent,

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import {Link} from "@reach/router";
+import SearchBar from "./SearchBar.js";
+import SearchPage from "./SearchPage.js"
 
-
-const spotifyClientId = SPOTIFY_CLIENT_ID;
+// require('dotenv').config();
+// const spotifyClientId = process.env.SPOTIFY_API_ID;
 
 class NavBar extends Component {
     constructor(props) {
@@ -16,9 +18,10 @@ class NavBar extends Component {
                     <Link to="/" className="NavBar-link">Home</Link>
                 </div>
                 <div className="NavBar-searchBar">
-                    
+                    <SearchBar/>
                 </div>
             </nav>
         )
     }
 }
+export default NavBar;
