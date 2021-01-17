@@ -78,7 +78,7 @@ router.get('/token', async (req, res) => {
 router.get('/playlists', async (req, res) => {
   try {
     const result = await spotifyApi.getUserPlaylists();
-    onsole.log(result.body);
+    console.log(result.body);
     console.log(req.session.user)
     console.log(req.user)
     res.status(200).send(result.body);
