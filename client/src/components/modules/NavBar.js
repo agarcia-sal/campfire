@@ -15,6 +15,9 @@ class NavBar extends Component {
                 <div className="NavBar-linkContainer">
                     <Link to="/" className="NavBar-link">Home</Link>
                 </div>
+                <div className="NavBar-searchBar">
+                    
+                </div>
             </nav>
         )
     }

@@ -30,17 +30,16 @@ class App extends Component {
     });
   }
 
-  handleLogin = (res) => {
-    console.log(`Logged in as ${res.profileObj.name}`);
-    const userToken = res.tokenObj.id_token;
-    post("/api/login", { token: userToken }).then((user) => {
-      this.setState({ userId: user._id });
-      post("/api/initsocket", { socketid: socket.id });
-    });
-  };
+  handleLogin = () => {
+    get("/api/spotifyLogin").then((data) => {
+      console.log((data))
+      window.location.href = data.url
+    })
+  }
 
   handleLogout = () => {
     this.setState({ userId: undefined });
+    console.log("logging out")
     post("/api/logout");
   };
 
