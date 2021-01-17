@@ -108,11 +108,31 @@ router.get('/currentState', async(req, res) => {
   }
 });
 
+router.post("/song", auth.ensureLoggedIn, (req, res) => {
+  const newSong = new Song ({
+    song_id: req.body.songId,
+  });
+  newSong.save().then((song) => res.send(song));
+});
+
 router.get('/songs', (req,res) => {
   Song.find({}).then((songs) => res.send(songs));
 });
-//am adding the following router.get('api/recentsong')
 
+router.post("/comment", auth.ensureLoggedIn, (req, res) => {
+  const newComment = new Comment ({
+    songId: req.body.songId,
+    progressMs: req.body.progressMs,
+    content: req.body.content,
+  });
+  newComment.save().then((comment) => res.send(comment));
+});
+
+router.get("/comments", (req, res) => {
+  Comment.find({ parent: req.query.parent }).then((comments) => {
+    res.send(comments);
+  });
+});
 
 
 // router.post("/login", auth.login);
@@ -148,18 +168,6 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-// router.post("/api/comment", auth.ensureLoggedIn, (req, res) => {
-//   const newComment = new Comment({
-//     parent: req.body.parent, //song uri
-//     content: req.body.content, 
-//   });
-// });
-router.post("/song", auth.ensureLoggedIn, (req, res) => {
-  const newSong = new Song ({
-    song_id: req.body.songId,
-  });
-  newSong.save().then((song) => res.send(song));
-});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
