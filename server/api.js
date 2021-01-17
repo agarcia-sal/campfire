@@ -12,6 +12,7 @@ const express = require("express");
 // import models so we can interact with the database
 const User = require("./models/user");
 const Comment = require("./models/comment");
+const Song = require("./models/song");
 // import authentication library
 const auth = require("./auth");
 
@@ -106,6 +107,10 @@ router.get('/currentState', async(req, res) => {
     res.status(400).send(err)
   }
 });
+
+router.get('/songs', (req,res) => {
+  Song.find({}).then((songs) => res.send(songs));
+});
 //am adding the following router.get('api/recentsong')
 
 
@@ -143,12 +148,19 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.post("/api/comment", auth.ensureLoggedIn, (req, res) => {
-  const newComment = new Comment({
-    parent: req.body.parent,
-    content: req.body.content,
+// router.post("/api/comment", auth.ensureLoggedIn, (req, res) => {
+//   const newComment = new Comment({
+//     parent: req.body.parent, //song uri
+//     content: req.body.content, 
+//   });
+// });
+router.post("/song", auth.ensureLoggedIn, (req, res) => {
+  const newSong = new Song ({
+    song_id: req.body.songId,
   });
+  newSong.save().then((song) => res.send(song));
 });
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
