@@ -49,7 +49,7 @@ class App extends Component {
     return (
       <>
         <Router>
-          <Login
+          <Skeleton
             path="/"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
