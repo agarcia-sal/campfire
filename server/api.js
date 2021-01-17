@@ -23,7 +23,7 @@ const socket = require("./server-socket");
 
 
 
-var SpotifyWebApi = require('spotify-web-api-node');
+const SpotifyWebApi = require('spotify-web-api-node');
 scopes = ['user-read-private', 'user-read-email', 'playlist-modify-public', 'playlist-modify-private', 'user-read-recently-played', 'streaming', 'user-read-playback-state', 'user-modify-playback-state']
 
 require('dotenv').config();
@@ -40,13 +40,10 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/spotifyLogin', (req, res) => {
-  console.log("called")
-  var html = spotifyApi.createAuthorizeURL(scopes)
-  console.log(html)
-  res.send({ url: html })
+  auth.spotifyLogin(req, res, spotifyApi)
 })
-
 router.get('/callback', async (req, res) => {
+<<<<<<< HEAD
   const { code } = req.query;
   console.log(code)
   try {
@@ -59,7 +56,32 @@ router.get('/callback', async (req, res) => {
   } catch (err) {
     res.redirect('/#/error/invalid token');
   }
+=======
+  auth.callback(req, res, spotifyApi)
+>>>>>>> 27f949e720daa4b51fe0512058b4335ec93c990f
 });
+
+// router.get('/spotifyLogin', (req, res) => {
+//   console.log("called")
+//   var html = spotifyApi.createAuthorizeURL(scopes)
+//   console.log(html)
+//   res.send({ url: html })
+// })
+
+// router.get('/callback', async (req, res) => {
+//   const { code } = req.query;
+//   console.log(code)
+//   try {
+//     var data = await spotifyApi.authorizationCodeGrant(code)
+//     const { access_token, refresh_token } = data.body;
+//     spotifyApi.setAccessToken(access_token);
+//     spotifyApi.setRefreshToken(refresh_token);
+
+//     res.redirect('http://localhost:5000/');
+//   } catch (err) {
+//     res.redirect('/#/error/invalid token');
+//   }
+// });
 router.get('/token', async (req, res) => {
   try {
     const token = spotifyApi.getAccessToken();
@@ -71,7 +93,9 @@ router.get('/token', async (req, res) => {
 router.get('/playlists', async (req, res) => {
   try {
     const result = await spotifyApi.getUserPlaylists();
-    console.log(result.body);
+    onsole.log(result.body);
+    console.log(req.session.user)
+    console.log(req.user)
     res.status(200).send(result.body);
   } catch (err) {
     res.status(400).send(err)
@@ -82,8 +106,19 @@ router.get('/playlists', async (req, res) => {
 
 
 
-router.post("/login", auth.login);
-router.post("/logout", auth.logout);
+// router.post("/login", auth.login);
+
+router.get('/getMe', (req, res) => {
+  spotifyApi.getMe()
+    .then(function (data) {
+      console.log('Some information about the authenticated user', data.body);
+      res.send(data)
+    }, function (err) {
+      console.log('Something went wrong!', err);
+    });
+})
+
+router.post("/logout", (req, res) => { auth.logout(req, res, spotifyApi) });
 router.get("/whoami", (req, res) => {
   if (!req.user) {
     // not logged in

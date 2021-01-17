@@ -51,6 +51,12 @@ class Skeleton extends Component {
     console.log(`Progress of the song: ${this.state.songState.progressMs/1000} seconds`);
     this.setState({spotifyPlayerName: ''});
   }
+  getMe = () => {
+    get("/api/getMe").then((data) => {
+      console.log(data.body)
+    })
+  }
+
 
 
   render() {
@@ -99,8 +105,10 @@ class Skeleton extends Component {
           <li>Add a favicon to your website at the path client/dist/favicon.ico</li>
           <li>Update website title in client/dist/index.html</li>
         </ul>
-        <button onClick={this.handleLogin}>spotify login</button>
+        <button onClick={this.props.handleLogin}>spotify login</button>
         <button onClick={this.getPlaylists}>get playlists</button>
+        <button onClick={this.getMe}>getMe</button>
+        <button onClick={this.props.handleLogout}>logout</button>
         <button onClick={this.playSong}> play song</button>
         <button onClick={this.getProgress}> get progess of song </button>
         {player}

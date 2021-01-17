@@ -20,30 +20,49 @@ function verify(token) {
 // gets user from DB, or makes a new account if it doesn't exist yet
 function getOrCreateUser(user) {
   // the "sub" field means "subject", which is a unique identifier for each user
-  return User.findOne({ googleid: user.sub }).then((existingUser) => {
+  return User.findOne({ spotifyId: user.id }).then((existingUser) => {
     if (existingUser) return existingUser;
 
     const newUser = new User({
-      name: user.name,
-      googleid: user.sub,
+      name: user.display_name,
+      spotifyId: user.id,
     });
 
     return newUser.save();
   });
 }
 
-function login(req, res) {
-  verify(req.body.token)
-    .then((user) => getOrCreateUser(user))
-    .then((user) => {
-      // persist user in the session
-      req.session.user = user;
-      res.send(user);
-    })
-    .catch((err) => {
-      console.log(`Failed to log in: ${err}`);
-      res.status(401).send({ err });
-    });
+const spotifyLogin = (req, res, spotifyApi) => {
+  var html = spotifyApi.createAuthorizeURL(scopes)
+  console.log(html)
+  res.send({ url: html })
+}
+const callback = async (req, res, spotifyApi) => {
+  const { code } = req.query;
+  console.log(code)
+  try {
+    const data = await spotifyApi.authorizationCodeGrant(code)
+    const { access_token, refresh_token } = data.body;
+    spotifyApi.setAccessToken(access_token);
+    spotifyApi.setRefreshToken(refresh_token);
+    spotifyApi.getMe()
+      .then((user) => {
+        console.log('Some information about the authenticated user', user.body);
+        getOrCreateUser(user.body)
+        return getOrCreateUser(user.body)
+      }, (err) => {
+        console.log('Something went wrong!', err);
+      }).then((user) => {
+        req.session.user = user;
+        res.redirect('http://localhost:5000/');
+      }).catch((err) => {
+        console.log(`Failed to log in: ${err}`);
+        res.status(401).send({ err });
+      });
+    res.redirect('http://localhost:5000/');
+  } catch (err) {
+    res.redirect('/#/error/invalid token');
+  }
 }
 
 function logout(req, res) {
@@ -66,8 +85,9 @@ function ensureLoggedIn(req, res, next) {
 }
 
 module.exports = {
-  login,
+  spotifyLogin,
   logout,
+  callback,
   populateCurrentUser,
   ensureLoggedIn,
 };
