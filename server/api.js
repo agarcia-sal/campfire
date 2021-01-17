@@ -55,7 +55,7 @@ router.get('/callback', async (req, res) => {
     spotifyApi.setAccessToken(access_token);
     spotifyApi.setRefreshToken(refresh_token);
 
-    res.redirect('http://localhost:5000/');
+    res.redirect('http://localhost:5000/home');
   } catch (err) {
     res.redirect('/#/error/invalid token');
   }
