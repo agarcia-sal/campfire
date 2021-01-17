@@ -1,27 +1,14 @@
 const { OAuth2Client } = require("google-auth-library");
 const User = require("./models/user");
-const socketManager = require("./server-socket");
-
-// create a new OAuth client used to verify google sign-in
-//    TODO: replace with your own CLIENT_ID
-const CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com";
-const client = new OAuth2Client(CLIENT_ID);
-
-// accepts a login token from the frontend, and verifies that it's legit
-function verify(token) {
-  return client
-    .verifyIdToken({
-      idToken: token,
-      audience: CLIENT_ID,
-    })
-    .then((ticket) => ticket.getPayload());
-}
+const socket = require("./server-socket");
 
 // gets user from DB, or makes a new account if it doesn't exist yet
 function getOrCreateUser(user) {
   // the "sub" field means "subject", which is a unique identifier for each user
+  console.log("user's id is " + user.id)
   return User.findOne({ spotifyId: user.id }).then((existingUser) => {
     if (existingUser) return existingUser;
+
 
     const newUser = new User({
       name: user.display_name,
@@ -31,12 +18,12 @@ function getOrCreateUser(user) {
     return newUser.save();
   });
 }
-
 const spotifyLogin = (req, res, spotifyApi) => {
   var html = spotifyApi.createAuthorizeURL(scopes)
   console.log(html)
   res.send({ url: html })
 }
+
 const callback = async (req, res, spotifyApi) => {
   const { code } = req.query;
   console.log(code)
@@ -48,7 +35,6 @@ const callback = async (req, res, spotifyApi) => {
     spotifyApi.getMe()
       .then((user) => {
         console.log('Some information about the authenticated user', user.body);
-        getOrCreateUser(user.body)
         return getOrCreateUser(user.body)
       }, (err) => {
         console.log('Something went wrong!', err);
@@ -59,14 +45,15 @@ const callback = async (req, res, spotifyApi) => {
         console.log(`Failed to log in: ${err}`);
         res.status(401).send({ err });
       });
-    res.redirect('http://localhost:5000/');
   } catch (err) {
     res.redirect('/#/error/invalid token');
   }
 }
 
-function logout(req, res) {
+function logout(req, res, spotifyApi) {
   req.session.user = null;
+  spotifyApi.resetAccessToken();
+  spotifyApi.resetRefreshToken();
   res.send({});
 }
 
@@ -85,8 +72,8 @@ function ensureLoggedIn(req, res, next) {
 }
 
 module.exports = {
-  spotifyLogin,
   logout,
+  spotifyLogin,
   callback,
   populateCurrentUser,
   ensureLoggedIn,
