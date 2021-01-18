@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
-import "./SingleComment.css";
+// import "./SingleComment.css";
 /**
  * Component to render a single comment
  *
