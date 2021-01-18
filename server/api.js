@@ -109,12 +109,6 @@ router.get('/currentState', async(req, res) => {
   }
 });
 
-router.post("/song", auth.ensureLoggedIn, (req, res) => {
-  const newSong = new Song ({
-    song_id: req.body.songId,
-  });
-  newSong.save().then((song) => res.send(song));
-});
 
 router.get('/songs', (req,res) => {
   Song.find({}).then((songs) => res.send(songs));
@@ -169,8 +163,6 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-<<<<<<< HEAD
-=======
 router.get("/search", async (req, res) => {
   try {
     const songTitle = req.query.title;
@@ -209,7 +201,6 @@ router.post("/song", auth.ensureLoggedIn, async (req, res) => {
   }
   //called by addTrack so also need to pass back the token
 });
->>>>>>> 0fcee0351d14d792e69615973d46888f4eec855c
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
