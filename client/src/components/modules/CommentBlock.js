@@ -45,7 +45,7 @@ class CommentsBlock extends Component {
       get("/api/comments", { songId: this.props.songId }).then((comments) => {
         this.setState({
           comments: comments,
-          commentId: this.props.songId
+          commentId: this.props.songId,
         });
       });
     }
@@ -59,6 +59,7 @@ class CommentsBlock extends Component {
           {this.state.comments.map((comment) => (
             <SingleComment
               key={`SingleComment_${comment._id}`}
+              delay = {comment.progressMs}
               _id={comment._id}
               songId={comment.songId}
               content={comment.content}

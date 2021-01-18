@@ -11,12 +11,24 @@ import "./SingleComment.css";
 class SingleComment extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      showComment: false,
+    }
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ showComment: true })
+    }, this.props.delay);
   }
 
   render() {
+    const { showComment } = this.state
     return (
       <div className="Card-commentBody">
-        <span>{" | " + this.props.content}</span>
+        {showComment && <span>{" | " + this.props.content}</span>}
+        
       </div>
     );
   }
