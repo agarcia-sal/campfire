@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { post } from "../../utilities";
+import { get, post } from "../../utilities";
 
 /**
  * InputComment is a New Post component for comments
@@ -14,12 +14,16 @@ class InputComment extends Component {
 
     this.state = {
       value: "",
-      progressMs: null,
     };
   }
 
-//   getProgress = () => {
-//   }
+  getProgress = () => {
+    get('api/currentTrack').then((data) => {
+        this.setState({
+            progressMs: data.body.progress_ms,
+        })
+    })
+  }
 
   // called whenever the user types in the new post input box
   handleChange = (event) => {
@@ -31,16 +35,9 @@ class InputComment extends Component {
   // called when the user hits "Submit" for a new post
   handleSubmit = (event) => {
     event.preventDefault();
-    get('api/currentState').then((data) => {
-        this.setState({
-            progressMs: data.body.progressMs,
-        })
-        console.log(this.state.progressMs);
-    })
-    this.props.addComment && this.props.addComment(this.state.progressMs, this.state.value);
+    this.props.addComment && this.props.addComment(this.state.value);
     this.setState({
       value: "",
-      progressMs: null,
     });
   };
 
@@ -80,8 +77,8 @@ class NewComment extends Component {
     }
   //TODO: timestamp 
   // comment content are passed into addComment
-    addComment = (progressMs, value) => {
-      const body = { songId: this.props.songId, progressMs: progressMs, content: value};
+    addComment = (value) => {
+      const body = { songId: this.props.songId, content: value};
       post("/api/comment", body).then((comment) => {
         // display this comment on the screen
         this.props.addNewComment(comment);

@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import SpotifyPlayer from 'react-spotify-web-playback';
-<<<<<<< HEAD
 import { NewComment } from '../modules/InputComment.js';
+import CommentsBlock from "../modules/CommentBlock.js";
 
-=======
 import NavBar from "../modules/NavBar";
->>>>>>> 0fcee0351d14d792e69615973d46888f4eec855c
 import "../../utilities.css";
 import "./Home.css";
 
@@ -22,12 +20,12 @@ class Home extends Component {
       songs: ['spotify:track:6sQckd3Z8NPxVVKUnavY1F'],
       songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
       songNotPlayed: false,
-      comments: [],
       playing : false,
       topSong : null,
       spotifyPlayerName: '',
     };
   }
+  
 
   componentDidMount() {
     get('/api/songs').then((songObjs) => {
@@ -60,7 +58,7 @@ class Home extends Component {
   }
 
   getProgressOfSong = () => {
-    get('api/currentState').then((data) => {
+    get('api/currentTrack').then((data) => {
         console.log('progress: ' + data.body.progress_ms + ' seconds');
     })
   }
@@ -98,24 +96,15 @@ class Home extends Component {
     });
   };
 
-<<<<<<< HEAD
-  addNewComment = (comment) => {
-      this.setState({
-        comments: [comment].concat(this.state.comments),
-      });
-  };
-=======
   searchSongs = () => {
     get("/api/search", {title:'love'}).then((data) => {
       console.log(data.body);
     });
   }
 
->>>>>>> 0fcee0351d14d792e69615973d46888f4eec855c
 
   render() {
     console.log('am rerendering');
-    console.log(this.state.comments)
     if (this.state.songNotPlayed){
         this.addTrack(this.state.songId);
     }
@@ -127,6 +116,7 @@ class Home extends Component {
       token={this.state.accessToken}
       uris={[this.state.songId]}
       callback={(state) => console.log(`Progress of the song: ${state.progressMs/1000} seconds`)}
+
     />
     }
     return (
@@ -140,29 +130,11 @@ class Home extends Component {
         <button onClick={this.getTrack}> get track </button>
         <button onClick={this.searchSongs}> look in console for searched songs</button>
         {player}
-        <NewComment 
+   
+        <CommentsBlock 
             songId = {this.state.songId} 
             addNewComment = {this.addNewComment}
-        />
-        {/* <div className="u-flex"></div>
-        <input
-          type="text"
-          placeholder="comment something!"
-          value={this.state.value}
-          onChange={this.handleChange}
-          className="NewPostInput-input"
-        />
-        <button
-          type="submit"
-          // className="NewPostInput-button u-pointer"
-          value="Submit"
-          onClick={this.handleSubmit}
-        >
-          Submit
-        </button>
-        </div> */}
-        
-        {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
+        /> 
       </>
     );
   }
