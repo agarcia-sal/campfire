@@ -15,7 +15,8 @@ class Home extends Component {
     // Initialize Default State
     this.state = {
       songs: ['spotify:track:6sQckd3Z8NPxVVKUnavY1F'],
-      songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
+      // songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
+      songId : '',
       songNotPlayed: false,
       comments: [],
       playing : false,
@@ -29,7 +30,6 @@ class Home extends Component {
             this.setState({ songs: this.state.songs.concat([songObj]) });
         });
     });
-    get('/')
     // remember -- api calls go here!
   }
 
@@ -113,6 +113,15 @@ class Home extends Component {
       console.log(data.body);
     });
   }
+  checkSongState = (state) => {
+    console.log('state: ');
+    console.log(state);
+    if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
+      this.setState({songId : state.track.uri});
+    }
+
+
+  }
 
   render() {
     console.log('am rerendering');
@@ -126,24 +135,24 @@ class Home extends Component {
       player = <SpotifyPlayer 
       token={this.state.accessToken}
       uris={[this.state.songId]}
-      callback={(state) => console.log(`Progress of the song: ${state.progressMs/1000} seconds`)}
+      callback={(state) => this.checkSongState(state)}
     />
     }
     return (
       <>
         <NavBar addTrack={this.addTrack}/>
         {/* <button onClick={this.handleLogin}>spotify login</button> */}
-        {newSong}
+        {/* {newSong} */}
         <button onClick={this.getPlaylists}>get playlists</button>
         <button onClick={this.playSong}> play song</button>
         <button onClick={this.getProgressOfSong}> get progess of song </button>
         <button onClick={this.getTrack}> get track </button>
         <button onClick={this.searchSongs}> look in console for searched songs</button>
         {player}
-        <NewComment 
+        {/* <NewComment 
             songId = {this.state.songId} 
             addNewComment = {this.addNewComment}
-        />
+        /> */}
         {/* <div className="u-flex"></div>
         <input
           type="text"
