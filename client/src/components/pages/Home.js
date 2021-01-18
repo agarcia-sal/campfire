@@ -3,12 +3,12 @@ import { Redirect } from "@reach/router";
 import SpotifyPlayer from 'react-spotify-web-playback';
 import NavBar from "../modules/NavBar";
 import CommentsBlock from "../modules/CommentBlock.js";
-import {Redirect} from "@reach/router";
+// import {Redirect} from "@reach/router";
 import "../../utilities.css";
 import "./Home.css";
 
 import { get, post } from "../../utilities";
-import e from "express";
+
 /**
  * @param {String} userId
  */
@@ -135,9 +135,6 @@ class Home extends Component {
       uris={[this.state.songId]}
       callback={(state) => this.checkSongState(state)}
     />
-    }
-    if (this.props.userId === undefined){
-      return (<Redirect to="/"/>);
     }
     return  (
       <>
