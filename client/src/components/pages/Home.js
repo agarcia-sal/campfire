@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SpotifyPlayer from 'react-spotify-web-playback';
 import NavBar from "../modules/NavBar";
+import CommentsBlock from "../modules/CommentBlock.js";
 import "../../utilities.css";
 import "./Home.css";
 
@@ -15,7 +16,8 @@ class Home extends Component {
     // Initialize Default State
     this.state = {
       songs: ['spotify:track:6sQckd3Z8NPxVVKUnavY1F'],
-      songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
+      // songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
+      songId : '',
       songNotPlayed: false,
       playing : false,
       spotifyPlayerName: '',
@@ -29,7 +31,6 @@ class Home extends Component {
             this.setState({ songs: this.state.songs.concat([songObj]) });
         });
     });
-    get('/')
     // remember -- api calls go here!
   }
 
@@ -113,6 +114,15 @@ class Home extends Component {
       console.log(data.body);
     });
   }
+  checkSongState = (state) => {
+    console.log('state: ');
+    console.log(state);
+    if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
+      this.setState({songId : state.track.uri});
+    }
+
+
+  }
 
   render() {
     console.log('am rerendering');
@@ -125,15 +135,14 @@ class Home extends Component {
       player = <SpotifyPlayer 
       token={this.state.accessToken}
       uris={[this.state.songId]}
-      callback={(state) => console.log(`Progress of the song: ${state.progressMs/1000} seconds`)}
-
+      callback={(state) => this.checkSongState(state)}
     />
     }
     return (
       <>
         <NavBar addTrack={this.addTrack}/>
         {/* <button onClick={this.handleLogin}>spotify login</button> */}
-        {newSong}
+        {/* {newSong} */}
         <button onClick={this.getPlaylists}>get playlists</button>
         <button onClick={this.playSong}> play song</button>
         <button onClick={this.getProgressOfSong}> get progess of song </button>
@@ -145,6 +154,29 @@ class Home extends Component {
             songId = {this.state.songId} 
             addNewComment = {this.addNewComment}
         /> 
+        {/* <NewComment 
+            songId = {this.state.songId} 
+            addNewComment = {this.addNewComment}
+        /> */}
+        {/* <div className="u-flex"></div>
+        <input
+          type="text"
+          placeholder="comment something!"
+          value={this.state.value}
+          onChange={this.handleChange}
+          className="NewPostInput-input"
+        />
+        <button
+          type="submit"
+          // className="NewPostInput-button u-pointer"
+          value="Submit"
+          onClick={this.handleSubmit}
+        >
+          Submit
+        </button>
+        </div> */}
+        
+        {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
       </>
     );
   }

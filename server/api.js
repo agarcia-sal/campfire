@@ -109,12 +109,12 @@ router.get('/currentState', async(req, res) => {
   }
 });
 
-router.post("/song", auth.ensureLoggedIn, (req, res) => {
-  const newSong = new Song ({
-    song_id: req.body.songId,
-  });
-  newSong.save().then((song) => res.send(song));
-});
+// router.post("/song", auth.ensureLoggedIn, (req, res) => {
+//   const newSong = new Song ({
+//     song_id: req.body.songId,
+//   });
+//   newSong.save().then((song) => res.send(song));
+// });
 
 router.get('/songs', (req,res) => {
   Song.find({}).then((songs) => res.send(songs));

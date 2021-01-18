@@ -22,6 +22,7 @@ class CommentsBlock extends Component {
 
     this.state = {
         comments: [],
+        commentId: null,
     };
   }
 
@@ -37,9 +38,21 @@ class CommentsBlock extends Component {
         comments: comments
       });
     });
-  }
+  };
+
+  componentDidUpdate() {
+    if (this.state.commentId !== this.props.songId) {
+      get("/api/comments", { songId: this.props.songId }).then((comments) => {
+        this.setState({
+          comments: comments,
+          commentId: this.props.songId
+        });
+      });
+    }
+  };
 
   render() {
+
     return (
       <div className="Card-commentSection">
         <div className="story-comments">
