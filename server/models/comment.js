@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 const CommentSchema = new mongoose.Schema({
-  parent: String,
+  songId: String,
+  progressMs: Number, 
   content: String,
 });
 

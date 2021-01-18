@@ -109,23 +109,30 @@ router.get('/currentState', async(req, res) => {
   }
 });
 
+// router.post("/song", auth.ensureLoggedIn, (req, res) => {
+//   const newSong = new Song ({
+//     song_id: req.body.songId,
+//   });
+//   newSong.save().then((song) => res.send(song));
+// });
 
 router.get('/songs', (req,res) => {
   Song.find({}).then((songs) => res.send(songs));
 });
 
-router.post("/comment", auth.ensureLoggedIn, (req, res) => {
+router.post("/comment", auth.ensureLoggedIn, async(req, res) => {
+  const data = await spotifyApi.getMyCurrentPlayingTrack();
   const newComment = new Comment ({
-    songId: req.body.songId,
-    progressMs: req.body.progressMs,
+    songId: data.body.item.uri,
+    progressMs: data.body.progress_ms,
     content: req.body.content,
   });
   newComment.save().then((comment) => res.send(comment));
 });
 
 router.get("/comments", (req, res) => {
-  Comment.find({ parent: req.query.parent }).then((comments) => {
-    res.send(comments);
+  Comment.find({ songId: req.query.songId }).then((comments) => {
+    res.status(200).send(comments);
   });
 });
 

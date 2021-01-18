@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SpotifyPlayer from 'react-spotify-web-playback';
 import NavBar from "../modules/NavBar";
+import CommentsBlock from "../modules/CommentBlock.js";
 import "../../utilities.css";
 import "./Home.css";
 
@@ -18,11 +19,11 @@ class Home extends Component {
       // songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
       songId : '',
       songNotPlayed: false,
-      comments: [],
       playing : false,
       spotifyPlayerName: '',
     };
   }
+  
 
   componentDidMount() {
     get('/api/songs').then((songObjs) => {
@@ -54,7 +55,7 @@ class Home extends Component {
   }
 
   getProgressOfSong = () => {
-    get('api/currentState').then((data) => {
+    get('api/currentTrack').then((data) => {
         console.log('progress: ' + data.body.progress_ms + ' seconds');
     })
   }
@@ -125,7 +126,6 @@ class Home extends Component {
 
   render() {
     console.log('am rerendering');
-    console.log(this.state.comments)
     if (this.state.songNotPlayed){
         this.addTrack(this.state.songId);
     }
@@ -149,6 +149,11 @@ class Home extends Component {
         <button onClick={this.getTrack}> get track </button>
         <button onClick={this.searchSongs}> look in console for searched songs</button>
         {player}
+   
+        <CommentsBlock 
+            songId = {this.state.songId} 
+            addNewComment = {this.addNewComment}
+        /> 
         {/* <NewComment 
             songId = {this.state.songId} 
             addNewComment = {this.addNewComment}

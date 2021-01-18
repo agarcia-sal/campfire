@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {Link} from "@reach/router";
-import SearchBar from "./SearchBar.js";
 import  AsyncSelect  from "react-select/async";
 import { get } from "../../utilities.js";
 
