@@ -2,10 +2,15 @@ import React, { Component } from "react";
 import SpotifyPlayer from 'react-spotify-web-playback';
 import NavBar from "../modules/NavBar";
 import CommentsBlock from "../modules/CommentBlock.js";
+import {Redirect} from "@reach/router";
 import "../../utilities.css";
 import "./Home.css";
 
 import { get, post } from "../../utilities";
+import e from "express";
+/**
+ * @param {String} userId
+ */
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com";
@@ -138,7 +143,10 @@ class Home extends Component {
       callback={(state) => this.checkSongState(state)}
     />
     }
-    return (
+    if (this.props.userId === undefined){
+      return (<Redirect to="/"/>);
+    }
+    return  (
       <>
         <NavBar addTrack={this.addTrack}/>
         {/* <button onClick={this.handleLogin}>spotify login</button> */}
@@ -149,36 +157,14 @@ class Home extends Component {
         <button onClick={this.getTrack}> get track </button>
         <button onClick={this.searchSongs}> look in console for searched songs</button>
         {player}
-   
+  
         <CommentsBlock 
             songId = {this.state.songId} 
             addNewComment = {this.addNewComment}
         /> 
-        {/* <NewComment 
-            songId = {this.state.songId} 
-            addNewComment = {this.addNewComment}
-        /> */}
-        {/* <div className="u-flex"></div>
-        <input
-          type="text"
-          placeholder="comment something!"
-          value={this.state.value}
-          onChange={this.handleChange}
-          className="NewPostInput-input"
-        />
-        <button
-          type="submit"
-          // className="NewPostInput-button u-pointer"
-          value="Submit"
-          onClick={this.handleSubmit}
-        >
-          Submit
-        </button>
-        </div> */}
         
         {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
-      </>
-    );
+      </>);
   }
 }
 

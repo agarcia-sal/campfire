@@ -4,7 +4,7 @@ import { get, post } from "../../utilities";
 /**
  * InputComment is a New Post component for comments
  *
- * Proptypes
+ * Proptypesx
  * @param {(value) => void} addComment (function) triggered when player submits comment
  * @param {string} songId is song to add comment to
  */
