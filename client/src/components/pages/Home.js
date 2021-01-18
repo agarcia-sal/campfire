@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "@reach/router";
 import SpotifyPlayer from 'react-spotify-web-playback';
 import NavBar from "../modules/NavBar";
 import CommentsBlock from "../modules/CommentBlock.js";
@@ -80,18 +81,6 @@ class Home extends Component {
     });
   }
   
-  // addTrack = (songUri) => {
-  //   const body = { songUri: songUri}
-  //   post('/api/song', body).then((song) => {
-  //       this.setState({
-  //           songs: [song.song_uri].concat(this.state.songs),
-  //           songNotPlayed: false, 
-  //           playing : true,
-  //           songUri : songUri
-  //       })
-  //       console.log(this.state.songs);
-  //   });
-  // }
   addTrack = (songId) => {
     const body = { songId: songId}
     post('/api/song', body).then((data) => {
@@ -126,10 +115,14 @@ class Home extends Component {
       this.setState({songId : state.track.uri});
     }
 
-
   }
 
   render() {
+    console.log(this.props.userId)
+    if (this.props.userId === undefined) {
+      console.log('redirecting');
+      return (<Redirect to="/" />);
+    }
     console.log('am rerendering');
     if (this.state.songNotPlayed){
         this.addTrack(this.state.songId);

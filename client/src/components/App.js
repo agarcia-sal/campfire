@@ -20,6 +20,7 @@ class App extends Component {
     super(props);
     this.state = {
       userId: undefined,
+      loggedIn: false,
     };
   }
 
@@ -34,8 +35,13 @@ class App extends Component {
 
   handleLogin = () => {
     get("/api/spotifyLogin").then((data) => {
+      this.setState = ({
+          loggedIn: true,
+          userId: 100, 
+      })
+      console.log(this.setState);
       console.log((data))
-      window.location.href = data.url
+      // window.location.href = data.url
     })
   }
 
@@ -45,23 +51,21 @@ class App extends Component {
     post("/api/logout");
   };
 
+  userLogin = (userId) => {
+
+  }
+
   render() {
     return (
       <>
         <Router>
-          {/* <Skeleton
-            path="/"
-            handleLogin={this.handleLogin}
-            handleLogout={this.handleLogout}
-            userId={this.state.userId}
-          /> */}
+          <Home path="/home" userId = {this.state.userId}/>
           <Login
             path="/"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
           /> 
-          <Home path="/home" userId={this.state.userId}/>
           
           <NotFound default />
         </Router>
