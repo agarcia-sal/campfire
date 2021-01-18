@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import SpotifyPlayer from 'react-spotify-web-playback';
-import { NewComment } from '../modules/InputComment.js';
-import CommentsBlock from "../modules/CommentBlock.js";
-
 import NavBar from "../modules/NavBar";
 import "../../utilities.css";
 import "./Home.css";
@@ -21,7 +18,6 @@ class Home extends Component {
       songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
       songNotPlayed: false,
       playing : false,
-      topSong : null,
       spotifyPlayerName: '',
     };
   }
@@ -68,6 +64,7 @@ class Home extends Component {
         this.setState({
             songId: data.body.item.uri
         })
+        console.log(data.body)
         console.log('Song uri: ' + this.state.songId);
         if (this.state.songs.includes(this.state.songId) === false){
             this.setState({
@@ -77,12 +74,27 @@ class Home extends Component {
     });
   }
   
+  // addTrack = (songUri) => {
+  //   const body = { songUri: songUri}
+  //   post('/api/song', body).then((song) => {
+  //       this.setState({
+  //           songs: [song.song_uri].concat(this.state.songs),
+  //           songNotPlayed: false, 
+  //           playing : true,
+  //           songUri : songUri
+  //       })
+  //       console.log(this.state.songs);
+  //   });
+  // }
   addTrack = (songId) => {
     const body = { songId: songId}
-    post('/api/song', body).then((song) => {
+    post('/api/song', body).then((data) => {
         this.setState({
-            songs: [song.song_id].concat(this.state.songs),
-            songNotPlayed: false
+            songs: [data.song.song_id].concat(this.state.songs),
+            songNotPlayed: false, 
+            playing : true,
+            songId : songId,
+            accessToken: data.token,
         })
         console.log(this.state.songs);
     });
@@ -102,7 +114,6 @@ class Home extends Component {
     });
   }
 
-
   render() {
     console.log('am rerendering');
     if (this.state.songNotPlayed){
@@ -112,7 +123,6 @@ class Home extends Component {
     let newSong = null;
     if(this.state.playing) {
       player = <SpotifyPlayer 
-      name={this.state.spotifyPlayerName}
       token={this.state.accessToken}
       uris={[this.state.songId]}
       callback={(state) => console.log(`Progress of the song: ${state.progressMs/1000} seconds`)}

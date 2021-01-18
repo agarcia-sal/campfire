@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Link} from "@reach/router";
-import SearchBar from "./SearchBar.js";
+import  AsyncSelect  from "react-select/async";
+import { get } from "../../utilities.js";
 
 // require('dotenv').config();
 // const spotifyClientId = process.env.SPOTIFY_API_ID;
@@ -11,6 +12,33 @@ import SearchBar from "./SearchBar.js";
 class NavBar extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            value : '',
+            songs : [
+                {label : 'abc', value : 1},
+                {label : 'abcdef', value : 2},
+                {label : 'abcdefg', value : 3}, 
+                {label: 'aefbef', value  : 4},
+                {label : 'aebfu', value : 5},
+                {labe : 'ahefe', value:6},
+            ]
+        }
+    }
+    loadOptions =  (inputValue) => {
+        return get('/api/search', { title: inputValue }).then((data) =>
+            {
+                return data.body.tracks.items.map((item) => (
+                    { label: item.name, value: item.uri }));
+            });
+    }
+    onInputChange = (inputValue) => {
+        this.setState({value: inputValue})
+    }
+    handleChoice = (selectedOption) => {
+        this.setState({value: selectedOption});
+        const uri = selectedOption.value;
+        this.props.addTrack(uri);
+
     }
     render () {
         return (
@@ -20,7 +48,16 @@ class NavBar extends Component {
                     <Link to="/" className="NavBar-link">Home</Link>
                 </div>
                 <div className="NavBar-searchBar">
-                    <SearchBar addTrack={this.props.addTrack}/>
+                    <AsyncSelect 
+                        cacheOptions
+                        defaultOptions
+                        value={this.state.value}
+                        defaultOptions={this.state.songs}
+                        onChange={this.handleChoice}
+                        placeholder="search for a song"
+                        loadOptions={this.loadOptions}
+                    />
+
                 </div>
             </nav>
         )
