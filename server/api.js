@@ -175,7 +175,7 @@ router.get("/search", async (req, res) => {
 router.post("/song", auth.ensureLoggedIn, async (req, res) => {
   try {
     const newSong = new Song ({
-      song_uri: req.body.songUri,
+      song_id: req.body.songId,
     });
     const song = await newSong.save();
     const token = await spotifyApi.getAccessToken();

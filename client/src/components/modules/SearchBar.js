@@ -26,6 +26,7 @@ class SearchBar extends Component {
     handleInputChange = async (event) => {
         const value = event.target.value;
         get('/api/search', {title: value}).then((data) => {
+            console.log(data.body);
             this.setState({songs: data.body.tracks.items, keyword: value})
         });
     }
