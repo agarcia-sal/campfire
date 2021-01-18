@@ -5,7 +5,7 @@ import { get, post } from "../../utilities";
 
 /* medium article for rough idea: 
 https://medium.com/@pradityadhitama/simple-search-bar-component-functionality-in-react-6589fda3385d
-
+https://medium.com/path2code/create-suggested-search-bar-with-react-select-f24fa3c5c3b 
 also used to-do react homework
 */
 
@@ -29,6 +29,7 @@ class SearchBar extends Component {
             this.setState({songs: data.body.tracks.items, keyword: value})
         });
     }
+
     // {/*<SongOption name={item.name} uri={item.uri} addTrack={this.props.addTrack}/>*/}
     render () {
         let songNames = this.state.songs.map((item,index) => (

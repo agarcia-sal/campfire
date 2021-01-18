@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const SongSchema = new mongoose.Schema({
-  song_id: String,
+  song_uri: String,
 });
 
 // compile model from schema

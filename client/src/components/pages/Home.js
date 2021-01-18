@@ -15,11 +15,10 @@ class Home extends Component {
     // Initialize Default State
     this.state = {
       songs: ['spotify:track:6sQckd3Z8NPxVVKUnavY1F'],
-      songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
+      songUri: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
       songNotPlayed: false,
       comments: [],
       playing : false,
-      topSong : null,
       spotifyPlayerName: '',
     };
   }
@@ -69,10 +68,10 @@ class Home extends Component {
     // will show currently playing track
     get('/api/currentTrack').then((data) => {
         this.setState({
-            songId: data.body.item.uri
+            songUri: data.body.item.uri
         })
-        console.log('Song uri: ' + this.state.songId);
-        if (this.state.songs.includes(this.state.songId) === false){
+        console.log('Song uri: ' + this.state.songUri);
+        if (this.state.songs.includes(this.state.songUri) === false){
             this.setState({
                 songNotPlayed: true
             });
@@ -80,12 +79,27 @@ class Home extends Component {
     });
   }
   
-  addTrack = (songId) => {
-    const body = { songId: songId}
-    post('/api/song', body).then((song) => {
+  // addTrack = (songUri) => {
+  //   const body = { songUri: songUri}
+  //   post('/api/song', body).then((song) => {
+  //       this.setState({
+  //           songs: [song.song_uri].concat(this.state.songs),
+  //           songNotPlayed: false, 
+  //           playing : true,
+  //           songUri : songUri
+  //       })
+  //       console.log(this.state.songs);
+  //   });
+  // }
+  addTrack = (songUri) => {
+    const body = { songUri: songUri}
+    post('/api/song', body).then((data) => {
         this.setState({
-            songs: [song.song_id].concat(this.state.songs),
-            songNotPlayed: false
+            songs: [data.song.song_uri].concat(this.state.songs),
+            songNotPlayed: false, 
+            playing : true,
+            songUri : songUri,
+            accessToken: data.token,
         })
         console.log(this.state.songs);
     });
@@ -99,25 +113,18 @@ class Home extends Component {
     });
   };
 
-  searchSongs = () => {
-    get("/api/search", {title:'love'}).then((data) => {
-      console.log(data.body);
-    });
-  }
-
 
   render() {
     console.log('am rerendering');
     if (this.state.songNotPlayed){
-        this.addTrack(this.state.songId);
+        this.addTrack(this.state.songUri);
     }
     let player = null;
     let newSong = null;
     if(this.state.playing) {
       player = <SpotifyPlayer 
-      name={this.state.spotifyPlayerName}
       token={this.state.accessToken}
-      uris={[this.state.songId]}
+      uris={[this.state.songUri]}
       callback={(state) => console.log(`Progress of the song: ${state.progressMs/1000} seconds`)}
     />
     }
@@ -130,8 +137,7 @@ class Home extends Component {
         <button onClick={this.playSong}> play song</button>
         <button onClick={this.getProgress}> get progess of song </button>
         <button onClick={this.getTrack}> get track </button>
-        <button onClick={this.searchSongs}> look in console for searched songs</button>
-        {player}
+       {player}
         <div className="u-flex">
         <input
           type="text"
