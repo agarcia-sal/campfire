@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {Link} from "@reach/router";
 import  AsyncSelect  from "react-select/async";
 import { get } from "../../utilities.js";
+import "./NavBar.css";
 
 // require('dotenv').config();
 // const spotifyClientId = process.env.SPOTIFY_API_ID;
