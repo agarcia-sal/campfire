@@ -3,15 +3,10 @@ import { Redirect } from "@reach/router";
 import SpotifyPlayer from 'react-spotify-web-playback';
 import NavBar from "../modules/NavBar";
 import CommentsBlock from "../modules/CommentBlock.js";
-// import {Redirect} from "@reach/router";
 import "../../utilities.css";
 import "./Home.css";
 
 import { get, post } from "../../utilities";
-
-/**
- * @param {String} userId
- */
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com";
@@ -21,6 +16,7 @@ class Home extends Component {
     super(props);
     // Initialize Default State
     this.state = {
+      userId: undefined,
       songs: ['spotify:track:6sQckd3Z8NPxVVKUnavY1F'],
       // songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
       songId : '',
@@ -37,6 +33,13 @@ class Home extends Component {
             this.setState({ songs: this.state.songs.concat([songObj]) });
         });
     });
+
+    get('/api/getMe').then((user) => {
+      console.log(user)
+      this.setState({
+          userId: user.body.id
+      }); 
+    })
     // remember -- api calls go here!
   }
 
@@ -114,14 +117,13 @@ class Home extends Component {
     if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
       this.setState({songId : state.track.uri});
     }
+
   }
   startTimers = () => {
     this.setState({})
   }
   
-
   render() {
-    
     console.log('am rerendering');
     if (this.state.songNotPlayed){
         this.addTrack(this.state.songId);
@@ -153,7 +155,8 @@ class Home extends Component {
         /> 
         
         {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
-      </>);
+      </>
+      );
   }
 }
 

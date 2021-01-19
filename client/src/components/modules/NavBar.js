@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import {Link} from "@reach/router";
 import  AsyncSelect  from "react-select/async";
 import { get } from "../../utilities.js";
-
-import "../../utilities.css";
 import "./NavBar.css";
 
 // require('dotenv').config();
