@@ -119,6 +119,9 @@ class Home extends Component {
     }
 
   }
+  startTimers = () => {
+    this.setState({})
+  }
   
   render() {
     console.log('am rerendering');
