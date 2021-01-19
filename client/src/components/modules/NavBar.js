@@ -52,20 +52,6 @@ class NavBar extends Component {
                 <div className="NavBar-linkContainer u-inlineBlock">
                     <Link to="/" className="NavBar-link">Home</Link>
                 </div>
-                <div className="NavBar-button u-inlineBlock">
-                    {this.props.userId? (
-                        <button 
-                        className="NavBar-logout" 
-                        onClick={this.props.handleLogout}>
-                        Logout </button>
-                        ): (
-                        <button 
-                        className="NavBar-login" 
-                        onClick={this.props.handleLogin}>
-                        Login </button>
-                        )
-                    }
-                </div>
                 <div className="NavBar-searchBar u-inlineBlock">
                     <AsyncSelect 
                         cacheOptions

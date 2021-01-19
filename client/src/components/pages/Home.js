@@ -118,11 +118,7 @@ class Home extends Component {
   
 
   render() {
-    console.log(this.props.userId)
-    if (this.props.userId === undefined) {
-      console.log('redirecting');
-      return (<Redirect to="/" />);
-    }
+    
     console.log('am rerendering');
     if (this.state.songNotPlayed){
         this.addTrack(this.state.songId);

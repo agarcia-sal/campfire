@@ -51,9 +51,6 @@ class App extends Component {
     post("/api/logout");
   };
 
-  userLogin = (userId) => {
-
-  }
 
   render() {
     return (
