@@ -16,6 +16,7 @@ class Home extends Component {
     super(props);
     // Initialize Default State
     this.state = {
+      userId: undefined,
       songs: ['spotify:track:6sQckd3Z8NPxVVKUnavY1F'],
       // songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
       songId : '',
@@ -32,6 +33,13 @@ class Home extends Component {
             this.setState({ songs: this.state.songs.concat([songObj]) });
         });
     });
+
+    get('/api/getMe').then((user) => {
+      console.log(user)
+      this.setState({
+          userId: user.body.id
+      }); 
+    })
     // remember -- api calls go here!
   }
 
@@ -108,11 +116,12 @@ class Home extends Component {
     console.log(state);
     if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
       this.setState({songId : state.track.uri});
-    }
+    } 
 
   }
 
   render() {
+    
     console.log(this.props.userId)
     if (this.props.userId === undefined) {
       console.log('redirecting');
@@ -147,28 +156,7 @@ class Home extends Component {
             songId = {this.state.songId} 
             addNewComment = {this.addNewComment}
         /> 
-        {/* <NewComment 
-            songId = {this.state.songId} 
-            addNewComment = {this.addNewComment}
-        /> */}
-        {/* <div className="u-flex"></div>
-        <input
-          type="text"
-          placeholder="comment something!"
-          value={this.state.value}
-          onChange={this.handleChange}
-          className="NewPostInput-input"
-        />
-        <button
-          type="submit"
-          // className="NewPostInput-button u-pointer"
-          value="Submit"
-          onClick={this.handleSubmit}
-        >
-          Submit
-        </button>
-        </div> */}
-        
+       
         {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
       </>
     );
