@@ -114,8 +114,8 @@ class Home extends Component {
     if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
       this.setState({songId : state.track.uri});
     }
-
   }
+  
 
   render() {
     console.log(this.props.userId)

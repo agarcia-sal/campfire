@@ -3,6 +3,8 @@ import {Link} from "@reach/router";
 import  AsyncSelect  from "react-select/async";
 import { get } from "../../utilities.js";
 
+import "../../utilities.css"
+
 // require('dotenv').config();
 // const spotifyClientId = process.env.SPOTIFY_API_ID;
 /** 
@@ -47,10 +49,24 @@ class NavBar extends Component {
         return (
             <nav className="NavBar-container">
                 <div className="NavBar-title">Campfire</div>
-                <div className="NavBar-linkContainer">
+                <div className="NavBar-linkContainer u-inlineBlock">
                     <Link to="/" className="NavBar-link">Home</Link>
                 </div>
-                <div className="NavBar-searchBar">
+                <div className="NavBar-button u-inlineBlock">
+                    {this.props.userId? (
+                        <button 
+                        className="NavBar-logout" 
+                        onClick={this.props.handleLogout}>
+                        Logout </button>
+                        ): (
+                        <button 
+                        className="NavBar-login" 
+                        onClick={this.props.handleLogin}>
+                        Login </button>
+                        )
+                    }
+                </div>
+                <div className="NavBar-searchBar u-inlineBlock">
                     <AsyncSelect 
                         cacheOptions
                         defaultOptions
