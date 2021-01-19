@@ -115,6 +115,9 @@ class Home extends Component {
       this.setState({songId : state.track.uri});
     }
   }
+  startTimers = () => {
+    this.setState({})
+  }
   
 
   render() {
