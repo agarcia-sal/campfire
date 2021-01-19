@@ -3,7 +3,8 @@ import {Link} from "@reach/router";
 import  AsyncSelect  from "react-select/async";
 import { get } from "../../utilities.js";
 
-import "../../utilities.css"
+import "../../utilities.css";
+import "./NavBar.css";
 
 // require('dotenv').config();
 // const spotifyClientId = process.env.SPOTIFY_API_ID;
@@ -48,7 +49,7 @@ class NavBar extends Component {
     render () {
         return (
             <nav className="NavBar-container">
-                <div className="NavBar-title">Campfire</div>
+                <div className="NavBar-title u-inlineBlock">Campfire</div>
                 <div className="NavBar-linkContainer u-inlineBlock">
                     <Link to="/" className="NavBar-link">Home</Link>
                 </div>

@@ -50,7 +50,7 @@ class LoginPage extends Component {
         <>
         {/* //  {if (this.state.loggedIn) { */}
         {/* //     (<Redirect to="/dashboard" />)} */}
-        <button onClick={this.props.handleLogin}>Login with Spotify</button>
+        <button onClick={this.handleLogin}>Login with Spotify</button>
         </>
       );
     }
