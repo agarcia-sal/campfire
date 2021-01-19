@@ -19,7 +19,7 @@ class LoginPage extends Component {
     componentDidMount() {
       // remember -- api calls go here!
     }
-  
+
     handleLogin = () => {
       get("/api/spotifyLogin").then((data) => {
         this.setState = ({
@@ -30,7 +30,7 @@ class LoginPage extends Component {
         window.location.href = data.url
       })
     }
-  
+
     getPlaylists = () => {
       get("/api/playlists").then((data) => {
         console.log(data);
