@@ -27,8 +27,10 @@ class NavBar extends Component {
     loadOptions =  (inputValue) => {
         return get('/api/search', { title: inputValue }).then((data) =>
             {
+                console.log('body of song')
+                console.log(data)
                 return data.body.tracks.items.map((item) => (
-                    { label: item.name, value: item.uri }));
+                    { label: item.name+' - '+item.artists, value: item.uri }));
             });
     }
     onInputChange = (inputValue) => {
@@ -38,16 +40,17 @@ class NavBar extends Component {
         this.setState({value: selectedOption});
         const uri = selectedOption.value;
         this.props.addTrack(uri);
+        console.log('handled choice')
 
     }
     render () {
         return (
             <nav className="NavBar-container">
-                <div className="NavBar-title">Campfire</div>
-                <div className="NavBar-linkContainer">
+                <div className="NavBar-title u-inlineBlock">Campfire</div>
+                <div className="NavBar-linkContainer u-inlineBlock">
                     <Link to="/" className="NavBar-link">Home</Link>
                 </div>
-                <div className="NavBar-searchBar">
+                <div className="NavBar-searchBar u-inlineBlock">
                     <AsyncSelect 
                         cacheOptions
                         defaultOptions

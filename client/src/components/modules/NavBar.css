@@ -1,0 +1,9 @@
+.NavBar-linkContainer {
+    margin-left: var(--l);
+}
+
+.NavBar-searchBar {
+    margin-left: var(--l);
+    width: 50%;
+}
+

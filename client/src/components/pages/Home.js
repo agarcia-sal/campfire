@@ -116,10 +116,10 @@ class Home extends Component {
     console.log(state);
     if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
       this.setState({songId : state.track.uri});
-    } 
+    }
 
   }
-
+  
   render() {
     
     console.log(this.props.userId)
@@ -140,7 +140,7 @@ class Home extends Component {
       callback={(state) => this.checkSongState(state)}
     />
     }
-    return (
+    return  (
       <>
         <NavBar addTrack={this.addTrack}/>
         {/* <button onClick={this.handleLogin}>spotify login</button> */}
@@ -151,15 +151,15 @@ class Home extends Component {
         <button onClick={this.getTrack}> get track </button>
         <button onClick={this.searchSongs}> look in console for searched songs</button>
         {player}
-   
+  
         <CommentsBlock 
             songId = {this.state.songId} 
             addNewComment = {this.addNewComment}
         /> 
-       
+        
         {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
       </>
-    );
+      );
   }
 }
 

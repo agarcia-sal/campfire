@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
-import { Route, Redirect } from '@reach/router';
+import { Router, Redirect } from '@reach/router';
 
 import "../../utilities.css";
 
 import { get, post } from "../../utilities";
+
+/**
+ * @param {boolean} loggedIn - if logged in or not
+ */
 
 class LoginPage extends Component {
     constructor(props) {
       super(props);
       // Initialize Default State
       this.state = {
-        loggedIn : false,
+        // loggedIn : false,
         accessToken: null,
       };
     }
@@ -41,6 +45,7 @@ class LoginPage extends Component {
 
   
     render() {
+      
       return (
         <>
         {/* //  {if (this.state.loggedIn) { */}
