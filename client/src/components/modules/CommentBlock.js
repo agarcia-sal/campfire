@@ -21,6 +21,7 @@ class CommentsBlock extends Component {
     super(props);
 
     this.state = {
+        newComments: [],
         comments: [],
         commentId: null,
     };
@@ -28,11 +29,12 @@ class CommentsBlock extends Component {
 
   addNewComment = (comment) => {
       this.setState({
-        comments: [comment].concat(this.state.comments),
+        newComments: [comment].concat(this.state.newComments),
       });
   };
 
   componentDidMount() {
+    console.log('mounting');
     get("/api/comments", { songId: this.props.songId }).then((comments) => {
       this.setState({
         comments: comments
@@ -44,6 +46,7 @@ class CommentsBlock extends Component {
     if (this.state.commentId !== this.props.songId) {
       get("/api/comments", { songId: this.props.songId }).then((comments) => {
         this.setState({
+          newComments: [],
           comments: comments,
           commentId: this.props.songId,
         });
@@ -52,10 +55,19 @@ class CommentsBlock extends Component {
   };
 
   render() {
-
+    const zero = 0;
     return (
       <div className="Card-commentSection">
         <div className="story-comments">
+          {this.state.newComments.map((comment) => (
+            <SingleComment 
+              key={`SingleComment_${comment._id}`}
+              delay = {zero}
+              _id={comment._id}
+              songId={comment.songId}
+              content={comment.content}
+            />
+          ))}
           {this.state.comments.map((comment) => (
             <SingleComment
               key={`SingleComment_${comment._id}`}
