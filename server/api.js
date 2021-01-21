@@ -194,6 +194,15 @@ router.get("/search", async (req, res) => {
 //   newSong.save().then((song) => res.send(song));
 //   //called by addTrack so also need to pass back the token
 // });
+
+router.post("/pause", auth.ensureLoggedIn, (req, res) => {
+  spotifyApi.pause().then(function() {
+    console.log('Playback paused');
+  }, function(err) {
+    //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+    console.log('Something went wrong!', err);
+  });
+})
 router.post("/song", auth.ensureLoggedIn, async (req, res) => {
   try {
     const newSong = new Song ({

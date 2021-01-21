@@ -20,6 +20,8 @@ class Home extends Component {
       songs: ['spotify:track:6sQckd3Z8NPxVVKUnavY1F'],
       // songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
       songId : '',
+      startTimer: false,
+      pauseTrack: false, 
       songNotPlayed: false,
       playing : false,
       spotifyPlayerName: '',
@@ -83,6 +85,17 @@ class Home extends Component {
         }
     });
   }
+  pause = () => {
+    post('/api/pause').then((data) => {
+      console.log(data)
+    })
+  }
+
+  play = () => {
+    post('/api/play').then((data) => {
+      console.log(data)
+    })
+  }
   
   addTrack = (songId) => {
     const body = { songId: songId}
@@ -93,6 +106,8 @@ class Home extends Component {
             playing : true,
             songId : songId,
             accessToken: data.token,
+            pauseTrack: false,
+            resume: false,
         })
         console.log(this.state.songs);
     });
@@ -111,16 +126,38 @@ class Home extends Component {
       console.log(data.body);
     });
   }
+
   checkSongState = (state) => {
     console.log('state: ');
     console.log(state);
+    console.log('is playing: ' + state.isPlaying)
+    console.log('progressMs: ' + state.progressMs)
     if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
       this.setState({songId : state.track.uri});
     }
 
+    if (state.isPlaying && state.progressMs === 0){
+      console.log('starting timers')
+      this.startTimers();
+    }
+
+    if (!state.isPlaying && state.progressMs > 0){
+      this.setState({
+        pauseTrack: true
+      })
+      console.log('state of pause: ' + this.state.pauseTrack)
+    }
+
   }
+
+  displayComments = (comments) => {
+    console.log(comments);
+  }
+
   startTimers = () => {
-    this.setState({})
+    this.setState({
+      startTimer: true
+    });
   }
   
   render() {
@@ -147,12 +184,17 @@ class Home extends Component {
         <button onClick={this.getProgressOfSong}> get progess of song </button>
         <button onClick={this.getTrack}> get track </button>
         <button onClick={this.searchSongs}> look in console for searched songs</button>
+        <button onClick = {this.pause}> pause </button>
         {player}
-  
-        <CommentsBlock 
+
+        {this.state.startTimer &&  <CommentsBlock 
+            displayComments= {this.displayComments}
+            startTimer = {this.state.startTimer}
             songId = {this.state.songId} 
             addNewComment = {this.addNewComment}
-        /> 
+            pauseTrack = {this.state.pauseTrack}
+            resume = {this.state.resume}
+        /> }
         
         {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
       </>

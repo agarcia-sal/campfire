@@ -15,6 +15,7 @@ import {get, post } from "../../utilities.js";
  * Proptypes
  * @param {ContentObject[]} comments
  * @param {ContentObject} story
+ * @param {boolean} startTimer boolean
  */
 class CommentsBlock extends Component {
   constructor(props) {
@@ -24,6 +25,8 @@ class CommentsBlock extends Component {
         newComments: [],
         comments: [],
         commentId: null,
+        timers: [],
+        commentsDisplay: [],
     };
   }
 
@@ -33,24 +36,60 @@ class CommentsBlock extends Component {
       });
   };
 
+  showComment = (comment, index) => {
+    let copyArr = [...this.state.commentsDisplay]// [false, true, true]
+    copyArr[index] = true
+    this.setState({commentsDisplay : copyArr})
+  }
+
+  startTimers = () => {
+    console.log(this.state.comments)
+    let commentsDisplay = [];
+    let timers = [];
+    this.state.comments.forEach((comment,index) => {
+      timers = timers.concat([{timerId: setTimeout(()=>this.showComment(comment, index), comment.progressMs)}])//do i need this.state.timers
+      commentsDisplay = commentsDisplay.concat([false]);
+    })
+    this.setState({
+      timers: timers,
+      commentsDisplay : commentsDisplay
+    }, console.log(this.state.commentsDisplay))
+  }
+
+  pauseTimers = () => {
+    this.state.timers.forEach(element => {clearTimeout(element.timerId)});
+  }
+
   componentDidMount() {
     console.log('mounting');
     get("/api/comments", { songId: this.props.songId }).then((comments) => {
       this.setState({
         comments: comments
+      }, () => {
+        this.startTimers();
       });
+      this.props.displayComments(comments);
     });
   };
 
   componentDidUpdate() {
     if (this.state.commentId !== this.props.songId) {
+      this.pauseTimers();
       get("/api/comments", { songId: this.props.songId }).then((comments) => {
         this.setState({
           newComments: [],
           comments: comments,
           commentId: this.props.songId,
+          timers: [],
+          commentsDisplay: [], 
+        }, () => {
+          this.startTimers();
         });
+        this.props.displayComments(comments);
       });
+    } 
+    if (this.props.pauseTrack) {
+      this.pauseTimers();
     }
   };
 
@@ -61,6 +100,7 @@ class CommentsBlock extends Component {
         <div className="story-comments">
           {this.state.newComments.map((comment) => (
             <SingleComment 
+              showComment = {true}
               key={`SingleComment_${comment._id}`}
               delay = {zero}
               _id={comment._id}
@@ -68,8 +108,9 @@ class CommentsBlock extends Component {
               content={comment.content}
             />
           ))}
-          {this.state.comments.map((comment) => (
+          {this.state.comments && this.state.comments.map((comment, index) => (
             <SingleComment
+              showComment = {this.state.commentsDisplay[index]}
               key={`SingleComment_${comment._id}`}
               delay = {comment.progressMs}
               _id={comment._id}
