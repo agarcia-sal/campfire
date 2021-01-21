@@ -169,6 +169,23 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+router.get("/play", (req, res) => {
+  spotifyApi.transferMyPlayback()
+  spotifyApi.getMyDevices()
+  .then(function(data) {
+    let availableDevices = data.body.devices;
+    console.log(availableDevices);
+  }, function(err) {
+    console.log('Something went wrong!', err);
+  });
+  // spotifyApi.play()
+  // .then(function() {
+  //   console.log('Playback started');
+  // }, function(err) {
+  //   //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+  //   console.log('Something went wrong!', err);
+  // });
+})
 
 router.get("/search", async (req, res) => {
   try {
