@@ -24,13 +24,17 @@ class SingleComment extends Component {
   }
 
   render() {
-    const { showComment } = this.state
-    return (
-      <div className="Card-commentBody">
-        {showComment && <span>{" | " + this.props.content}</span>}
-        
-      </div>
-    );
+    // const { showComment } = this.state
+    if(this.props.display) {
+      return (
+        <div className="Card-commentBody">
+          {/* {showComment && <span>{" | " + this.props.content}</span>} */}
+          {<span>{" | " + this.props.content}</span>}
+
+        </div>
+      );
+    }
+    return (<></>);
   }
 }
 
