@@ -21,6 +21,7 @@ import {get, post } from "../../utilities.js";
  * @param {(comment) => {}} addNewComment - adds a new comment
  * @param {Boolean} startTimers - whether start timers have started or not
  * @param {Boolean} pauseTimers - whether timers have been paused or not
+ * @param {Boolean} songProgress
  */
 class CommentsBlock extends Component {
   constructor(props) {
@@ -66,7 +67,11 @@ class CommentsBlock extends Component {
     if(this.props.pauseTimers ) {
       this.pauseTimers();
     }
+    if(this.props.songProgress){
+      this.resumeTimers();
+    }
   };
+
   showComment = (comment, index) => {
     let copyArr = [...this.state.commentsDisplay]// [false, true, true]
     copyArr[index] = true
@@ -90,7 +95,7 @@ class CommentsBlock extends Component {
     this.state.timers.forEach(element => {clearTimeout(element.timerId)});
   }
   resumeTimers = () => {
-    songProgress = this.props.songProgress;
+    const songProgress = this.props.songProgress;
     console.log(this.state.comments)
     let commentsDisplay = [];
     let timers = [];
@@ -101,8 +106,8 @@ class CommentsBlock extends Component {
     this.setState({
       timers: timers,
       commentsDisplay : commentsDisplay
-    }, () => console.log(this.state.commentsDisplay))
-  }
+    }, this.props.setResumeFalse )
+  } //how do i do this without calling didupdate multiple times
   render() {
     const zero = 0;
     return (
@@ -117,7 +122,7 @@ class CommentsBlock extends Component {
               content={comment.content}
             />
           ))}
-          {this.state.comments.map((comment) => (
+          {this.state.comments && this.state.comments.map((comment, index) => (
             <SingleComment
               key={`SingleComment_${comment._id}`}
               // delay = {comment.progressMs}

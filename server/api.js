@@ -69,39 +69,39 @@ router.get('/callback', async (req, res) => {
 //     res.redirect('/#/error/invalid token');
 //   }
 // });
-router.get('/token', async (req, res) => {
-  try {
-    const token = spotifyApi.getAccessToken();
-    res.status(200).send({accessToken: token});
-  } catch (err) {
-    res.status(400).send(err);
-  }
-});
+// router.get('/token', async (req, res) => {
+//   try {
+//     const token = spotifyApi.getAccessToken();
+//     res.status(200).send({accessToken: token});
+//   } catch (err) {
+//     res.status(400).send(err);
+//   }
+// });
 router.get('/playlists', async (req, res) => {
   try {
-    const result = await spotifyApi.getUserPlaylists();
-    console.log(result.body);
-    console.log(req.session.user)
-    console.log(req.user)
+    const loggedInSpotifyApi = new SpotifyWebApi({
+      clientId: process.env.SPOTIFY_API_ID,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      redirectUri: process.env.CALLBACK_URI,
+    });
+    loggedInSpotifyApi.setAccessToken(req.user.accessToken);
+    const result = await loggedInSpotifyApi.getUserPlaylists();
     res.status(200).send(result.body);
   } catch (err) {
     res.status(400).send(err)
   }
 });
 
-router.get('/currentTrack', async(req, res) => {
-  try {
-    const track = await spotifyApi.getMyCurrentPlayingTrack();
-    // console.log(track.body);
-    res.status(200).send(track);
-  } catch(err) {
-    res.status(400).send(err)
-  }
-});
 
 router.get('/currentState', async(req, res) => {
   try {
-    const track = await spotifyApi.getMyCurrentPlaybackState();
+    const loggedInSpotifyApi = new SpotifyWebApi({
+      clientId: process.env.SPOTIFY_API_ID,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      redirectUri: process.env.CALLBACK_URI,
+    });
+    loggedInSpotifyApi.setAccessToken(req.user.accessToken);
+    const track = await loggedInSpotifyApi.getMyCurrentPlaybackState();
     // console.log(track.body);
     res.status(200).send(track);
   } catch(err) {
@@ -121,13 +121,24 @@ router.get('/songs', (req,res) => {
 });
 
 router.post("/comment", auth.ensureLoggedIn, async(req, res) => {
-  const data = await spotifyApi.getMyCurrentPlayingTrack();
-  const newComment = new Comment ({
-    songId: data.body.item.uri,
-    progressMs: data.body.progress_ms,
-    content: req.body.content,
-  });
-  newComment.save().then((comment) => res.send(comment));
+  try {
+    const loggedInSpotifyApi = new SpotifyWebApi({
+      clientId: process.env.SPOTIFY_API_ID,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      redirectUri: process.env.CALLBACK_URI,
+    });
+    loggedInSpotifyApi.setAccessToken(req.user.accessToken);
+    const data = await loggedInSpotifyApi.getMyCurrentPlayingTrack();
+    const newComment = new Comment ({
+      songId: data.body.item.uri,
+      progressMs: data.body.progress_ms,
+      content: req.body.content,
+    });
+    newComment.save().then((comment) => res.send(comment));
+  } catch (err){
+    res.status(400).send(err)
+  }
+  
 });
 
 router.get("/comments", (req, res) => {
@@ -140,7 +151,14 @@ router.get("/comments", (req, res) => {
 // router.post("/login", auth.login);
 
 router.get('/getMe', (req, res) => {
-  spotifyApi.getMe()
+  const loggedInSpotifyApi = new SpotifyWebApi({
+    clientId: process.env.SPOTIFY_API_ID,
+    clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+    redirectUri: process.env.CALLBACK_URI,
+  });
+  console.log(req.user)
+  loggedInSpotifyApi.setAccessToken(req.user.accessToken);
+  loggedInSpotifyApi.getMe()
     .then(function (data) {
       console.log('Some information about the authenticated user', data.body);
       res.send(data)
@@ -169,29 +187,18 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
-router.get("/play", (req, res) => {
-  spotifyApi.transferMyPlayback()
-  spotifyApi.getMyDevices()
-  .then(function(data) {
-    let availableDevices = data.body.devices;
-    console.log(availableDevices);
-  }, function(err) {
-    console.log('Something went wrong!', err);
-  });
-  // spotifyApi.play()
-  // .then(function() {
-  //   console.log('Playback started');
-  // }, function(err) {
-  //   //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
-  //   console.log('Something went wrong!', err);
-  // });
-})
 
 router.get("/search", async (req, res) => {
   try {
+    const loggedInSpotifyApi = new SpotifyWebApi({
+      clientId: process.env.SPOTIFY_API_ID,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      redirectUri: process.env.CALLBACK_URI,
+    });
+    loggedInSpotifyApi.setAccessToken(req.user.accessToken);
     const songTitle = req.query.title;
     console.log(`song title is ${songTitle}`);
-    const tracks = await spotifyApi.searchTracks(`track:${songTitle}`, {limit:5});
+    const tracks = await loggedInSpotifyApi.searchTracks(`track:${songTitle}`, {limit:5});
     res.status(200).send(tracks); //use tracks.body to get titles?
   } catch (err) {
     res.status(400).send(err);
@@ -217,7 +224,7 @@ router.post("/song", auth.ensureLoggedIn, async (req, res) => {
       song_id: req.body.songId,
     });
     const song = await newSong.save();
-    const token = await spotifyApi.getAccessToken();
+    const token = req.user.accessToken;
     res.status(200).send({song: song, token: token})
   }
   catch(err) {

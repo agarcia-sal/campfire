@@ -24,6 +24,8 @@ class Home extends Component {
       playing : false,
       start: false,
       pause: false,
+      resume : false,
+      songProgress : null
     };
   }
   
@@ -64,26 +66,7 @@ class Home extends Component {
     })
   }
 
-  getProgressOfSong = () => {
-    get('api/currentTrack').then((data) => {
-        console.log('progress: ' + data.body.progress_ms + ' seconds');
-    })
-  }
-  getTrack = () => {
-    // will show currently playing track
-    get('/api/currentTrack').then((data) => {
-        this.setState({
-            songId: data.body.item.uri
-        })
-        console.log(data.body)
-        console.log('Song uri: ' + this.state.songId);
-        if (this.state.songs.includes(this.state.songId) === false){
-            this.setState({
-                songNotPlayed: true
-            });
-        }
-    });
-  }
+
   
   addTrack = (songId) => {
     const body = { songId: songId}
@@ -94,8 +77,11 @@ class Home extends Component {
             playing : true,
             songId : songId,
             accessToken: data.token,
+            pause : false,
+            resume : false,
+            start: false
             
-        })
+        }, () => console.log('accessToken'+data.token))
         console.log(this.state.songs);
     });
   }
@@ -123,17 +109,25 @@ class Home extends Component {
       console.log('starting to play')
       this.setState({start: true})
     }else if (!state.isPlaying && state.progressMs !== 0){
-      this.setState({pause: true})
+      console.log('pausing');
+      this.setState({pause: true, songProgress: null})
+    }
+    else if (state.isPlaying && state.progressMs !== 0){
+      console.log("resuming the song")
+      this.setState({songProgress: state.progressMs, pause: false})
     }
 
 
   }
-  startTimers = () => {
-    this.setState({start: true})
+  setResumeFalse = () => {
+    this.setState({songProgress : null})
   }
-  pauseTimers = () => {
-    this.setState({pause: true})
-  }
+  // startTimers = () => {
+  //   this.setState({start: true})
+  // }
+  // pauseTimers = () => {
+  //   this.setState({pause: true})
+  // }
   render() {
     console.log('am rerendering');
     if (this.state.songNotPlayed){
@@ -145,7 +139,9 @@ class Home extends Component {
     if(this.state.playing) {
       player = <SpotifyPlayer 
       token={this.state.accessToken}
-      autoPlay
+      // token="BQAQ7-yNF16xOePwyJgqtVhDJDfkG2zyppYzUVY2aPn1EVBzmGG3s-XhxopDmi2bquj85UbToGhlrv0qsjgEF8VLgrjcA36024lE0I-pIbFSsdiYZSGlHAJgUKCQIvsNykEOSsHLVwQGsgsT-T6E53v5567zaIabwmD0k2HEZdfYqC61S-H3DA8"
+
+      // autoPlay
       uris={[this.state.songId]}
       callback={(state) => this.checkSongState(state)}
     />
@@ -158,6 +154,8 @@ class Home extends Component {
       // addNewComment = {this.addNewComment}
       startTimers = {this.state.start}
       pauseTimers={this.state.pause}
+      songProgress={this.state.songProgress}
+      setResumeFalse={this.setResumeFalse}
     />)
     }
     return  (
@@ -167,8 +165,6 @@ class Home extends Component {
         {/* {newSong} */}
         <button onClick={this.getPlaylists}>get playlists</button>
         <button onClick={this.playSong}> play song</button>
-        <button onClick={this.getProgressOfSong}> get progess of song </button>
-        <button onClick={this.getTrack}> get track </button>
         <button onClick={this.searchSongs}> look in console for searched songs</button>
         {player}
         <button onClick={this.startTimers}> start timers</button>
