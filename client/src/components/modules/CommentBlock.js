@@ -112,7 +112,7 @@ class CommentsBlock extends Component {
     this.setState({
       isPaused: false,
       timers: timers,
-      // commentsDisplay : commentsDisplay
+      commentsDisplay : commentsDisplay
     }, this.props.setResumeFalse )
   } //how do i do this without calling didupdate multiple times
   render() {

@@ -85,7 +85,7 @@ class Home extends Component {
             resume : false,
             start: false
             
-        })
+        }, () => console.log('accessToken'+data.token))
         console.log(this.state.songs);
     });
   }
@@ -123,7 +123,6 @@ class Home extends Component {
   setResumeFalse = () => {
     this.setState({songProgress : null})
   }
-
   render() {
     console.log('am rerendering');
     // if (this.state.songNotPlayed){
