@@ -35,6 +35,7 @@ class CommentsBlock extends Component {
         commentId: null,
         commentsDisplay : [],
         timers : [],
+        isPaused : null,
     };
   }
 
@@ -48,28 +49,33 @@ class CommentsBlock extends Component {
     console.log('mounting');
     get("/api/comments", { songId: this.props.songId }).then((comments) => {
       this.setState({
+        isPaused: false,
         comments: comments
       }, () => this.startTimers());
     });
+<<<<<<< HEAD
     if(this.props.startTimers){
       this.startTimers();
     }
+=======
+>>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
   };
 
   componentDidUpdate() {
     if (this.state.commentId !== this.props.songId) {
       get("/api/comments", { songId: this.props.songId }).then((comments) => {
         this.setState({
+          displayComments: [],
           newComments: [],
           comments: comments,
           commentId: this.props.songId,
         });
       });
     }
-    if(this.props.pauseTimers ) {
+    if(this.props.pauseTimers && !this.state.isPaused) {
       this.pauseTimers();
     }
-    if(this.props.songProgress){
+    if(this.props.songProgress && this.state.isPaused){
       this.resumeTimers();
     }
   };
@@ -90,35 +96,41 @@ class CommentsBlock extends Component {
     this.setState({
       timers: timers,
       commentsDisplay : commentsDisplay
-    }, () => console.log(this.state.commentsDisplay))
+    })
+    // , () => console.log(this.state.commentsDisplay))
     // console.log(commentsDisplay)
   }
   pauseTimers = () => {
     this.state.timers.forEach(element => {clearTimeout(element.timerId)});
+    this.setState({
+      isPaused:true
+    })
   }
   resumeTimers = () => {
     const songProgress = this.props.songProgress;
     console.log(this.state.comments)
-    let commentsDisplay = [];
+    // let commentsDisplay = []; 
     let timers = [];
-    this.state.comments.filter(comment => comment.progressMs > songProgress).forEach((comment,index) => {
-      timers = timers.concat([{timerId: setTimeout(()=>this.showComment(comment, index), comment.progressMs-songProgress)}])//do i need this.state.timers
-      commentsDisplay = commentsDisplay.concat([false]);
+    
+    this.state.comments.forEach((comment, index) => {
+      if (!this.state.commentsDisplay[index]) {
+        timers = timers.concat([{timerId: setTimeout(()=>this.showComment(comment, index), comment.progressMs-songProgress)}])
+      }
     })
     this.setState({
+      isPaused: false,
       timers: timers,
       commentsDisplay : commentsDisplay
     }, this.props.setResumeFalse )
   } //how do i do this without calling didupdate multiple times
   render() {
-    const zero = 0;
     return (
       <div className="CommentBlock-container">
         <div className="CommentBlock-comments">
           {this.state.newComments.map((comment) => (
             <SingleComment 
               key={`SingleComment_${comment._id}`}
-              delay = {zero}
+              display = {true}
               _id={comment._id}
               songId={comment.songId}
               content={comment.content}
@@ -143,4 +155,3 @@ class CommentsBlock extends Component {
 }
 
 export default CommentsBlock;
-

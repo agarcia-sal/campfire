@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+<<<<<<< HEAD
 import { navigate, Redirect } from "@reach/router";
+=======
+import { Redirect, navigate} from "@reach/router";
+>>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
 import SpotifyPlayer from 'react-spotify-web-playback';
 import NavBar from "../modules/NavBar";
 import CommentsBlock from "../modules/CommentBlock.js";
+import Emotions from "../modules/Emotions.js";
 import "../../utilities.css";
 import "./Home.css";
 // import FireAnimation from "../modules/Animation.js"
@@ -32,8 +37,14 @@ class Home extends Component {
       resume : false,
       songProgress : null
     };
+<<<<<<< HEAD
     if (!this.props.userId){
       navigate("/")
+=======
+
+    if(!this.props.userId) {
+      navigate('/');
+>>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
     }
   }
   
@@ -51,7 +62,6 @@ class Home extends Component {
           userId: user.body.id
       }); 
     })
-    // remember -- api calls go here!
   }
 
   handleLogin = () => {
@@ -111,9 +121,12 @@ class Home extends Component {
   checkSongState = (state) => {
     console.log('state: ');
     console.log(state);
+<<<<<<< HEAD
     // if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
     //   this.setState({songId : state.track.uri});
     // }
+=======
+>>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
     if (state.isPlaying && state.progressMs === 0){
       console.log('starting to play')
       this.setState({start: true})
@@ -131,12 +144,6 @@ class Home extends Component {
   setResumeFalse = () => {
     this.setState({songProgress : null})
   }
-  // startTimers = () => {
-  //   this.setState({start: true})
-  // }
-  // pauseTimers = () => {
-  //   this.setState({pause: true})
-  // }
   render() {
     console.log('am rerendering');
     // if (this.state.songNotPlayed){
@@ -144,6 +151,7 @@ class Home extends Component {
     // }
     let player = null;
     let newSong = null;
+    let emotions = null;
     let comments = null;
     if(this.state.playing) {
       player = <SpotifyPlayer 
@@ -161,11 +169,18 @@ class Home extends Component {
       songId = {this.state.songId} 
       
       // addNewComment = {this.addNewComment}
+      resume = {this.state.resume}
       startTimers = {this.state.start}
       pauseTimers={this.state.pause}
       songProgress={this.state.songProgress}
       setResumeFalse={this.setResumeFalse}
-    />)
+    />);
+      
+      emotions = (<Emotions 
+        songId = {this.state.songId}
+        songProgress={this.state.songProgress}
+        pauseTimers={this.state.pause}
+        setResumeFalse={this.setResumeFalse}/>);
     }
     return  (
       <>
@@ -184,12 +199,18 @@ class Home extends Component {
         </div>
         
         {comments} 
+<<<<<<< HEAD
         {this.state.color && (<span className={`Home-${this.state.color}`}> the color is: {this.state.color}</span>)}
+=======
+        {emotions}
+>>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
         
         {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
+
       </>
       );
   }
 }
 
 export default Home;
+

@@ -30,7 +30,11 @@ class App extends Component {
         // they are registed in the database, and currently logged in.
         this.setState({ userId: user._id });
       } else {
+<<<<<<< HEAD
         navigate('/');
+=======
+        navigate('/')
+>>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
       }
     });
   }
@@ -38,12 +42,12 @@ class App extends Component {
   handleLogin = () => {
     get("/api/spotifyLogin").then((data) => {
       this.setState = ({
-          loggedIn: true,
-          userId: 100, 
-      })
-      console.log(this.setState);
-      console.log((data))
-      // window.location.href = data.url
+        loggedIn: true,
+        userId: 100, 
+    })
+    console.log(this.setState);
+    console.log((data))
+    // window.location.href = data.url
     })
   }
 

@@ -13,6 +13,7 @@ const express = require("express");
 const User = require("./models/user");
 const Comment = require("./models/comment");
 const Song = require("./models/song");
+const Color = require("./models/color");
 // import authentication library
 const auth = require("./auth");
 
@@ -197,7 +198,7 @@ router.get("/search", async (req, res) => {
     });
     loggedInSpotifyApi.setAccessToken(req.user.accessToken);
     const songTitle = req.query.title;
-    console.log(`song title is ${songTitle}`);
+    // console.log(`song title is ${songTitle}`);
     const tracks = await loggedInSpotifyApi.searchTracks(`track:${songTitle}`, {limit:5});
     res.status(200).send(tracks); //use tracks.body to get titles?
   } catch (err) {
@@ -232,6 +233,34 @@ router.post("/song", auth.ensureLoggedIn, async (req, res) => {
   }
   //called by addTrack so also need to pass back the token
 });
+
+router.post("/color", auth.ensureLoggedIn, async(req, res) => {
+  try {
+    const loggedInSpotifyApi = new SpotifyWebApi({
+      clientId: process.env.SPOTIFY_API_ID,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      redirectUri: process.env.CALLBACK_URI,
+    });
+    loggedInSpotifyApi.setAccessToken(req.user.accessToken);
+    const data = await loggedInSpotifyApi.getMyCurrentPlayingTrack();
+    const newColor = new Color ({
+      songId: data.body.item.uri,
+      progressMs: data.body.progress_ms,
+      color: req.body.color,
+    });
+    newColor.save().then((color) => res.send(color));
+  } catch (err){
+    res.status(400).send(err)
+  }
+  
+});
+
+router.get("/colors", (req, res) => {
+  Color.find({ songId: req.query.songId }).then((colors) => {
+    res.status(200).send(colors);
+  });
+});
+
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
