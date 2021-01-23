@@ -29,9 +29,9 @@ class NavBar extends Component {
         return get('/api/search', { title: inputValue }).then((data) =>
             {
                 console.log('body of song')
-                console.log(data)
+                // console.log(data)
                 return data.body.tracks.items.map((item) => (
-                    { label: item.name+' - '+item.artists, value: item.uri }));
+                    { label: item.name+' - '+item.artists.map((artist) => artist.name), value: item.uri }));
             });
     }
     onInputChange = (inputValue) => {

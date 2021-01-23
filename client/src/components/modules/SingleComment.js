@@ -14,29 +14,34 @@ class SingleComment extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    // let timer = setTimeout(() => {
-    //   this.setState({ showComment: true })
-    // }, this.props.delay);
-  }
+  // componentDidMount() {
+  //   // let timer = setTimeout(() => {
+  //   //   this.setState({ showComment: true })
+  //   // }, this.props.delay);
+  // }
 
-  componentDidUpdate() {
-    // if (this.props.paused && !this.state.showComment){
-    //   clearTimeout(timer);
-    // if (this.props.resume && !this.state.showComment) {
-    //   let timer = setTimeout(() => {
-    //     this.setState({ showComment: true })
-    //   }, this.props.delay - this.props.progressMs);
-    // }
-  }
+  // componentDidUpdate() {
+  //   // if (this.props.paused && !this.state.showComment){
+  //   //   clearTimeout(timer);
+  //   // if (this.props.resume && !this.state.showComment) {
+  //   //   let timer = setTimeout(() => {
+  //   //     this.setState({ showComment: true })
+  //   //   }, this.props.delay - this.props.progressMs);
+  //   // }
+  // }
 
   render() {
-    return (
-      <div className="Card-commentBody">
-        {this.props.showComment && <span>{" | " + this.props.content}</span>}
-        
-      </div>
-    );
+    // const { showComment } = this.state
+    if(this.props.display) {
+      return (
+        <div className="Card-commentBody">
+          {/* {showComment && <span>{" | " + this.props.content}</span>} */}
+          {<span>{" | " + this.props.content}</span>}
+
+        </div>
+      );
+    }
+    return (<></>);
   }
 }
 

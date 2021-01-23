@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Redirect } from "@reach/router";
+import { Redirect, navigate} from "@reach/router";
 import SpotifyPlayer from 'react-spotify-web-playback';
 import NavBar from "../modules/NavBar";
 import CommentsBlock from "../modules/CommentBlock.js";
+import Emotions from "../modules/Emotions.js";
 import "../../utilities.css";
 import "./Home.css";
 
@@ -20,12 +21,17 @@ class Home extends Component {
       songs: ['spotify:track:6sQckd3Z8NPxVVKUnavY1F'],
       // songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
       songId : '',
-      startTimer: false,
-      pauseTrack: false, 
       songNotPlayed: false,
       playing : false,
-      spotifyPlayerName: '',
+      start: false,
+      pause: false,
+      resume : false,
+      songProgress : null
     };
+
+    if(!this.props.userId) {
+      navigate('/');
+    }
   }
   
 
@@ -42,7 +48,6 @@ class Home extends Component {
           userId: user.body.id
       }); 
     })
-    // remember -- api calls go here!
   }
 
   handleLogin = () => {
@@ -65,37 +70,7 @@ class Home extends Component {
     })
   }
 
-  getProgressOfSong = () => {
-    get('api/currentTrack').then((data) => {
-        console.log('progress: ' + data.body.progress_ms + ' seconds');
-    })
-  }
-  getTrack = () => {
-    // will show currently playing track
-    get('/api/currentTrack').then((data) => {
-        this.setState({
-            songId: data.body.item.uri
-        })
-        console.log(data.body)
-        console.log('Song uri: ' + this.state.songId);
-        if (this.state.songs.includes(this.state.songId) === false){
-            this.setState({
-                songNotPlayed: true
-            });
-        }
-    });
-  }
-  pause = () => {
-    post('/api/pause').then((data) => {
-      console.log(data)
-    })
-  }
 
-  play = () => {
-    post('/api/play').then((data) => {
-      console.log(data)
-    })
-  }
   
   addTrack = (songId) => {
     const body = { songId: songId}
@@ -106,8 +81,10 @@ class Home extends Component {
             playing : true,
             songId : songId,
             accessToken: data.token,
-            pauseTrack: false,
-            resume: false,
+            pause : false,
+            resume : false,
+            start: false
+            
         })
         console.log(this.state.songs);
     });
@@ -126,53 +103,64 @@ class Home extends Component {
       console.log(data.body);
     });
   }
-
   checkSongState = (state) => {
     console.log('state: ');
     console.log(state);
-    console.log('is playing: ' + state.isPlaying)
-    console.log('progressMs: ' + state.progressMs)
-    if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
-      this.setState({songId : state.track.uri});
-    }
-
     if (state.isPlaying && state.progressMs === 0){
-      console.log('starting timers')
-      this.startTimers();
+      console.log('starting to play')
+      this.setState({start: true})
+    }else if (!state.isPlaying && state.progressMs !== 0){
+      console.log('pausing');
+      this.setState({pause: true, songProgress: null})
+    }
+    else if (state.isPlaying && state.progressMs !== 0){
+      console.log("resuming the song")
+      this.setState({songProgress: state.progressMs, pause: false})
     }
 
-    if (!state.isPlaying && state.progressMs > 0){
-      this.setState({
-        pauseTrack: true
-      })
-      console.log('state of pause: ' + this.state.pauseTrack)
-    }
 
   }
-
-  displayComments = (comments) => {
-    console.log(comments);
+  setResumeFalse = () => {
+    this.setState({songProgress : null})
   }
 
-  startTimers = () => {
-    this.setState({
-      startTimer: true
-    });
-  }
-  
   render() {
     console.log('am rerendering');
-    if (this.state.songNotPlayed){
-        this.addTrack(this.state.songId);
-    }
+    // if (this.state.songNotPlayed){
+    //     this.addTrack(this.state.songId);
+    // }
     let player = null;
     let newSong = null;
+    let emotions = null;
+    let comments = null;
     if(this.state.playing) {
       player = <SpotifyPlayer 
       token={this.state.accessToken}
+      // token="BQAQ7-yNF16xOePwyJgqtVhDJDfkG2zyppYzUVY2aPn1EVBzmGG3s-XhxopDmi2bquj85UbToGhlrv0qsjgEF8VLgrjcA36024lE0I-pIbFSsdiYZSGlHAJgUKCQIvsNykEOSsHLVwQGsgsT-T6E53v5567zaIabwmD0k2HEZdfYqC61S-H3DA8"
+
+      // autoPlay
       uris={[this.state.songId]}
       callback={(state) => this.checkSongState(state)}
     />
+    }
+    // commentsDisplay={this.state.commentsDisplay}
+    if (this.state.start){
+      comments = (<CommentsBlock 
+      songId = {this.state.songId} 
+      
+      // addNewComment = {this.addNewComment}
+      resume = {this.state.resume}
+      startTimers = {this.state.start}
+      pauseTimers={this.state.pause}
+      songProgress={this.state.songProgress}
+      setResumeFalse={this.setResumeFalse}
+    />);
+      
+      emotions = (<Emotions 
+        songId = {this.state.songId}
+        songProgress={this.state.songProgress}
+        pauseTimers={this.state.pause}
+        setResumeFalse={this.setResumeFalse}/>);
     }
     return  (
       <>
@@ -181,25 +169,20 @@ class Home extends Component {
         {/* {newSong} */}
         <button onClick={this.getPlaylists}>get playlists</button>
         <button onClick={this.playSong}> play song</button>
-        <button onClick={this.getProgressOfSong}> get progess of song </button>
-        <button onClick={this.getTrack}> get track </button>
         <button onClick={this.searchSongs}> look in console for searched songs</button>
-        <button onClick = {this.pause}> pause </button>
         {player}
-
-        {this.state.startTimer &&  <CommentsBlock 
-            displayComments= {this.displayComments}
-            startTimer = {this.state.startTimer}
-            songId = {this.state.songId} 
-            addNewComment = {this.addNewComment}
-            pauseTrack = {this.state.pauseTrack}
-            resume = {this.state.resume}
-        /> }
+        <button onClick={this.startTimers}> start timers</button>
+        <button onClick={this.pauseTimers}> pause timers</button>
+  
+        {comments} 
+        {emotions}
         
         {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
+
       </>
       );
   }
 }
 
 export default Home;
+
