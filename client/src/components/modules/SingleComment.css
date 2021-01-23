@@ -1,0 +1,19 @@
+.SingleComment-comment{
+    animation: slide 20s 1 forwards;
+    margin-left: 100vw;
+    /* transition: margin-left 5s ease-in-out; */
+}
+
+@keyframes slide {
+    0%{
+        display: none;
+        margin-left: 100vw;
+    }
+    1%{
+        display: block;
+    }
+    100%{
+        margin-left: -100vw;
+        display: none;
+    }
+}

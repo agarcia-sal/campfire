@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import SingleComment from "./SingleComment.js";
 import { NewComment } from "./InputComment";
 import {get, post } from "../../utilities.js";
+
+import "./CommentBlock.css";
 /**
  * @typedef ContentObject
  * @property {string} _id of comment
@@ -49,9 +51,9 @@ class CommentsBlock extends Component {
         comments: comments
       }, () => this.startTimers());
     });
-    // if(this.props.startTimers){
-    //   this.startTimers();
-    // }
+    if(this.props.startTimers){
+      this.startTimers();
+    }
   };
 
   componentDidUpdate() {
@@ -78,7 +80,7 @@ class CommentsBlock extends Component {
     this.setState({commentsDisplay : copyArr}, () => console.log(this.state.commentsDisplay))
   }
   startTimers = () => {
-    console.log(this.state.comments)
+    // console.log(this.state.comments)
     let commentsDisplay = [];
     let timers = [];
     this.state.comments.forEach((comment,index) => {
@@ -111,8 +113,8 @@ class CommentsBlock extends Component {
   render() {
     const zero = 0;
     return (
-      <div className="Card-commentSection">
-        <div className="story-comments">
+      <div className="CommentBlock-container">
+        <div className="CommentBlock-comments">
           {this.state.newComments.map((comment) => (
             <SingleComment 
               key={`SingleComment_${comment._id}`}
@@ -132,8 +134,9 @@ class CommentsBlock extends Component {
               content={comment.content}
             />
           ))}
-            <NewComment songId={this.props.songId} addNewComment={this.addNewComment} />
+            
         </div>
+        <NewComment songId={this.props.songId} addNewComment={this.addNewComment} />
       </div>
     );
   }

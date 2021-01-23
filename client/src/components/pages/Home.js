@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-import { Redirect } from "@reach/router";
+import { navigate, Redirect } from "@reach/router";
 import SpotifyPlayer from 'react-spotify-web-playback';
 import NavBar from "../modules/NavBar";
 import CommentsBlock from "../modules/CommentBlock.js";
 import "../../utilities.css";
 import "./Home.css";
+// import FireAnimation from "../modules/Animation.js"
+import Fire from "../modules/Fire.svg";
+import FireAnimation from "../modules/FireAnimation.js"
+import SvgComponent from "../modules/SvgComponent.js";
+
 
 import { get, post } from "../../utilities";
 
@@ -27,6 +32,9 @@ class Home extends Component {
       resume : false,
       songProgress : null
     };
+    if (!this.props.userId){
+      navigate("/")
+    }
   }
   
 
@@ -65,8 +73,9 @@ class Home extends Component {
       this.setState({accessToken : data.accessToken, playing : true})
     })
   }
-
-
+  displayColor = (color) => {
+    this.setState({color: color})
+  }
   
   addTrack = (songId) => {
     const body = { songId: songId}
@@ -82,7 +91,7 @@ class Home extends Component {
             start: false
             
         }, () => console.log('accessToken'+data.token))
-        console.log(this.state.songs);
+        console.log('adding song');
     });
   }
 
@@ -102,9 +111,9 @@ class Home extends Component {
   checkSongState = (state) => {
     console.log('state: ');
     console.log(state);
-    if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
-      this.setState({songId : state.track.uri});
-    }
+    // if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
+    //   this.setState({songId : state.track.uri});
+    // }
     if (state.isPlaying && state.progressMs === 0){
       console.log('starting to play')
       this.setState({start: true})
@@ -130,9 +139,9 @@ class Home extends Component {
   // }
   render() {
     console.log('am rerendering');
-    if (this.state.songNotPlayed){
-        this.addTrack(this.state.songId);
-    }
+    // if (this.state.songNotPlayed){
+    //     this.addTrack(this.state.songId);
+    // }
     let player = null;
     let newSong = null;
     let comments = null;
@@ -140,7 +149,7 @@ class Home extends Component {
       player = <SpotifyPlayer 
       token={this.state.accessToken}
       // token="BQAQ7-yNF16xOePwyJgqtVhDJDfkG2zyppYzUVY2aPn1EVBzmGG3s-XhxopDmi2bquj85UbToGhlrv0qsjgEF8VLgrjcA36024lE0I-pIbFSsdiYZSGlHAJgUKCQIvsNykEOSsHLVwQGsgsT-T6E53v5567zaIabwmD0k2HEZdfYqC61S-H3DA8"
-
+      // play={this.state.play}
       // autoPlay
       uris={[this.state.songId]}
       callback={(state) => this.checkSongState(state)}
@@ -148,7 +157,7 @@ class Home extends Component {
     }
     // commentsDisplay={this.state.commentsDisplay}
     if (this.state.start){
-      comments = (<CommentsBlock 
+      comments = (<CommentsBlock className="Home-commentsBlock"
       songId = {this.state.songId} 
       
       // addNewComment = {this.addNewComment}
@@ -167,10 +176,15 @@ class Home extends Component {
         <button onClick={this.playSong}> play song</button>
         <button onClick={this.searchSongs}> look in console for searched songs</button>
         {player}
-        <button onClick={this.startTimers}> start timers</button>
-        <button onClick={this.pauseTimers}> pause timers</button>
-  
+        <button onClick={() => this.displayColor('blue')}>click to display color</button>
+        <div className="Home-animation">
+          {/* <img src={Fire} width="300px" /> */}
+          <FireAnimation light="000000" dark="FFFFFF"/>
+          {/* <SvgComponent width='300px' height='400px' /> */}
+        </div>
+        
         {comments} 
+        {this.state.color && (<span className={`Home-${this.state.color}`}> the color is: {this.state.color}</span>)}
         
         {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
       </>

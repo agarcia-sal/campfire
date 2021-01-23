@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
-// import "./SingleComment.css";
+import "./SingleComment.css";
 /**
  * Component to render a single comment
  *
@@ -27,11 +27,9 @@ class SingleComment extends Component {
     // const { showComment } = this.state
     if(this.props.display) {
       return (
-        <div className="Card-commentBody">
-          {/* {showComment && <span>{" | " + this.props.content}</span>} */}
-          {<span>{" | " + this.props.content}</span>}
 
-        </div>
+          <span className='SingleComment-comment'>{" | " + this.props.content}</span>
+
       );
     }
     return (<></>);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router } from "@reach/router";
+import { navigate, Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
 import Login from "./pages/LoginPage.js";
@@ -19,9 +19,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: undefined,
+      userId: undefined, 
       loggedIn: false,
-    };
+    };  
   }
 
   componentDidMount() {
@@ -29,6 +29,8 @@ class App extends Component {
       if (user._id) {
         // they are registed in the database, and currently logged in.
         this.setState({ userId: user._id });
+      } else {
+        navigate('/');
       }
     });
   }

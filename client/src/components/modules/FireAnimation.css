@@ -1,0 +1,71 @@
+.FireAnimation-svg{
+    width: 30%;
+    height: 30vw;
+}
+/* .FireAnimation-translate{
+    animation-name: sliding;
+    animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    opacity: 0.5;
+    transform-origin: 45% 45% 0;
+} */
+#background, #middle, #front{
+    animation-name: sliding;
+    animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    opacity: 1;
+}
+#flames{
+    animation-name: fade;
+    animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    opacity: 1;
+}
+@keyframes sliding {
+    0%{
+        transform: translate(0);
+    }
+    25%{
+        transform: translateX(2px);
+    }
+    50%{
+        transform: translate(2px);
+        opacity: 0.8;
+    }
+    75%{
+        transform: translateX(-2px);
+    }
+    100%{
+        transform : translate(-2px);
+        opacity: 1;
+    }
+}
+@keyframes fade{
+    20%{
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
+    40%{
+        transform: translateY(-2px);
+        opacity: 0.7;
+    }
+    60%{
+        transform: translateY(-2px);
+        opacity: 0.6;
+    }
+    70%{
+        transform: translateY(-2px);
+        opacity: 0.5;
+    }
+    80%{
+        transform: translateY(-2px);
+        opacity: 0.8;
+    }
+    100%{
+        transform: translateY(-2px);
+        opacity: 1;
+    }
+}
