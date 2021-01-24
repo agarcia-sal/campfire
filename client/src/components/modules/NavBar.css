@@ -1,9 +1,24 @@
 .NavBar-linkContainer {
+    /* margin-left: var(--l); */
+    display: flex;
+    justify-content: space-between;
+    /* background-color: #8ECAE6; */
+}
+.NavBar-logo {
+    letter-spacing: 3px;
     margin-left: var(--l);
 }
 
 .NavBar-searchBar {
     margin-left: var(--l);
     width: 50%;
+}
+.NavBar-background {
+    background-color:'#8ECAE6';
+}
+.NavBar-login {
+    letter-spacing: 3px;
+    border-bottom-color: 'transparent';
+    margin-right: var(--l);
 }
 

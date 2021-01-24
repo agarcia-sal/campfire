@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import Fire from "../modules/Fire.js";
+import Fire from "./Fire.js";
+import Emoji from "./Emoji.js";
+import "./Emotions.css";
 
 import { get, post } from "../../utilities";
 
@@ -39,7 +41,7 @@ class Emotions extends Component {
     if (this.props.songId !== this.state.colorId){
       get('api/colors', { songId: this.props.songId }).then((colors) => {
         this.setState({
-          colorTimers: [],
+          // colorTimers: [],
           colorId: this.props.songId,
           colors: colors,
           isPaused: false,
@@ -60,20 +62,23 @@ class Emotions extends Component {
     // console.log('starting color timer');
     let colorDisplay = [];
     let colorTimers = [];
-    this.state.colors.forEach((color,index) => {
+    this.state.colors.forEach((color) => {
       colorTimers = colorTimers.concat([{colorId: setTimeout(()=>this.showColor(color), color.progressMs)}])
     })
     this.setState({
+      colorId: this.props.songId,
       colorTimers: colorTimers,
-    })
+    }, () => console.log(this.state.colorTimers))
   }
 
-  pauseTimers = () => {
+  pauseTimers = async () => {
+    console.log(this.state.colorTimers)
     console.log('pausing colors')
-    this.state.colorTimers.forEach(element => {clearTimeout(element.colorId)});
     this.setState({
-      isPaused:true
+      isPaused:true,
     })
+    this.state.colorTimers.forEach(element => {clearTimeout(element.colorId)});
+    console.log('timers ' + this.state.colorTimers)
   }
 
   resumeTimers = () => {
@@ -111,14 +116,15 @@ class Emotions extends Component {
   render() {
     return(
       <>
-        <button onClick={() => this.displayColor('yellow')} >Joy/Happiness</button>
-        <button onClick={() => this.displayColor('blue')} >Sadness</button>
-        <button onClick={() => this.displayColor('green')} >Vibing</button>
-        <button onClick={() => this.displayColor('purple')} >Rocking out</button>
-        <button onClick={() => this.displayColor('pink')} >Love</button>
-        <button onClick={() => this.displayColor('orange')}>Party</button>
-
         <Fire songId = {this.props.songId}  currColor = {this.state.currColor}/> 
+        <div className = "Emotions-emojis" >
+        <button className = "button joy" onClick={() => this.displayColor('yellow')} ><Emoji symbol="😁"/></button>
+        <button className = "button sad" onClick={() => this.displayColor('blue')} ><Emoji symbol="😔"/></button>
+        <button className = "button vibe" onClick={() => this.displayColor('green')} ><Emoji symbol="😎"/></button>
+        <button className = "button rock" onClick={() => this.displayColor('purple')} ><Emoji symbol="🤘"/></button>
+        <button className = "button love" onClick={() => this.displayColor('pink')} ><Emoji symbol="💕"/></button>
+        <button className = "button party" onClick={() => this.displayColor('orange')}><Emoji symbol="🕺"/></button>
+        </div>
       </>
     );
   }

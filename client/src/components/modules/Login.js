@@ -1,22 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
-import { Router, Redirect } from '@reach/router';
+import { Route, Redirect } from '@reach/router';
+import SpotifyPlayer from 'react-spotify-web-playback';
 
 import "../../utilities.css";
-import "./LoginPage.css";
+import "./Skeleton.css";
 
 import { get, post } from "../../utilities";
 
-/**
- * @param {boolean} loggedIn - if logged in or not
- */
-
-class LoginPage extends Component {
+class Login extends Component {
     constructor(props) {
       super(props);
       // Initialize Default State
       this.state = {
-        // loggedIn : false,
+        loggedIn : false,
         accessToken: null,
       };
     }
@@ -24,7 +21,7 @@ class LoginPage extends Component {
     componentDidMount() {
       // remember -- api calls go here!
     }
-
+  
     handleLogin = () => {
       get("/api/spotifyLogin").then((data) => {
         this.setState = ({
@@ -35,7 +32,7 @@ class LoginPage extends Component {
         window.location.href = data.url
       })
     }
-
+  
     getPlaylists = () => {
       get("/api/playlists").then((data) => {
         console.log(data);
@@ -46,19 +43,14 @@ class LoginPage extends Component {
 
   
     render() {
-      
       return (
-        // <div className = "Login-gradient">
-        //   <h1>This is red car</h1>
-        // </div>
-        <div className = "Login-gradient">
+        <>
         {/* //  {if (this.state.loggedIn) { */}
         {/* //     (<Redirect to="/dashboard" />)} */}
         <button onClick={this.handleLogin}>Login with Spotify</button>
-        </div>
+        </>
       );
     }
   }
   
-  export default LoginPage;
-  
+  export default Login;

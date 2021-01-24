@@ -198,7 +198,7 @@ router.get("/search", async (req, res) => {
     });
     loggedInSpotifyApi.setAccessToken(req.user.accessToken);
     const songTitle = req.query.title;
-    // console.log(`song title is ${songTitle}`);
+    console.log(`song title is ${songTitle}`);
     const tracks = await loggedInSpotifyApi.searchTracks(`track:${songTitle}`, {limit:5});
     res.status(200).send(tracks); //use tracks.body to get titles?
   } catch (err) {
