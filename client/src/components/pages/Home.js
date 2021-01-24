@@ -124,10 +124,9 @@ class Home extends Component {
     else if (state.isPlaying && state.progressMs !== 0){
       console.log("resuming the song")
       this.setState({songProgress: state.progressMs, pause: false})
-    }
-
-
+    } 
   }
+
   setResumeFalse = () => {
     this.setState({songProgress : null})
   }
@@ -143,9 +142,19 @@ class Home extends Component {
     if(this.state.playing) {
       player = <SpotifyPlayer 
       token={this.state.accessToken}
-      // token="BQAQ7-yNF16xOePwyJgqtVhDJDfkG2zyppYzUVY2aPn1EVBzmGG3s-XhxopDmi2bquj85UbToGhlrv0qsjgEF8VLgrjcA36024lE0I-pIbFSsdiYZSGlHAJgUKCQIvsNykEOSsHLVwQGsgsT-T6E53v5567zaIabwmD0k2HEZdfYqC61S-H3DA8"
-      // play={this.state.play}
-      // autoPlay
+      autoplay = {true}
+      styles={{
+        activeColor: 'transparent',
+        bgColor: 'transparent',
+        color: '#fff',
+        loaderColor: '#fff',
+        sliderColor: 'transparent',
+        sliderTrackColor: 'transparent',
+        sliderHandleColor: 'transparent',
+        sliderHandleBorderRadius: 0 | 'transparent', 
+        trackArtistColor: '#ccc',
+        trackNameColor: '#fff',
+      }}
       uris={[this.state.songId]}
       callback={(state) => this.checkSongState(state)}
     />
@@ -169,26 +178,29 @@ class Home extends Component {
     }
     return  (
       <>
-        <NavBar addTrack={this.addTrack}/>
-        {/* <button onClick={this.handleLogin}>spotify login</button> */}
-        {/* {newSong} */}
-        <button onClick={this.getPlaylists}>get playlists</button>
-        <button onClick={this.playSong}> play song</button>
-        <button onClick={this.searchSongs}> look in console for searched songs</button>
-        {player}
-        <button onClick={() => this.displayColor('blue')}>click to display color</button>
-        <div className="Home-animation">
-          {/* <img src={Fire} width="300px" /> */}
+        <div className = "Home-gradient">
+          <div>
+            <NavBar addTrack={this.addTrack}/>
+          </div>
+          {/* <button onClick={this.handleLogin}>spotify login</button> */}
+          {/* {newSong} */}
+          {/* <button onClick={this.getPlaylists}>get playlists</button>
+          <button onClick={this.playSong}> play song</button>
+          <button onClick={this.searchSongs}> look in console for searched songs</button> */}
+          {/* <div className = "Home-comments" >this is a test comment</div> */}
+          <div className = "Home-player">
+            {player}
+          </div>
+          {/* <button onClick={this.startTimers}> start timers</button> */}
+          {/* <button onClick={this.pauseTimers}> pause timers</button> */}
           <FireAnimation useDefault={false} light="#fec9ff" medium="#fd8cff" dark="#f122f5"/>
-          {/* <SvgComponent width='300px' height='400px' /> */}
+          {comments} 
+          {emotions}
+          
+          {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
+
         </div>
         
-        {comments} 
-        {this.state.color && (<span className={`Home-${this.state.color}`}> the color is: {this.state.color}</span>)}
-        {emotions}
-        
-        {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
-
       </>
       );
   }

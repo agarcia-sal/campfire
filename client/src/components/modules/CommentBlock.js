@@ -36,22 +36,32 @@ class CommentsBlock extends Component {
         commentsDisplay : [],
         timers : [],
         isPaused : null,
+        winWidth : window.innerWidth,
+        winHeight : window.innerHeight,
+        newDisplay : [],
     };
   }
 
   addNewComment = (comment) => {
+      let newComments = this.state.newComments
+      newComments = newComments.concat([{comment: comment, 
+        top: this.getRandomNumber(60, 600), 
+        left: this.getRandomNumber(100, this.state.winWidth-100)}])
       this.setState({
-        newComments: [comment].concat(this.state.newComments),
+        newComments: newComments
       });
   };
 
   componentDidMount() {
-    console.log('mounting');
+    // console.log('mounting');
     get("/api/comments", { songId: this.props.songId }).then((comments) => {
       this.setState({
         isPaused: false,
         comments: comments
-      }, () => this.startTimers());
+      }, () => {
+        this.startTimers();
+        // console.log('finsihed mounting');
+      });
     });
   };
 
@@ -71,26 +81,35 @@ class CommentsBlock extends Component {
     }
     if(this.props.songProgress && this.state.isPaused){
       this.resumeTimers();
-    }
+    } 
   };
 
+  getRandomNumber = (min, max) => {
+    return Math.random() * (max - min) + min;
+  }
+
   showComment = (comment, index) => {
-    let copyArr = [...this.state.commentsDisplay]// [false, true, true]
-    copyArr[index] = true
+    // console.log('showing comment')
+    let copyArr = this.state.commentsDisplay;// [false, true, true]
+    copyArr[index] = {display: true, 
+                      top: this.getRandomNumber(0, this.state.winHeight), 
+                      left: this.getRandomNumber(0, this.state.winWidth)}
+    // console.log('adding comment '+copyArr[index])
     this.setState({commentsDisplay : copyArr}, () => console.log(this.state.commentsDisplay))
   }
   startTimers = () => {
-    // console.log(this.state.comments)
+    console.log('starting timers for comments')
     let commentsDisplay = [];
     let timers = [];
     this.state.comments.forEach((comment,index) => {
       timers = timers.concat([{timerId: setTimeout(()=>this.showComment(comment, index), comment.progressMs)}])//do i need this.state.timers
-      commentsDisplay = commentsDisplay.concat([false]);
+      commentsDisplay = commentsDisplay.concat([{display: false, top: null, left: null}]);
     })
+    // console.log(commentsDisplay)
     this.setState({
       timers: timers,
       commentsDisplay : commentsDisplay
-    })
+    }, () => console.log(this.state.commentsDisplay));
     // , () => console.log(this.state.commentsDisplay))
     // console.log(commentsDisplay)
   }
@@ -100,9 +119,10 @@ class CommentsBlock extends Component {
       isPaused:true
     })
   }
+
   resumeTimers = () => {
     const songProgress = this.props.songProgress;
-    console.log(this.state.comments)
+    // console.log(this.state.comments)
     // let commentsDisplay = []; 
     let timers = [];
     
@@ -114,30 +134,34 @@ class CommentsBlock extends Component {
     this.setState({
       isPaused: false,
       timers: timers,
-      // commentsDisplay : commentsDisplay
     }, this.props.setResumeFalse )
   } //how do i do this without calling didupdate multiple times
   render() {
+    // console.log('commentDisplay: ' + this.state.commentsDisplay)
     return (
-      <div className="CommentBlock-container">
-        <div className="CommentBlock-comments">
-          {this.state.newComments.map((comment) => (
+      <div className="Card-commentSection">
+        <div className="story-comments">
+          {this.state.newComments.map((commentObj) => (
             <SingleComment 
-              key={`SingleComment_${comment._id}`}
+              key={`SingleComment_${commentObj.comment._id}`}
+              comment = {commentObj}
               display = {true}
-              _id={comment._id}
-              songId={comment.songId}
-              content={comment.content}
+              top = {commentObj.top}
+              left = {commentObj.left}
+              _id={commentObj.comment._id}
+              songId={commentObj.comment.songId}
+              content={commentObj.comment.content}
             />
           ))}
-          {this.state.comments && this.state.comments.map((comment, index) => (
+          {this.state.commentsDisplay && this.state.commentsDisplay.map((commentObj, index) => (
             <SingleComment
-              key={`SingleComment_${comment._id}`}
-              // delay = {comment.progressMs}
-              display = {this.state.commentsDisplay[index]}
-              _id={comment._id}
-              songId={comment.songId}
-              content={comment.content}
+              key={`SingleComment_${this.state.comments[index]._id}`}
+              display = {commentObj.display}
+              top = {commentObj.top}
+              left = {commentObj.left}
+              _id={this.state.comments[index]._id}
+              songId={this.state.comments[index].songId}
+              content={this.state.comments[index].content}
             />
           ))}
             

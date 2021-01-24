@@ -57,6 +57,7 @@ class App extends Component {
   render() {
     return (
       <>
+      <div className = "App-gradient">
         <Router>
           <Home path="/home" userId = {this.state.userId}/>
           <Login
@@ -68,6 +69,7 @@ class App extends Component {
           
           <NotFound default />
         </Router>
+      </div>
       </>
     );
   }

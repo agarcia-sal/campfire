@@ -31,7 +31,11 @@ class NavBar extends Component {
                 console.log('body of song')
                 // console.log(data)
                 return data.body.tracks.items.map((item) => (
+<<<<<<< HEAD
                     { label: item.name+' -'+item.artists.map((artist)=> { return ' '+artist.name}), value: item.uri }));
+=======
+                    { label: item.name+' - '+item.artists.map((artist) => ' '+artist.name), value: item.uri }));
+>>>>>>> f9a6f66220760e4ea18289a8067ce1818e351369
             });
     }
     onInputChange = (inputValue) => {
@@ -46,11 +50,8 @@ class NavBar extends Component {
     }
     render () {
         return (
-            <nav className="NavBar-container">
-                <div className="NavBar-title u-inlineBlock">campfire</div>
-                <div className="NavBar-linkContainer u-inlineBlock">
-                    <Link to="/" className="NavBar-link">Home</Link>
-                </div>
+            <nav className="NavBar-linkContainer">
+                <div className="NavBar-title NavBar-logo u-inlineBlock">CAMPFIRE</div>
                 <div className="NavBar-searchBar u-inlineBlock">
                     <AsyncSelect 
                         cacheOptions
@@ -62,6 +63,9 @@ class NavBar extends Component {
                         loadOptions={this.loadOptions}
                     />
 
+                </div>
+                <div className="NavBar-login">
+                    <Link to="/" >LOGIN</Link>
                 </div>
             </nav>
         )
