@@ -35,7 +35,7 @@ class SingleComment extends Component {
     if(this.props.display) {
       return (
 
-          <span className='SingleComment-comment'>{" | " + this.props.content}</span>
+          <div className='SingleComment-comment'>{" | " + this.props.content}</div>
 
       );
     }

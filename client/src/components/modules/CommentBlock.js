@@ -53,12 +53,6 @@ class CommentsBlock extends Component {
         comments: comments
       }, () => this.startTimers());
     });
-<<<<<<< HEAD
-    if(this.props.startTimers){
-      this.startTimers();
-    }
-=======
->>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
   };
 
   componentDidUpdate() {
@@ -120,7 +114,7 @@ class CommentsBlock extends Component {
     this.setState({
       isPaused: false,
       timers: timers,
-      commentsDisplay : commentsDisplay
+      // commentsDisplay : commentsDisplay
     }, this.props.setResumeFalse )
   } //how do i do this without calling didupdate multiple times
   render() {

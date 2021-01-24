@@ -31,11 +31,7 @@ class NavBar extends Component {
                 console.log('body of song')
                 // console.log(data)
                 return data.body.tracks.items.map((item) => (
-<<<<<<< HEAD
                     { label: item.name+' -'+item.artists.map((artist)=> { return ' '+artist.name}), value: item.uri }));
-=======
-                    { label: item.name+' - '+item.artists.map((artist) => artist.name), value: item.uri }));
->>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
             });
     }
     onInputChange = (inputValue) => {

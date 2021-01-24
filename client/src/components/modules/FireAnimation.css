@@ -2,70 +2,105 @@
     width: 30%;
     height: 30vw;
 }
-/* .FireAnimation-translate{
-    animation-name: sliding;
-    animation-duration: 5s;
+#flame1, #flame2, #flame3, #flame4, #flame5{
+    animation-name: flames;
+    animation-duration: 8s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
-    opacity: 0.5;
-    transform-origin: 45% 45% 0;
-} */
-#background, #middle, #front{
-    animation-name: sliding;
-    animation-duration: 5s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
+    opacity: 0;
+}
+#flame1{
+    animation-delay: 3s;
+}
+#flame2{
+    animation-delay: 0.2s;
+    transform-origin: 20% 20%;
+}
+#flame3{
+    animation-delay: 4s;
+    transform-origin: 40% 40%;
+}
+#flame4{
+    animation-delay: 4s;
+    transform-origin: 50% 5%;
+}
+#flame5{
+    animation-delay: 1s;
+    transform-origin: 50% 10%;
+}
+#middle{
+    animation: middle 5s ease-in-out 1s infinite;
+    transform-origin: 50% bottom;
     opacity: 1;
 }
-#flames{
-    animation-name: fade;
-    animation-duration: 5s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
+#front1, #front3{
+    animation: rotating1 5s ease-in-out 1s infinite;
     opacity: 1;
 }
-@keyframes sliding {
-    0%{
-        transform: translate(0);
-    }
-    25%{
-        transform: translateX(2px);
-    }
+#front2, #front4{
+    animation: rotating2 5s ease-in-out infinite;
+    opacity: 1;
+}
+#front1{
+    transform-origin: 30% 80%;
+}
+#front2{
+    animation-delay: 1s;
+    transform-origin: 40% 50%;
+}
+#front3{
+    animation-delay: 2s;
+    transform-origin: 40% 80%;
+}
+#front4{
+    animation-delay: 3s;
+    transform-origin: 60% 90%;
+}
+#background1{
+    animation: rotating1 5s ease-in-out infinite;
+    transform-origin: 40% bottom;
+}
+#background2{
+    animation: rotating1 5s ease-in-out infinite;
+    transform-origin: 20% 80%;
+}
+#background3{
+    animation: rotating2 5s ease-in-out infinite;
+    transform-origin: 70% 50%;
+    animation-delay: 1s;
+}
+#background4{
+    animation: rotating2 5s ease-in-out infinite;
+    transform-origin: 80% 70%;
+}
+
+
+@keyframes middle {
     50%{
-        transform: translate(2px);
-        opacity: 0.8;
-    }
-    75%{
-        transform: translateX(-2px);
-    }
-    100%{
-        transform : translate(-2px);
-        opacity: 1;
+        transform: rotate(5deg);
     }
 }
-@keyframes fade{
-    20%{
-        transform: translateY(-2px);
-        opacity: 0.9;
-    }
-    40%{
-        transform: translateY(-2px);
-        opacity: 0.7;
-    }
-    60%{
-        transform: translateY(-2px);
-        opacity: 0.6;
-    }
-    70%{
-        transform: translateY(-2px);
-        opacity: 0.5;
-    }
-    80%{
-        transform: translateY(-2px);
-        opacity: 0.8;
+@keyframes flames{
+    0%{
+        transform: translate(0) ;
+    }  
+    50%{
+        opacity: 1;
     }
     100%{
-        transform: translateY(-2px);
-        opacity: 1;
+        transform: translate(-10px, -40px) ;
+        opacity: 0;
+    }
+}
+
+@keyframes rotating1{
+    50%{
+        transform: rotate(5deg);
+    }
+}
+
+@keyframes rotating2{
+    50%{
+        transform: rotate(-5deg);
     }
 }

@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
-import { navigate, Redirect } from "@reach/router";
-=======
 import { Redirect, navigate} from "@reach/router";
->>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
 import SpotifyPlayer from 'react-spotify-web-playback';
 import NavBar from "../modules/NavBar";
 import CommentsBlock from "../modules/CommentBlock.js";
@@ -13,7 +9,6 @@ import "./Home.css";
 // import FireAnimation from "../modules/Animation.js"
 import Fire from "../modules/Fire.svg";
 import FireAnimation from "../modules/FireAnimation.js"
-import SvgComponent from "../modules/SvgComponent.js";
 
 
 import { get, post } from "../../utilities";
@@ -37,14 +32,9 @@ class Home extends Component {
       resume : false,
       songProgress : null
     };
-<<<<<<< HEAD
-    if (!this.props.userId){
-      navigate("/")
-=======
 
     if(!this.props.userId) {
       navigate('/');
->>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
     }
   }
   
@@ -121,12 +111,9 @@ class Home extends Component {
   checkSongState = (state) => {
     console.log('state: ');
     console.log(state);
-<<<<<<< HEAD
     // if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
     //   this.setState({songId : state.track.uri});
     // }
-=======
->>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
     if (state.isPlaying && state.progressMs === 0){
       console.log('starting to play')
       this.setState({start: true})
@@ -167,8 +154,6 @@ class Home extends Component {
     if (this.state.start){
       comments = (<CommentsBlock className="Home-commentsBlock"
       songId = {this.state.songId} 
-      
-      // addNewComment = {this.addNewComment}
       resume = {this.state.resume}
       startTimers = {this.state.start}
       pauseTimers={this.state.pause}
@@ -194,16 +179,13 @@ class Home extends Component {
         <button onClick={() => this.displayColor('blue')}>click to display color</button>
         <div className="Home-animation">
           {/* <img src={Fire} width="300px" /> */}
-          <FireAnimation light="000000" dark="FFFFFF"/>
+          <FireAnimation useDefault={false} light="#fec9ff" medium="#fd8cff" dark="#f122f5"/>
           {/* <SvgComponent width='300px' height='400px' /> */}
         </div>
         
         {comments} 
-<<<<<<< HEAD
         {this.state.color && (<span className={`Home-${this.state.color}`}> the color is: {this.state.color}</span>)}
-=======
         {emotions}
->>>>>>> 6d8fff333f0e3721d955df6f61b2423cf1951bb4
         
         {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
 
