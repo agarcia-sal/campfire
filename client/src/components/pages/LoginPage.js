@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
 import { Router, Redirect } from '@reach/router';
+import "../modules/FireAnimation.js";
 
 import "../../utilities.css";
 import "./LoginPage.css";
 
 import { get, post } from "../../utilities";
+import FireAnimation from "../modules/FireAnimation.js";
 
 /**
  * @param {boolean} loggedIn - if logged in or not
@@ -55,6 +57,7 @@ class LoginPage extends Component {
         {/* //  {if (this.state.loggedIn) { */}
         {/* //     (<Redirect to="/dashboard" />)} */}
         <button onClick={this.handleLogin}>Login with Spotify</button>
+        <FireAnimation useDefault={false} currColor="party"/>
         </div>
       );
     }

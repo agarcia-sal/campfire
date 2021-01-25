@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SingleComment from "./SingleComment.js";
 import { NewComment } from "./InputComment";
 import {get, post } from "../../utilities.js";
+import {socket} from "../../client-socket.js";
 
 import "./CommentBlock.css";
 /**
@@ -63,6 +64,7 @@ class CommentsBlock extends Component {
         // console.log('finsihed mounting');
       });
     });
+    socket.on("newComment", (comment) => this.addNewComment(comment));
   };
 
   componentDidUpdate() {

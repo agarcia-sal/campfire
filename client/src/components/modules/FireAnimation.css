@@ -2,31 +2,37 @@
     width: 30%;
     height: 30vw;
 }
-#flame1, #flame2, #flame3, #flame4, #flame5{
+#flame2, #flame4, #flame5{
     animation-name: flames;
     animation-duration: 8s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     opacity: 0;
 }
+#flame1, #flame3{
+    animation: fade 8s ease-in-out infinite;
+    opacity: 0;
+}
 #flame1{
-    animation-delay: 3s;
+    animation-delay: 2s;
 }
 #flame2{
     animation-delay: 0.2s;
-    transform-origin: 20% 20%;
+    transform-origin: 26% 20%;
 }
 #flame3{
     animation-delay: 4s;
-    transform-origin: 40% 40%;
+    /* transform-origin: 50% 20%; */
 }
 #flame4{
-    animation-delay: 4s;
-    transform-origin: 50% 5%;
+    /*is the second highest*/
+    animation-delay: 3s;
+    transform-origin: 60% 10%;
 }
 #flame5{
+    /* is the highest*/
     animation-delay: 1s;
-    transform-origin: 50% 10%;
+    transform-origin: 40% 5%;
 }
 #middle{
     animation: middle 5s ease-in-out 1s infinite;
@@ -77,22 +83,33 @@
 
 @keyframes middle {
     50%{
-        transform: rotate(5deg);
+        transform: rotate(3deg);
     }
 }
 @keyframes flames{
     0%{
-        transform: translate(0) ;
+        transform: translate(0) rotate(180deg);
     }  
     50%{
         opacity: 1;
     }
     100%{
-        transform: translate(-10px, -40px) ;
+        transform: translate(-10px, -40px) rotate(180deg);
         opacity: 0;
     }
 }
-
+@keyframes fade{
+    0%{
+        transform: translate(0);
+    }  
+    50%{
+        opacity: 1;
+    }
+    100%{
+        transform: translate(-10px, -40px);
+        opacity: 0;
+    }
+}
 @keyframes rotating1{
     50%{
         transform: rotate(5deg);

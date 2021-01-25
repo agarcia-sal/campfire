@@ -22,6 +22,7 @@ const router = express.Router();
 
 //initialize socket
 const socket = require("./server-socket");
+// const socketManager = require("./server-socket");
 
 
 
@@ -135,7 +136,9 @@ router.post("/comment", auth.ensureLoggedIn, async(req, res) => {
       progressMs: data.body.progress_ms,
       content: req.body.content,
     });
-    newComment.save().then((comment) => res.send(comment));
+    // newComment.save().then((comment) => res.send(comment));
+    newComment.save();
+    socket.getIo().emit("newComment", newComment );
   } catch (err){
     res.status(400).send(err)
   }

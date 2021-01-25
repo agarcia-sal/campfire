@@ -44,6 +44,7 @@ class Home extends Component {
         songObjs.map((songObj) => {
             this.setState({ songs: this.state.songs.concat([songObj]) });
         });
+        console.log(songObjs);
     });
 
     get('/api/getMe').then((user) => {
@@ -193,7 +194,7 @@ class Home extends Component {
           </div>
           {/* <button onClick={this.startTimers}> start timers</button> */}
           {/* <button onClick={this.pauseTimers}> pause timers</button> */}
-          <FireAnimation useDefault={false} light="#fec9ff" medium="#fd8cff" dark="#f122f5"/>
+          {/* <FireAnimation useDefault={false} currColor="pink"/> */}
           {comments} 
           {emotions}
           
