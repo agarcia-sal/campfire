@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import SingleComment from "./SingleComment.js";
 import { NewComment } from "./InputComment";
 import {get, post } from "../../utilities.js";
+<<<<<<< HEAD
 import { socket } from "../../client-socket.js";
+=======
+import {socket} from "../../client-socket.js";
+>>>>>>> 7e9b82bf98732853b3840b804276372048e08542
 /**
  * @typedef ContentObject
  * @property {string} _id of comment
