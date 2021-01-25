@@ -45,6 +45,7 @@ input[type=text] {
   border-width: 1px;
   border-radius: 15px;
   border-color: white;
+  color: white;
   background-color: transparent;
 }
 

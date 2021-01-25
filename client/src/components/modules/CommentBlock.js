@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SingleComment from "./SingleComment.js";
 import { NewComment } from "./InputComment";
 import {get, post } from "../../utilities.js";
+import { socket } from "../../client-socket.js";
 /**
  * @typedef ContentObject
  * @property {string} _id of comment
@@ -21,6 +22,7 @@ import {get, post } from "../../utilities.js";
  * @param {(comment) => {}} addNewComment - adds a new comment
  * @param {Boolean} startTimers - whether start timers have started or not
  * @param {Boolean} pauseTimers - whether timers have been paused or not
+ * @param {String} userId
  * @param {Boolean} songProgress
  */
 class CommentsBlock extends Component {
@@ -43,11 +45,22 @@ class CommentsBlock extends Component {
   addNewComment = (comment) => {
       let newComments = this.state.newComments
       newComments = newComments.concat([{comment: comment, 
+        progress: comment.progressMs, 
+        userId: comment.userId,
         top: this.getRandomNumber(60, 600), 
         left: this.getRandomNumber(100, this.state.winWidth-100)}])
-      this.setState({
-        newComments: newComments
-      });
+      if (comment.userId !== this.props.userId) {
+        get("/api/currentState").then((state) => {
+          this.setState({
+            currentProgress: state.progressMs, 
+            newComments: newComments
+          })
+        })
+      } else {
+        this.setState({
+          newComments: newComments
+        });
+      }
   };
 
   componentDidMount() {
@@ -104,13 +117,10 @@ class CommentsBlock extends Component {
       timers = timers.concat([{timerId: setTimeout(()=>this.showComment(index), comment.progressMs)}])//do i need this.state.timers
       commentsDisplay = commentsDisplay.concat([{display: false, top: null, left: null}]);
     })
-    // console.log(commentsDisplay)
     this.setState({
       timers: timers,
       commentsDisplay : commentsDisplay
     }, () => console.log(this.state.commentsDisplay));
-    // , () => console.log(this.state.commentsDisplay))
-    // console.log(commentsDisplay)
   }
   pauseTimers = () => {
     this.state.timers.forEach(element => {clearTimeout(element.timerId)});
@@ -147,7 +157,11 @@ class CommentsBlock extends Component {
             <SingleComment 
               key={`SingleComment_${commentObj.comment._id}`}
               comment = {commentObj}
+              commentUser = {commentObj.userId}
+              progress = {commentObj.progress}
+              currentProgress = {this.state.currentProgress}
               display = {true}
+              userId = {this.props.userId}
               paused = {this.state.paused}
               top = {commentObj.top}
               left = {commentObj.left}
@@ -168,7 +182,7 @@ class CommentsBlock extends Component {
               content={this.state.comments[index].content}
             />
           ))}
-            <NewComment songId={this.props.songId} addNewComment={this.addNewComment} />
+            <NewComment songId={this.props.songId} addNewComment={this.addNewComment} userId = {this.props.userId}/>
         </div>
       </div>
     );
