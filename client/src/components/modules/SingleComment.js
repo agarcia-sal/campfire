@@ -36,7 +36,7 @@ class SingleComment extends Component {
 
   render() {
     let description = null;
-    if (this.props.currentProgress == null){
+    if (this.props.currentProgress !== null){
       const diff = Math.abs(this.props.currentProgress - this.props.progress) 
       if (this.props.currentProgress > this.props.progress) {
         description = Math.round(diff/1000) + " seconds behind"
@@ -53,7 +53,9 @@ class SingleComment extends Component {
             top: this.props.top + 'px',
           }}>
             <div className = {commentAnimation} >
+              <div>
               {this.state.display && this.props.content}
+              </div>
               <div>
                 {this.state.display && "this user is currently" + description}
               </div>
