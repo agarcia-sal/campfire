@@ -78,7 +78,8 @@ class NewComment extends Component {
   //TODO: timestamp 
   // comment content are passed into addComment
     addComment = (value) => {
-      const body = { songId: this.props.songId, content: value};
+      console.log('userId' + this.props.userId)
+      const body = { songId: this.props.songId, content: value, userId: this.props.userId};
       post("/api/comment", body).then((comment) => {
         // display this comment on the screen
         this.props.addNewComment(comment);

@@ -35,6 +35,7 @@ class SingleComment extends Component {
 
 
   render() {
+    console.log('current progress ' + this.props.currentProgress)
     let description = null;
     if (this.props.currentProgress !== null){
       const diff = Math.abs(this.props.currentProgress - this.props.progress) 
