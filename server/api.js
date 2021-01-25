@@ -137,7 +137,7 @@ router.post("/comment", auth.ensureLoggedIn, async(req, res) => {
       content: req.body.content,
     });
     // newComment.save().then((comment) => res.send(comment));
-    newComment.save();
+    await newComment.save();
     socket.getIo().emit("newComment", newComment );
   } catch (err){
     res.status(400).send(err)

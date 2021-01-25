@@ -61,6 +61,7 @@ class CommentsBlock extends Component {
         // console.log('finsihed mounting');
       });
     });
+    socket.on("newComment", (comment) => this.addNewComment(comment));
   };
 
   componentDidUpdate() {
