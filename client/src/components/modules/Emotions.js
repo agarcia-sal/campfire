@@ -128,7 +128,7 @@ class Emotions extends Component {
         <button className = "button vibe" onClick={() => this.displayColor('pinkPurple')} ><Emoji symbol="😎"/></button>
         <button className = "button rock" onClick={() => this.displayColor('purple')} ><Emoji symbol="🤘"/></button>
         <button className = "button love" onClick={() => this.displayColor('pink')} ><Emoji symbol="💕"/></button>
-        <button className = "button party" onClick={() => this.displayColor('rainbow')}><Emoji symbol="🕺"/></button>
+        <button className = "button party" onClick={() => this.displayColor('party')}><Emoji symbol="🕺"/></button>
         </div>
       </>
     );
