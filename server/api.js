@@ -135,6 +135,7 @@ router.post("/comment", auth.ensureLoggedIn, async(req, res) => {
       songId: data.body.item.uri,
       progressMs: data.body.progress_ms,
       content: req.body.content,
+      spotifyId: req.body.userId, 
     });
     // newComment.save().then((comment) => res.send(comment));
     await newComment.save();

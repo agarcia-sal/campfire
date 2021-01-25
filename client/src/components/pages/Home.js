@@ -163,6 +163,7 @@ class Home extends Component {
     if (this.state.start){
       comments = (<CommentsBlock className="Home-commentsBlock"
       songId = {this.state.songId} 
+      userId = {this.state.userId}
       resume = {this.state.resume}
       startTimers = {this.state.start}
       pauseTimers={this.state.pause}
