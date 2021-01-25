@@ -39,50 +39,47 @@ class SingleComment extends Component {
     if (this.props.currentProgress !== null){
       const diff = Math.abs(this.props.currentProgress - this.props.progress) 
       if (this.props.currentProgress > this.props.progress) {
-        description = Math.round(diff/1000) + " seconds behind"
+        description = Math.round(diff/1000) + " seconds behind";
       } else {
-        description = Math.round(diff/1000) + " seconds ahead"
+        description = Math.round(diff/1000) + " seconds ahead";
       }
     }
-    let commentAnimation = 'slide-right'
-    if (this.props.userId !== this.props.commentUser){
-      <div className="Card-commentBody">
-          <span  style = {{
-            position: 'absolute',
-            left: this.props.left + 'px',
-            top: this.props.top + 'px',
-          }}>
-            <div className = {commentAnimation} >
-              <div>
-              {this.state.display && this.props.content}
-              </div>
-              <div>
-                {this.state.display && "this user is currently" + description}
-              </div>
-            </div>
-          
-          </span>
-        </div>
-    }
+    let commentAnimation = 'slide-right';
     if(this.props.display) {
-      return (
-        <div className="Card-commentBody">
-          <span  style = {{
-            position: 'absolute',
-            left: this.props.left + 'px',
-            top: this.props.top + 'px',
-          }}>
-            <div className = {commentAnimation} >
-              {this.state.display && this.props.content}
-            </div>
-          
-          </span>
-        </div>
-          
-      );
-    }
+
+      if (this.props.userId !== this.props.commentUser){
+        return (
+          <div className="Card-commentBody">
+            <span  style = {{
+              position: 'absolute',
+              left: this.props.left + 'px',
+              top: this.props.top + 'px',
+            }}>
+              <div className = {commentAnimation} >
+                <div>{this.state.display && this.props.content}</div>
+                <div>{this.state.display && "this user is currently" + description}</div>
+              </div>
+            </span>
+          </div>
+        );
+      } else {
+        return (
+          <div className="Card-commentBody">
+            <span  style = {{
+              position: 'absolute',
+              left: this.props.left + 'px',
+              top: this.props.top + 'px',
+            }}>
+              <div className = {commentAnimation} >{this.state.display && this.props.content}</div>
+            </span>
+          </div>
+        );
+
+      }
+
+    } 
     return (<></>);
-  }
-}
+  };
+};
 
 export default SingleComment;
