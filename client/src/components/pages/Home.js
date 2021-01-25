@@ -200,7 +200,7 @@ class Home extends Component {
     } else {
       return  (
         <>
-          <div className = "Home-gradient">
+          <div className = "Home-gradient u-flex">
             <div className = "Home-navbar">
               <NavBar addTrack={this.addTrack}/>
             </div>

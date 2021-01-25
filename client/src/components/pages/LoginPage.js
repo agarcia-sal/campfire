@@ -56,7 +56,7 @@ class LoginPage extends Component {
         <div className = "Login-gradient">
        
         <button onClick={this.handleLogin}>Login with Spotify</button>
-        <FireAnimation useDefault={false} currColor="party"/>
+        {/* <FireAnimation useDefault={false} currColor="party"/> */}
         </div>
       );
     }
