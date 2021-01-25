@@ -87,7 +87,7 @@ class CommentsBlock extends Component {
   }
 
   showComment = (index) => {
-    console.log('showing comment')
+    // console.log('showing comment')
     let copyArr = this.state.commentsDisplay;// [false, true, true]
     copyArr[index] = {display: true, 
                       top: this.getRandomNumber(60, 600), 

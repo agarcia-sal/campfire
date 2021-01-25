@@ -6,6 +6,10 @@ import CommentsBlock from "../modules/CommentBlock.js";
 import Emotions from "../modules/Emotions.js";
 import "../../utilities.css";
 import "./Home.css";
+// import FireAnimation from "../modules/Animation.js"
+import Fire from "../modules/Fire.svg";
+import FireAnimation from "../modules/FireAnimation.js"
+
 
 import { get, post } from "../../utilities";
 
@@ -40,6 +44,7 @@ class Home extends Component {
         songObjs.map((songObj) => {
             this.setState({ songs: this.state.songs.concat([songObj]) });
         });
+        console.log(songObjs);
     });
 
     get('/api/getMe').then((user) => {
@@ -69,8 +74,9 @@ class Home extends Component {
       this.setState({accessToken : data.accessToken, playing : true})
     })
   }
-
-
+  displayColor = (color) => {
+    this.setState({color: color})
+  }
   
   addTrack = (songId) => {
     const body = { songId: songId}
@@ -86,7 +92,7 @@ class Home extends Component {
             start: false
             
         }, () => console.log('accessToken'+data.token))
-        console.log(this.state.songs);
+        console.log('adding song');
     });
   }
 
@@ -106,6 +112,9 @@ class Home extends Component {
   checkSongState = (state) => {
     console.log('state: ');
     console.log(state);
+    // if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
+    //   this.setState({songId : state.track.uri});
+    // }
     if (state.isPlaying && state.progressMs === 0){
       console.log('starting to play')
       this.setState({start: true})
@@ -152,10 +161,8 @@ class Home extends Component {
     }
     // commentsDisplay={this.state.commentsDisplay}
     if (this.state.start){
-      comments = (<CommentsBlock 
+      comments = (<CommentsBlock className="Home-commentsBlock"
       songId = {this.state.songId} 
-      
-      // addNewComment = {this.addNewComment}
       resume = {this.state.resume}
       startTimers = {this.state.start}
       pauseTimers={this.state.pause}
@@ -182,7 +189,13 @@ class Home extends Component {
             {emotions}
             {comments} 
           </div>
-        </>
+         
+          {/* <div className = "Home-player">
+            {player}
+          </div>
+          {comments} 
+          {emotions}         */}
+      </>
       );
     } else {
       return  (
@@ -190,16 +203,6 @@ class Home extends Component {
           <div className = "Home-gradient">
             <div className = "Home-navbar">
               <NavBar addTrack={this.addTrack}/>
-            </div>
-            <div style={{
-            position: 'absolute', 
-            top: '350px',
-            left: '350px',
-            backgroundColor: this.props.currColor,
-            bottom: '0px',
-            width: '100px',
-            height: '100px'
-          }}>
             </div>
             {comments}
             {emotions}

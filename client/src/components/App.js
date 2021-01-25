@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router } from "@reach/router";
+import { navigate, Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
 import Login from "./pages/LoginPage.js";
@@ -7,7 +7,7 @@ import Home from "./pages/Home.js";
 
 import "../utilities.css";
 
-import { socket } from "../client-socket.js";
+// import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
 
@@ -19,9 +19,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: undefined,
+      userId: undefined, 
       loggedIn: false,
-    };
+    };  
   }
 
   componentDidMount() {

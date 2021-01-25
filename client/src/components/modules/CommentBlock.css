@@ -1,6 +1,8 @@
-.Comment-position {
-    position: absolute;
-    top: 100px;
-    left: 100px;
-        
+.CommentBlock-container{
+    width: 100vw;
+    height: 200 px;
+}
+.CommentBlock-comments{
+    width: 100vw;
+    height: 200px;
 }

@@ -44,8 +44,8 @@ class SingleComment extends Component {
             </div>
           
           </span>
-
         </div>
+          
       );
     }
     return (<></>);

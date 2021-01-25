@@ -1,5 +1,26 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,600");
 
+.SingleComment-comment{
+    /* animation: slide 20s 1 forwards; */
+    /* margin-left: 100vw; */
+    /* transition: margin-left 5s ease-in-out; */
+    animation: slidein 20s ease-in 1 both running;
+}
+
+@keyframes slidein {
+    0%{
+        display: none;
+        margin-left: 100vw;
+    }
+    1%{
+        display: block;
+    }
+    100%{
+        margin-left: -100vw;
+        display: none;
+    }
+}
+
 .Card-commentSection {
     /* padding: var(--m) var(--l); */
     font-family: "Open Sans", sans-serif;

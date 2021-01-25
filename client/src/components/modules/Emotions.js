@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Fire from "./Fire.js";
+import FireAnimation from "./FireAnimation.js";
 import Emoji from "./Emoji.js";
 import "./Emotions.css";
 
@@ -114,20 +115,24 @@ class Emotions extends Component {
   }
 
   render() {
+    let useDefault = true;
+    if(this.state.currColor){
+      useDefault = false
+    }
     return(
       <>
       <div className = "input-container">
         <div className = "Emotions-emojis" >
         <button className = "button joy" onClick={() => this.displayColor('yellow')} ><Emoji symbol="😁"/></button>
         <button className = "button sad" onClick={() => this.displayColor('blue')} ><Emoji symbol="😔"/></button>
-        <button className = "button vibe" onClick={() => this.displayColor('green')} ><Emoji symbol="😎"/></button>
+        <button className = "button vibe" onClick={() => this.displayColor('pinkPurple')} ><Emoji symbol="😎"/></button>
         <button className = "button rock" onClick={() => this.displayColor('purple')} ><Emoji symbol="🤘"/></button>
         <button className = "button love" onClick={() => this.displayColor('pink')} ><Emoji symbol="💕"/></button>
-        <button className = "button party" onClick={() => this.displayColor('rainbow')}><Emoji symbol="🕺"/></button>
+        <button className = "button party" onClick={() => this.displayColor('party')}><Emoji symbol="🕺"/></button>
         <button className = "button fire" onClick={() => this.displayColor('orange')}><Emoji symbol="🔥"/></button>
         </div>
       </div>
-      <Fire songId = {this.props.songId}  currColor = {this.state.currColor}/> 
+      <FireAnimation useDefault={useDefault} currColor = {this.state.currColor}/> 
       </>
     );
   }
