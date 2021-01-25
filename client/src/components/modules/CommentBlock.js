@@ -46,10 +46,10 @@ class CommentsBlock extends Component {
       let newComments = this.state.newComments
       newComments = newComments.concat([{comment: comment, 
         progress: comment.progressMs, 
-        userId: comment.userId,
+        userId: comment.spotifyId,
         top: this.getRandomNumber(60, 600), 
         left: this.getRandomNumber(100, this.state.winWidth-100)}])
-      if (comment.userId !== this.props.userId) {
+      if (comment.spotifyId !== this.props.userId) {
         get("/api/currentState").then((state) => {
           this.setState({
             currentProgress: state.progressMs, 
@@ -79,6 +79,7 @@ class CommentsBlock extends Component {
 
   componentDidUpdate() {
     if (this.state.commentId !== this.props.songId) {
+      console.log('getting song progress')
       get("/api/comments", { songId: this.props.songId }).then((comments) => {
         this.setState({
           displayComments: [],

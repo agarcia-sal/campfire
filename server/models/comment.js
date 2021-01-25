@@ -4,7 +4,7 @@ const CommentSchema = new mongoose.Schema({
   songId: String,
   progressMs: Number, 
   content: String,
-  userId: String,
+  spotifyId: String,
 });
 
 // compile model from schema
