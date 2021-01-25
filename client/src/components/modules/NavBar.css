@@ -1,5 +1,7 @@
 .NavBar-linkContainer {
     /* margin-left: var(--l); */
+    left: 0px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     /* background-color: #8ECAE6; */
@@ -8,10 +10,20 @@
     letter-spacing: 3px;
     margin-left: var(--l);
 }
+.home-link {
+    display: block;
+    margin: 10px;
+    left: 0px;
+    font-size: 25px;
+    color: #02283B;
+    text-decoration: none;
+}
 
 .NavBar-searchBar {
-    margin-left: var(--l);
-    width: 50%;
+    /* margin-left: var(--l); */
+    margin: 5px 20px 10px 20px;
+    width: 100%;
+    opacity: 1;
 }
 .NavBar-background {
     background-color:'#8ECAE6';

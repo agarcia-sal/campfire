@@ -1,11 +1,14 @@
 .button {
     background-color: 'transparent';
-    border: none;
-    padding: 10px 20px;
+    border-color: #8ECAE6;
+    border-style: solid;
+    padding: 7px 15px;
+    margin: 10px;
     /* color: white; */
     /* padding: 15px 32px; */
+    border-radius: 100%;
     text-align: center;
-    font-size: 30px;
+    font-size: 40px;
     /* text-decoration: none; */
     display: inline-block;
     /* font-size: 16px; */
@@ -13,27 +16,46 @@
     cursor: pointer;
   }
 .joy {
-    background-color: #ffe66d;
+    background-color: #ffe76dbf;
+
 }
 .sad {
-    background-color: #0071b6;
+    background-color: #0070b68a;
+
 }
 .vibe {
-    background-color: #deaaff;
+    background-color: #deaaff87;
+
 }
 .rock {
-    background-color: purple;
+    background-color: rgba(128, 0, 128, 0.509);
+
 }
 .love {
-    background-color: #ef476f;
+    background-color: #ef476ea8;
+
 }
 .party {
-    background-color: orange;
+    background-image: linear-gradient(rgba(205, 0, 102, 0.954), rgba(128, 0, 128, 0.845), rgba(0, 0, 255, 0.865));
+
+}
+.fire {
+    background-color: rgba(255, 166, 0, 0.803);
+
 }
 .Emotions-emojis {
     position: absolute;
     /* justify-content: flex-end; */
+    background-color: "transparent";
     bottom: 0px;
-    /* width: 50%; */
+    width: 50%;
+    /* right: 0px; */
+
+}
+.input-container {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    background-color: #0343634d;
     /* right: 0px; */
 }

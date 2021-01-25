@@ -52,8 +52,7 @@ class LoginPage extends Component {
         //   <h1>This is red car</h1>
         // </div>
         <div className = "Login-gradient">
-        {/* //  {if (this.state.loggedIn) { */}
-        {/* //     (<Redirect to="/dashboard" />)} */}
+       
         <button onClick={this.handleLogin}>Login with Spotify</button>
         </div>
       );

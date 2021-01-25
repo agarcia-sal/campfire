@@ -116,15 +116,18 @@ class Emotions extends Component {
   render() {
     return(
       <>
-        <Fire songId = {this.props.songId}  currColor = {this.state.currColor}/> 
+      <div className = "input-container">
         <div className = "Emotions-emojis" >
         <button className = "button joy" onClick={() => this.displayColor('yellow')} ><Emoji symbol="😁"/></button>
         <button className = "button sad" onClick={() => this.displayColor('blue')} ><Emoji symbol="😔"/></button>
         <button className = "button vibe" onClick={() => this.displayColor('green')} ><Emoji symbol="😎"/></button>
         <button className = "button rock" onClick={() => this.displayColor('purple')} ><Emoji symbol="🤘"/></button>
         <button className = "button love" onClick={() => this.displayColor('pink')} ><Emoji symbol="💕"/></button>
-        <button className = "button party" onClick={() => this.displayColor('orange')}><Emoji symbol="🕺"/></button>
+        <button className = "button party" onClick={() => this.displayColor('rainbow')}><Emoji symbol="🕺"/></button>
+        <button className = "button fire" onClick={() => this.displayColor('orange')}><Emoji symbol="🔥"/></button>
         </div>
+      </div>
+      <Fire songId = {this.props.songId}  currColor = {this.state.currColor}/> 
       </>
     );
   }
