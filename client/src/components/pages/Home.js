@@ -137,7 +137,6 @@ class Home extends Component {
     //     this.addTrack(this.state.songId);
     // }
     let player = null;
-    let newSong = null;
     let emotions = null;
     let comments = null;
     if(this.state.playing) {
@@ -147,14 +146,14 @@ class Home extends Component {
       styles={{
         activeColor: 'transparent',
         bgColor: 'transparent',
-        color: '#fff',
-        loaderColor: '#fff',
+        color: '#045E8B',
+        loaderColor: '#045E8B',
         sliderColor: 'transparent',
         sliderTrackColor: 'transparent',
         sliderHandleColor: 'transparent',
         sliderHandleBorderRadius: 0 | 'transparent', 
-        trackArtistColor: '#ccc',
-        trackNameColor: '#fff',
+        trackArtistColor: '#219EBC',
+        trackNameColor: '#045E8B',
       }}
       uris={[this.state.songId]}
       callback={(state) => this.checkSongState(state)}
@@ -177,33 +176,39 @@ class Home extends Component {
         pauseTimers={this.state.pause}
         setResumeFalse={this.setResumeFalse}/>);
     }
-    return  (
-      <>
-        <div className = "Home-gradient">
-          <div>
-            <NavBar addTrack={this.addTrack}/>
+    if (player !== null){
+      return  (
+        <>
+          <div className = "Home-gradient">
+            <div className = "Home-navbar">
+              <NavBar addTrack={this.addTrack}/>
+              <div className = "Home-player">
+                {player}
+              </div>
+            </div>
+            {emotions}
+            {comments} 
           </div>
-          {/* <button onClick={this.handleLogin}>spotify login</button> */}
-          {/* {newSong} */}
-          {/* <button onClick={this.getPlaylists}>get playlists</button>
-          <button onClick={this.playSong}> play song</button>
-          <button onClick={this.searchSongs}> look in console for searched songs</button> */}
-          {/* <div className = "Home-comments" >this is a test comment</div> */}
-          <div className = "Home-player">
+         
+          {/* <div className = "Home-player">
             {player}
           </div>
-          {/* <button onClick={this.startTimers}> start timers</button> */}
-          {/* <button onClick={this.pauseTimers}> pause timers</button> */}
-          {/* <FireAnimation useDefault={false} currColor="pink"/> */}
           {comments} 
-          {emotions}
-          
-          {this.state.display ? <div>check your console log and explore the object there </div> : <div></div>}
-
-        </div>
-        
+          {emotions}         */}
       </>
       );
+    } else {
+      return  (
+        <>
+          <div className = "Home-gradient">
+            <div className = "Home-navbar">
+              <NavBar addTrack={this.addTrack}/>
+            </div>
+            {comments}
+            {emotions}
+          </div>
+        </>
+      );}
   }
 }
 

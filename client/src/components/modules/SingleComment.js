@@ -7,7 +7,6 @@ import "./SingleComment.css";
  * Proptypes
  * @param {boolean} showComment of 
  * @param {string} songId of parent song
- * @param {boolean} paused status of song
  * @param {number} top
  * @param {number} left
  */
@@ -31,17 +30,17 @@ class SingleComment extends Component {
 
 
   render() {
-    setTimeout(() => this.setState({display: false}), 5000)
+    let commentAnimation = 'slide-right'
     if(this.props.display) {
       return (
-        <div className="Card-commentBody text-focus-in">
-          <span className = "text-focus-in" style = {{
+        <div className="Card-commentBody">
+          <span  style = {{
             position: 'absolute',
             left: this.props.left + 'px',
             top: this.props.top + 'px',
           }}>
-            <div className = "text-focus-in">
-            {this.state.display && this.props.content}
+            <div className = {commentAnimation} >
+              {this.state.display && this.props.content}
             </div>
           
           </span>

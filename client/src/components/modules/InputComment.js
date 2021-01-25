@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { get, post } from "../../utilities";
-
+import "./SingleComment.css";
 /**
  * InputComment is a New Post component for comments
  *
@@ -44,9 +44,9 @@ class InputComment extends Component {
   render() {
     return (
       <div className="u-flex">
-        <input
+        <input 
           type="text"
-          placeholder={"comment something!"}
+          placeholder={"add a comment"}
           value={this.state.value}
           onChange={this.handleChange}
           className="NewPostInput-input"
@@ -86,10 +86,16 @@ class NewComment extends Component {
     };
   
     render() {
-      return <InputComment 
+      return (
+      <div className = "input-container">
+      <div className = "input-bar">
+        <InputComment 
                 songId = {this.props.songId} 
                 addComment={this.addComment} 
-            />;
+          />
+      </div>
+      </div>
+      );
     }
   }
 

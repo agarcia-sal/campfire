@@ -11,3 +11,22 @@
     font-family: Arial;
     text-align: center; */
   }
+
+  
+video {
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+h1 {
+    background-color: #fff;
+    mix-blend-mode: screen;
+    font-size: 15rem;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    word-break: break-all;
+}

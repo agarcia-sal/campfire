@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Link} from "@reach/router";
 import  AsyncSelect  from "react-select/async";
+// import styles from "./searchStyles";
 import { get } from "../../utilities.js";
 import "./NavBar.css";
 
@@ -21,7 +22,6 @@ class NavBar extends Component {
                 {label : 'abcdefg', value : 3}, 
                 {label: 'aefbef', value  : 4},
                 {label : 'aebfu', value : 5},
-                {labe : 'ahefe', value:6},
             ]
         }
     }
@@ -34,6 +34,7 @@ class NavBar extends Component {
                     { label: item.name+' -'+item.artists.map((artist)=> { return ' '+artist.name}), value: item.uri }));
             });
     }
+
     onInputChange = (inputValue) => {
         this.setState({value: inputValue})
     }
@@ -45,11 +46,72 @@ class NavBar extends Component {
 
     }
     render () {
+        const customStyles = {
+            control: (provided, state) => ({
+                ...provided,
+                background: 'transparent',
+                borderColor: '#02283B',
+                minHeight: '35px',
+                height: '35px',
+                boxShadow: state.isFocused ? null : null,
+              }),
+          
+            valueContainer: (provided, state) => ({
+            ...provided,
+            height: '35px',
+            fontFamily: "Open Sans",
+            padding: '0 10px'
+            }),
+            value: (provide, state) => ({
+                height: '26px',
+                fontFamily: "Open Sans",
+            }),
+            input: (provided, state) => ({
+            ...provided,
+            margin: '0px',
+            fontFamily: "Open Sans",
+            }),
+            indicatorSeparator: state => ({
+            display: 'none',
+            }),
+            indicatorsContainer: (provided, state) => ({
+            ...provided,
+            height: '35px',
+            }),
+            placeholder: base => ({
+                color: "#02283B",
+                fontFamily: "Open Sans",
+                height: "26px",
+            }),
+            menu: base => ({
+              ...base,
+              color: "#02283B",
+              fontFamily: 'Open Sans',
+              background: "transparent",
+              // override border radius to match the box
+              borderRadius: "15px",
+              // kill the gap
+              marginTop: "3px",
+              // kill the white space on first and last option
+              padding: "3px", 
+            })
+          };
         return (
             <nav className="NavBar-linkContainer">
-                <div className="NavBar-title NavBar-logo u-inlineBlock">CAMPFIRE</div>
+                <div className="NavBar-title NavBar-logo u-inlineBlock">
+                    <Link className = "home-link" to="/" >CAMPFIRE</Link>
+                </div>
                 <div className="NavBar-searchBar u-inlineBlock">
                     <AsyncSelect 
+                        styles = {customStyles}
+                        theme={theme => ({
+                            ...theme,
+                            borderRadius: "15px",
+                            colors: {
+                              ...theme.colors,
+                              primary25: '#BCE0F0',
+                              primary: '#BCE0F0',
+                            }})}
                         cacheOptions
                         defaultOptions
                         value={this.state.value}
@@ -60,9 +122,7 @@ class NavBar extends Component {
                     />
 
                 </div>
-                <div className="NavBar-login">
-                    <Link to="/" >LOGIN</Link>
-                </div>
+              
             </nav>
         )
     }

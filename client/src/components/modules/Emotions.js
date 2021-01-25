@@ -121,7 +121,7 @@ class Emotions extends Component {
     }
     return(
       <>
-        <FireAnimation useDefault={useDefault} currColor = {this.state.currColor}/> 
+      <div className = "input-container">
         <div className = "Emotions-emojis" >
         <button className = "button joy" onClick={() => this.displayColor('yellow')} ><Emoji symbol="😁"/></button>
         <button className = "button sad" onClick={() => this.displayColor('blue')} ><Emoji symbol="😔"/></button>
@@ -129,7 +129,10 @@ class Emotions extends Component {
         <button className = "button rock" onClick={() => this.displayColor('purple')} ><Emoji symbol="🤘"/></button>
         <button className = "button love" onClick={() => this.displayColor('pink')} ><Emoji symbol="💕"/></button>
         <button className = "button party" onClick={() => this.displayColor('party')}><Emoji symbol="🕺"/></button>
+        <button className = "button fire" onClick={() => this.displayColor('orange')}><Emoji symbol="🔥"/></button>
         </div>
+      </div>
+      <FireAnimation useDefault={useDefault} currColor = {this.state.currColor}/> 
       </>
     );
   }

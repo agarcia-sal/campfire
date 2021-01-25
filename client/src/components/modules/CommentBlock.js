@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import SingleComment from "./SingleComment.js";
 import { NewComment } from "./InputComment";
 import {get, post } from "../../utilities.js";
-import {socket} from "../../client-socket.js";
-
-import "./CommentBlock.css";
 /**
  * @typedef ContentObject
  * @property {string} _id of comment
@@ -64,7 +61,6 @@ class CommentsBlock extends Component {
         // console.log('finsihed mounting');
       });
     });
-    socket.on("newComment", (comment) => this.addNewComment(comment));
   };
 
   componentDidUpdate() {
@@ -90,12 +86,12 @@ class CommentsBlock extends Component {
     return Math.random() * (max - min) + min;
   }
 
-  showComment = (comment, index) => {
+  showComment = (index) => {
     // console.log('showing comment')
     let copyArr = this.state.commentsDisplay;// [false, true, true]
     copyArr[index] = {display: true, 
-                      top: this.getRandomNumber(0, this.state.winHeight), 
-                      left: this.getRandomNumber(0, this.state.winWidth)}
+                      top: this.getRandomNumber(60, 600), 
+                      left: this.getRandomNumber(100, this.state.winWidth-100)}
     // console.log('adding comment '+copyArr[index])
     this.setState({commentsDisplay : copyArr}, () => console.log(this.state.commentsDisplay))
   }
@@ -104,7 +100,7 @@ class CommentsBlock extends Component {
     let commentsDisplay = [];
     let timers = [];
     this.state.comments.forEach((comment,index) => {
-      timers = timers.concat([{timerId: setTimeout(()=>this.showComment(comment, index), comment.progressMs)}])//do i need this.state.timers
+      timers = timers.concat([{timerId: setTimeout(()=>this.showComment(index), comment.progressMs)}])//do i need this.state.timers
       commentsDisplay = commentsDisplay.concat([{display: false, top: null, left: null}]);
     })
     // console.log(commentsDisplay)
@@ -118,27 +114,30 @@ class CommentsBlock extends Component {
   pauseTimers = () => {
     this.state.timers.forEach(element => {clearTimeout(element.timerId)});
     this.setState({
-      isPaused:true
+      isPaused:true,
+      paused: 'paused',
     })
   }
 
   resumeTimers = () => {
+    console.log('resuming')
+    console.log(this.state.commentsDisplay)
     const songProgress = this.props.songProgress;
-    // console.log(this.state.comments)
-    // let commentsDisplay = []; 
     let timers = [];
     
     this.state.comments.forEach((comment, index) => {
-      if (!this.state.commentsDisplay[index]) {
-        timers = timers.concat([{timerId: setTimeout(()=>this.showComment(comment, index), comment.progressMs-songProgress)}])
+      if (!this.state.commentsDisplay[index].display) {
+        timers = timers.concat([{timerId: setTimeout(()=>this.showComment(index), comment.progressMs-songProgress)}])
       }
     })
     this.setState({
       isPaused: false,
+      paused: 'running',
       timers: timers,
     }, this.props.setResumeFalse )
   } //how do i do this without calling didupdate multiple times
   render() {
+    console.log('paused ' + this.state.paused)
     // console.log('commentDisplay: ' + this.state.commentsDisplay)
     return (
       <div className="Card-commentSection">
@@ -148,6 +147,7 @@ class CommentsBlock extends Component {
               key={`SingleComment_${commentObj.comment._id}`}
               comment = {commentObj}
               display = {true}
+              paused = {this.state.paused}
               top = {commentObj.top}
               left = {commentObj.left}
               _id={commentObj.comment._id}
@@ -159,6 +159,7 @@ class CommentsBlock extends Component {
             <SingleComment
               key={`SingleComment_${this.state.comments[index]._id}`}
               display = {commentObj.display}
+              paused = {this.state.paused}
               top = {commentObj.top}
               left = {commentObj.left}
               _id={this.state.comments[index]._id}
@@ -166,9 +167,8 @@ class CommentsBlock extends Component {
               content={this.state.comments[index].content}
             />
           ))}
-            
+            <NewComment songId={this.props.songId} addNewComment={this.addNewComment} />
         </div>
-        <NewComment songId={this.props.songId} addNewComment={this.addNewComment} />
       </div>
     );
   }
