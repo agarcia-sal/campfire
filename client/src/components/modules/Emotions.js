@@ -3,6 +3,7 @@ import Fire from "./Fire.js";
 import FireAnimation from "./FireAnimation.js";
 import Emoji from "./Emoji.js";
 import "./Emotions.css";
+import "../../utilities.css";
 
 import { get, post } from "../../utilities";
 
@@ -121,7 +122,7 @@ class Emotions extends Component {
     }
     return(
       <>
-      <div className = "input-container">
+      <div className = "Emotions-inputContainer">
         <div className = "Emotions-emojis" >
         <button className = "button joy" onClick={() => this.displayColor('yellow')} ><Emoji symbol="😁"/></button>
         <button className = "button sad" onClick={() => this.displayColor('blue')} ><Emoji symbol="😔"/></button>
@@ -132,7 +133,9 @@ class Emotions extends Component {
         <button className = "button fire" onClick={() => this.displayColor('orange')}><Emoji symbol="🔥"/></button>
         </div>
       </div>
-      <FireAnimation useDefault={useDefault} currColor = {this.state.currColor}/> 
+      <div className="Emotions-Fire">
+        <FireAnimation useDefault={useDefault} currColor = {this.state.currColor}/> 
+      </div>
       </>
     );
   }

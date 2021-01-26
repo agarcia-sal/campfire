@@ -95,7 +95,6 @@ class Home extends Component {
         console.log('adding song');
     });
   }
-
   // this gets called when the user pushes "Submit", so their
   // story gets added to the screen right away
   addNewSong = (songObj) => {
@@ -187,8 +186,11 @@ class Home extends Component {
                 {player}
               </div>
             </div>
-            {emotions}
-            {comments} 
+            <div className="Home-content">
+              {emotions}
+              {comments}
+            </div>
+             
           </div>
          
           {/* <div className = "Home-player">
@@ -201,12 +203,14 @@ class Home extends Component {
     } else {
       return  (
         <>
-          <div className = "Home-gradient u-flex">
+          <div className = "Home-gradient">
             <div className = "Home-navbar">
               <NavBar addTrack={this.addTrack}/>
             </div>
-            {comments}
-            {emotions}
+            <div className="Home-content">
+              {comments}
+              {emotions}
+            </div>
           </div>
         </>
       );}

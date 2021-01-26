@@ -22,7 +22,7 @@ import { socket } from "../../client-socket.js";
  * @param {(comment) => {}} addNewComment - adds a new comment
  * @param {Boolean} startTimers - whether start timers have started or not
  * @param {Boolean} pauseTimers - whether timers have been paused or not
- * @param {String} userId
+ * @param {String} userId - the current user's spotify id
  * @param {Boolean} songProgress
  */
 class CommentsBlock extends Component {

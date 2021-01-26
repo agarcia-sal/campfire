@@ -57,7 +57,7 @@ class SingleComment extends Component {
             }}>
               <div className = {commentAnimation} >
                 <div>{this.state.display && this.props.content}</div>
-                <div>{this.state.display && "this user is currently" + description}</div>
+                <div>{this.state.display && "this user is currently " + description}</div>
               </div>
             </span>
           </div>
