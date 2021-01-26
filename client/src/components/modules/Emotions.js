@@ -132,7 +132,9 @@ class Emotions extends Component {
         <button className = "button fire" onClick={() => this.displayColor('orange')}><Emoji symbol="🔥"/></button>
         </div>
       </div>
-      <FireAnimation useDefault={useDefault} currColor = {this.state.currColor}/> 
+      <div className = "fire-position">
+        <FireAnimation useDefault={useDefault} currColor = {this.state.currColor}/> 
+      </div>
       </>
     );
   }

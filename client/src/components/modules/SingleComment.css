@@ -80,8 +80,8 @@ button[type = submit] {
     /* right: 0px; */
 }
 .slide-right {
-	-webkit-animation: slide-right 6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-          animation: slide-right 6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	-webkit-animation: slide-right 10s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+          animation: slide-right 10s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 .slide-right.pause{
   animation-play-state: paused;
@@ -97,15 +97,15 @@ button[type = submit] {
   0% {
     -webkit-transform: translateX(0);
             transform: translateX(0);
-    -webkit-filter: blur(0);
-            filter: blur(0);
+    -webkit-filter: blur(0.1);
+            filter: blur(0.1);
     opacity: 1;
   }
   100% {
-    -webkit-transform: translateX(100px);
-            transform: translateX(100px);
-    -webkit-filter: blur(0.5px);
-            filter: blur(0.5px);
+    -webkit-transform: translateX(5%);
+            transform: translateX(5%);
+    -webkit-filter: blur(1px);
+            filter: blur(1px);
     opacity: 0;
   }
 }
@@ -113,15 +113,15 @@ button[type = submit] {
   0% {
     -webkit-transform: translateX(0);
             transform: translateX(0);
-    -webkit-filter: blur(0);
-            filter: blur(0);
+    -webkit-filter: blur(0.1);
+            filter: blur(0.1);
     opacity: 1;
   }
   100% {
-    -webkit-transform: translateX(100px);
-            transform: translateX(100px);
-    -webkit-filter: blur(0.5px);
-            filter: blur(0.5px);
+    -webkit-transform: translateX(5%);
+            transform: translateX(5%);
+    -webkit-filter: blur(1px);
+            filter: blur(1px);
     opacity: 0;
   }
 }

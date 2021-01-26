@@ -1,6 +1,11 @@
 .FireAnimation-svg{
-    width: 30%;
-    height: 30vw;
+    width: 40vw;
+    position: fixed;
+    height: 40vh;
+    top: 30%;
+    left: 28%;
+    /* margin-top: -50px;
+    margin-left: -100px; */
 }
 #flame2, #flame4, #flame5{
     animation-name: flames;
