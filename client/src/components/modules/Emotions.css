@@ -59,6 +59,7 @@
     background-color: #0343634d;
     /* right: 0px; */
 }
+<<<<<<< HEAD
 /* .Emotions-fire{
     width: 33%;
     height: 30vh;
@@ -66,3 +67,13 @@
     margin-top: 30%;
     position: sticky; */
 /* } */
+=======
+
+.fire-position {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+  }
+>>>>>>> 9d9d0dc3b9ce05fe9be62933e3a0a487eb0251cc

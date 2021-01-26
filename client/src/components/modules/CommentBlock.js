@@ -34,6 +34,7 @@ class CommentsBlock extends Component {
         comments: [],
         commentId: null,
         commentsDisplay : [],
+        currentProgress: null,
         timers : [],
         isPaused : null,
         winWidth : window.innerWidth,
@@ -43,6 +44,7 @@ class CommentsBlock extends Component {
   }
 
   addNewComment = (comment) => {
+    console.log(comment);
       let newComments = this.state.newComments
       newComments = newComments.concat([{comment: comment, 
         progress: comment.progressMs, 
@@ -50,13 +52,16 @@ class CommentsBlock extends Component {
         top: this.getRandomNumber(60, 600), 
         left: this.getRandomNumber(100, this.state.winWidth-100)}])
       if (comment.spotifyId !== this.props.userId) {
+        console.log('getting song progress')
         get("/api/currentState").then((state) => {
+          console.log('progress ' + state.body.progress_ms)
           this.setState({
-            currentProgress: state.progressMs, 
+            currentProgress: state.body.progress_ms, 
             newComments: newComments
           })
         })
       } else {
+        console.log('spotify id is equal to user id')
         this.setState({
           newComments: newComments
         });
@@ -79,7 +84,6 @@ class CommentsBlock extends Component {
 
   componentDidUpdate() {
     if (this.state.commentId !== this.props.songId) {
-      console.log('getting song progress')
       get("/api/comments", { songId: this.props.songId }).then((comments) => {
         this.setState({
           displayComments: [],
