@@ -50,11 +50,12 @@ class CommentsBlock extends Component {
         userId: comment.spotifyId,
         top: this.getRandomNumber(60, 600), 
         left: this.getRandomNumber(100, this.state.winWidth-100)}])
-      if (comment.spotifyId !== this.props.userId) {
+      if (comment.spotifyId === this.props.userId) {
         console.log('getting song progress')
         get("/api/currentState").then((state) => {
+          console.log('progress ' + state.body.progress_ms)
           this.setState({
-            currentProgress: state.progress_ms, 
+            currentProgress: state.body.progress_ms, 
             newComments: newComments
           })
         })
