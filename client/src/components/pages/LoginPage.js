@@ -50,11 +50,16 @@ class LoginPage extends Component {
     render() {
       
       return (
-        // <div className = "Login-gradient">
-        //   <h1>This is red car</h1>
-        // </div>
         <div className = "Login-gradient">
-       
+        <div className = "LoginPage-title">
+          Campfire
+        </div>
+        <p>
+          words words words words words words words words words
+          words words words words words words words words words
+          words words words words words words words words words
+          words words words words words words words words words
+        </p>
         <button onClick={this.handleLogin}>Login with Spotify</button>
         {/* <Fire useDefault={false} currColor="party"/> */}
         <FireAnimation useDefault={false} currColor="pinkPurple"/>

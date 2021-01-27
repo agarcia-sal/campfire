@@ -21,7 +21,7 @@
 
 .Home-navbar {
     background-color: hsla(0, 0%, 100%, 0.091);
-    height: 50px;
+    height: 8vh;
     display: flex;
     justify-content: space-between;
     /* opacity: 25%; */

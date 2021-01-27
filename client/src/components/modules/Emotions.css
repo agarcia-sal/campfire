@@ -1,18 +1,14 @@
 .button {
-    background-color: 'transparent';
-    border-color: #8ECAE6;
+    /* background-color: 'transparent'; */
+    border-color: #afe6ff;
     border-style: solid;
-    padding: 7px 15px;
-    margin: 10px;
-    /* color: white; */
-    /* padding: 15px 32px; */
     border-radius: 100%;
+    height: 70px;
+    width: 70px;
+    margin: 5%;
     text-align: center;
     font-size: 40px;
-    /* text-decoration: none; */
     display: inline-block;
-    /* font-size: 16px; */
-    /* margin: 4px 2px; */
     cursor: pointer;
   }
 .joy {
@@ -44,20 +40,16 @@
 
 }
 .Emotions-emojis {
-    position: absolute;
-    /* justify-content: flex-end; */
-    background-color: "transparent";
-    bottom: 0px;
-    width: 50%;
-    /* right: 0px; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    position: fixed;
+    /* background-color: #0343634d; */
+    /* bottom: 20px; */
+    width: 90px;
+    top: 10%;
+    /* height: 80px; */
+    margin: 10px 10px;
 
-}
-.input-container {
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-    background-color: #0343634d;
-    /* right: 0px; */
 }
 
 .fire-position {

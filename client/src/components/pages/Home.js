@@ -186,7 +186,7 @@ class Home extends Component {
         <>
           <div className = "Home-gradient">
             <div className = "Home-navbar">
-              <NavBar addTrack={this.addTrack}/>
+              <NavBar addTrack={this.addTrack} start = {true}/>
               <div className = "Home-player">
                 {player}
               </div>
@@ -197,12 +197,7 @@ class Home extends Component {
             </div>
              
           </div>
-         
-          {/* <div className = "Home-player">
-            {player}
-          </div>
-          {comments} 
-          {emotions}         */}
+
       </>
       );
     } else {
@@ -210,7 +205,7 @@ class Home extends Component {
         <>
           <div className = "Home-gradient">
             <div className = "Home-navbar">
-              <NavBar addTrack={this.addTrack}/>
+              <NavBar addTrack={this.addTrack} start = {false}/>
             </div>
             <div className="Home-content">
               {comments}

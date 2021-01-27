@@ -1,28 +1,57 @@
 .NavBar-linkContainer {
+    font-family: "Open Sans";
+    font-weight: 500;
     /* margin-left: var(--l); */
     left: 0px;
-    width: 100%;
+    width: 66%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    /* flex-direction: column; */
     /* background-color: #8ECAE6; */
 }
 .NavBar-logo {
+    font-weight: 550;
     letter-spacing: 3px;
-    margin-left: var(--l);
+    margin-left: var(--m);
+    margin-right: 18px;
+    text-transform: lowercase;
 }
 .home-link {
     display: block;
-    margin: 10px;
+    margin: 5px;
     left: 0px;
-    font-size: 25px;
-    color: #02283B;
+    font-size: 2em;
+    color: #f56738;
+    mix-blend-mode: exclusion;
     text-decoration: none;
 }
 
-.NavBar-searchBar {
-    /* margin-left: var(--l); */
+.NavBar-otherLinks {
+    font-size: 1em;
+    letter-spacing: 2px;
+    color:  #023047;
+    margin: 18px;
+    text-decoration: none;
+}
+.NavBar-center {
     margin: 5px 20px 10px 20px;
-    width: 100%;
+    position: absolute;
+    height: 33%;
+    width: 33%;
+    left: 33%;
+    margin-left: 0;
+    top: 50%;
+    margin-top: -50px;
+}
+.NavBar-start {
+    width: 66%;
+    display: flex;
+    justify-content: space-between;
+}
+.NavBar-searchBar {
+    margin: 10px 0px;
+    width: 30%;
+    right: 0px;
     opacity: 1;
 }
 .NavBar-background {
