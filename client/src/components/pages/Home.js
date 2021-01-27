@@ -146,8 +146,8 @@ class Home extends Component {
         sliderTrackColor: 'transparent',
         sliderHandleColor: 'transparent',
         sliderHandleBorderRadius: 0 | 'transparent', 
-        trackArtistColor: '#219EBC',
-        trackNameColor: '#045E8B',
+        trackArtistColor: '#023047',
+        trackNameColor: '#023047',
       }}
       uris={[this.state.songId]}
       callback={(state) => this.checkSongState(state)}
