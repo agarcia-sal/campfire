@@ -43,23 +43,21 @@ class Home extends Component {
       this.setState({
           userId: user.body.id
       }); 
-      if(this.props.popId){
-        console.log('popId'+ this.props.popId)
-        get('/api/token', {userId: user.body.id}).then((data)=>{
-          console.log('this is the data i am aaejf:'+data);
-          this.setState({
-                playing : true,
-                // songId : this.props.popId,
-                accessToken: data.token,
-                pause : false,
-                resume : false,
-                start: false
+      // if(this.props.popId){
+      //   console.log('popId'+ this.props.popId)
+      //   get('/api/token', {userId: user.body.id}).then((data)=>{
+      //     console.log('this is the data i am aaejf:'+data);
+      //     this.setState({
+      //           playing : true,
+      //           // songId : this.props.popId,
+      //           accessToken: data.token,
+      //           pause : false,
+      //           resume : false,
+      //           start: false
                 
-            }, () => console.log('accessToken'+data.token))
-        });
-      
-      
-      }
+      //       }, () => console.log('adding a new song'))
+      //   });
+      // }
     })
 
   }
@@ -86,17 +84,17 @@ class Home extends Component {
   addTrack = (info) => {
     const body = { songId: info.songId, name: info.name};
     post('/api/song', body).then((data) => {
-        // this.setState({
-        //     playing : true,
-        //     songId : info.songId,
-        //     accessToken: data.token,
-        //     pause : false,
-        //     resume : false,
-        //     start: false
+        this.setState({
+            playing : true,
+            songId : info.songId,
+            accessToken: data.token,
+            pause : false,
+            resume : false,
+            start: false
             
-        // }, () => console.log('accessToken'+data.token))
-        navigate(`/postHome/${info.songId}`);
-        console.log('adding song');
+        }, () => console.log('accessToken'+data.token))
+        // navigate(`/postHome/${info.songId}`);
+        // console.log('adding song');
     });
   }
   // this gets called when the user pushes "Submit", so their
@@ -134,26 +132,8 @@ class Home extends Component {
     let player = null;
     let emotions = null;
     let comments = null;
-    if(this.props.popId && this.state.playing){
-      player = <SpotifyPlayer 
-      token={this.state.accessToken}
-      autoplay = {true}
-      styles={{
-        activeColor: 'transparent',
-        bgColor: 'transparent',
-        color: '#045E8B',
-        loaderColor: '#045E8B',
-        sliderColor: 'transparent',
-        sliderTrackColor: 'transparent',
-        sliderHandleColor: 'transparent',
-        sliderHandleBorderRadius: 0 | 'transparent', 
-        trackArtistColor: '#219EBC',
-        trackNameColor: '#045E8B',
-      }}
-      uris={[this.props.popId]}
-      callback={(state) => this.checkSongState(state)}
-    />
-    } else if(this.state.playing) {
+      
+    if(this.state.playing) {
       player = <SpotifyPlayer 
       token={this.state.accessToken}
       autoplay = {true}
