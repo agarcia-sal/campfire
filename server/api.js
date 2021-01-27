@@ -134,10 +134,10 @@ router.post("/comment", auth.ensureLoggedIn, async(req, res) => {
       content: req.body.content,
       spotifyId: req.body.userId, 
     });
-    // const songId = req.body.songId;
-    // const song = await Song.findOne({song_id: songId});
-    // const prevCount = song.count;
-    // await Song.updateOne({song_id: songId},{count: prevCount+1});
+    const songId = req.body.songId;
+    const song = await Song.findOne({song_id: songId});
+    const prevCount = song.count;
+    await Song.updateOne({song_id: songId},{count: prevCount+1});
     // Song.findOne({song_id: songId}).then(())
     // newComment.save().then((comment) => res.send(comment));
     await newComment.save();
@@ -240,9 +240,9 @@ router.post("/song", auth.ensureLoggedIn, async (req, res) => {
       console.log('this track already exists.')
     }else{
       const newSong = new Song ({
-        // name: req.body.name,
+        name: req.body.name,
         song_id: req.body.songId,
-        // count: 0,
+        count: 0,
       });
       song = await newSong.save();
       console.log('adding new song');
