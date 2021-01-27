@@ -59,7 +59,7 @@ class Home extends Component {
   addTrack = (info) => {
     const body = { songId: info.songId, name: info.name};
     const song = info.songId;
-    // post('/api/song', body).then((data) => {
+    post('/api/song', body).then((data) => {
     //     this.setState({
     //         songs: [data.song.song_id].concat(this.state.songs),
     //         songNotPlayed: false, 
@@ -74,6 +74,7 @@ class Home extends Component {
     //     console.log('adding song');
     // });
     navigate(`/postHome/${info.songId}`);
+    });
   }
   // this gets called when the user pushes "Submit", so their
   // story gets added to the screen right away
