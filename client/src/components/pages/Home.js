@@ -6,9 +6,9 @@ import CommentsBlock from "../modules/CommentBlock.js";
 import Emotions from "../modules/Emotions.js";
 import "../../utilities.css";
 import "./Home.css";
-// import FireAnimation from "../modules/Animation.js"
+import FireAnimation from "../modules/Animation.js"
 import Fire from "../modules/Fire.svg";
-import FireAnimation from "../modules/FireAnimation.js"
+// import FireAnimation from "../modules/FireAnimation.js"
 
 
 import { get, post } from "../../utilities";
@@ -178,7 +178,7 @@ class Home extends Component {
         <>
           <div className = "Home-gradient">
             <div className = "Home-navbar">
-              <NavBar addTrack={this.addTrack} start = {true}/>
+              <NavBar addTrack={this.addTrack} start = {true} logout = {this.props.logout}/>
               <div className = "Home-player">
                 {player}
               </div>
@@ -197,7 +197,10 @@ class Home extends Component {
         <>
           <div className = "Home-gradient">
             <div className = "Home-navbar">
-              <NavBar addTrack={this.addTrack} start = {false}/>
+              <NavBar addTrack={this.addTrack} start = {false} logout = {this.props.logout}/>
+            </div>
+            <div className = "fire-search">
+            <FireAnimation login = {'prehome'}/>
             </div>
             <div className="Home-content">
               {comments}
