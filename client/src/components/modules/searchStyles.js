@@ -29,7 +29,7 @@ const customStyles = {
   }),
   indicatorsContainer: (provided, state) => ({
   ...provided,
-  height: '35px',
+  height: '40px',
   }),
   placeholder: base => ({
       color: "#02283B",

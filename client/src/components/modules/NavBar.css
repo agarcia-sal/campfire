@@ -30,8 +30,21 @@
     font-size: 1em;
     letter-spacing: 2px;
     color:  #023047;
-    margin: 18px;
+    margin: 16px 0px;
     text-decoration: none;
+}
+
+.link-right {
+    margin-right: var(--m);
+}
+
+.NavBar-logout {
+    background-color: #023047;
+    margin-top: 11px;
+    border-radius: 15px;
+    border-style: solid;
+    border-color: transparent;
+    color: #8ECAE6;
 }
 .NavBar-center {
     margin: 5px 20px 10px 20px;
@@ -50,7 +63,7 @@
 }
 .NavBar-searchBar {
     margin: 10px 0px;
-    width: 30%;
+    width: 50%;
     right: 0px;
     opacity: 1;
 }

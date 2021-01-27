@@ -52,7 +52,6 @@ class NavBar extends Component {
         let startDiv = "NavBar-start";
             if(!this.props.start){
                 searchPosition = "NavBar-center";
-                // startDiv = "";
             }
         const searchBar = (<AsyncSelect 
           styles = {customStyles}
@@ -78,7 +77,12 @@ class NavBar extends Component {
                 <div className="NavBar-logo u-inlineBlock">
                     <Link className = "home-link" to="/" >CAMPFIRE</Link>
                 </div>
-                <Link className = "NavBar-otherLinks" to="/popularSongs">popular songs</Link>
+                <Link className = "NavBar-otherLinks link-right" to="/popularSongs">popular songs</Link>
+                <button 
+                onClick = {this.props.logout} 
+                className = "NavBar-otherLinks NavBar-logout">
+                    logout
+                </button>
             </nav>
             <div className={searchPosition}>
                 {searchBar}

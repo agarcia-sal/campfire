@@ -63,7 +63,7 @@ class App extends Component {
         <Router>
           {/* <Home path="/home/:popId" userId = {this.state.userId}/> */}
           {/* <PrivateRoute as={Home} path="/home" userId = {this.state.userId}/> */}
-          <PrivateRoute as={Home} path="/home" userId = {this.state.userId}/>
+          <PrivateRoute as={Home} path="/home" userId = {this.state.userId} logout = {this.handleLogout}/>
           <Login
             path="/"
             handleLogin={this.handleLogin}

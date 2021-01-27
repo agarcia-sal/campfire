@@ -6,9 +6,9 @@ import CommentsBlock from "../modules/CommentBlock.js";
 import Emotions from "../modules/Emotions.js";
 import "../../utilities.css";
 import "./Home.css";
-// import FireAnimation from "../modules/Animation.js"
+import FireAnimation from "../modules/Animation.js"
 import Fire from "../modules/Fire.svg";
-import FireAnimation from "../modules/FireAnimation.js"
+// import FireAnimation from "../modules/FireAnimation.js"
 
 
 import { get, post } from "../../utilities";
@@ -157,7 +157,7 @@ class Home extends Component {
     if (this.state.start){
       comments = (<CommentsBlock className="Home-commentsBlock"
       // songId = {this.state.songId} 
-      songId={this.props.popId}
+      songId={this.state.songId}
       userId = {this.state.userId}
       resume = {this.state.resume}
       startTimers = {this.state.start}
@@ -168,7 +168,7 @@ class Home extends Component {
       
       emotions = (<Emotions 
         // songId = {this.state.songId}
-        songId={this.props.popId}
+        songId={this.state.songId}
         songProgress={this.state.songProgress}
         pauseTimers={this.state.pause}
         setResumeFalse={this.setResumeFalse}/>);
@@ -178,7 +178,7 @@ class Home extends Component {
         <>
           <div className = "Home-gradient">
             <div className = "Home-navbar">
-              <NavBar addTrack={this.addTrack} start = {true}/>
+              <NavBar addTrack={this.addTrack} start = {true} logout = {this.props.logout}/>
               <div className = "Home-player">
                 {player}
               </div>
@@ -197,7 +197,10 @@ class Home extends Component {
         <>
           <div className = "Home-gradient">
             <div className = "Home-navbar">
-              <NavBar addTrack={this.addTrack} start = {false}/>
+              <NavBar addTrack={this.addTrack} start = {false} logout = {this.props.logout}/>
+            </div>
+            <div className = "fire-search">
+            <FireAnimation login = {'prehome'}/>
             </div>
             <div className="Home-content">
               {comments}
