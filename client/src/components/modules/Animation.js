@@ -3,9 +3,19 @@ import "./Animation.css";
 import "../../utilities.css";
 
 const Fire = (props) => {
+   const {useDefault, currColor, login} = props;
+   let firePos = "Animation-svg";
+   let textPos = "Animation-fire";
+   if (login === true) {
+        firePos = "Animation-login";
+    } else if  (login  === 'prehome'){
+        firePos = "Animation-prehome";
+        textPos = "Animation-firePreHome";
+    }
    return (
        <>
-       <svg className="Animation-svg"
+       <div className = "Animation-container">
+       <svg className={firePos}
        xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 528.4 685.71">
            <defs>
                <radialGradient id="radial-gradient-1" cx="1034.65" cy="546.62" r="42.91" gradientTransform="translate(0 -1223.87) scale(1 3.24)" gradientUnits="userSpaceOnUse">
@@ -244,8 +254,9 @@ const Fire = (props) => {
                 </g>
         </svg>
         {/* <div className="Animation-textContainer u-flex"> */}
-            <span className="Animation-fire"></span>
+            <span className={textPos}></span>
         {/* </div> */}
+        </div>
         </>
    )
 }

@@ -129,6 +129,7 @@ class Home extends Component {
     this.setState({songProgress : null})
   }
   render() {
+    console.log(this.state.userId)
     console.log('am rerendering');
     let player = null;
     let emotions = null;

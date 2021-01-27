@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
 import { Router, Redirect } from '@reach/router';
-import Fire from "../modules/Animation.js";
-import FireAnimation from "../modules/FireAnimation.js";
+import FireAnimation from "../modules/Animation.js";
 
 import "../../utilities.css";
 import "./LoginPage.css";
@@ -51,18 +50,30 @@ class LoginPage extends Component {
       
       return (
         <div className = "Login-gradient">
-        <div className = "LoginPage-title">
-          Campfire
-        </div>
-        <p>
-          words words words words words words words words words
-          words words words words words words words words words
-          words words words words words words words words words
-          words words words words words words words words words
-        </p>
-        <button onClick={this.handleLogin}>Login with Spotify</button>
-        <Fire useDefault={false} currColor="party"/>
-        {/* <FireAnimation useDefault={false} currColor="pinkPurple"/> */}
+          <div className = "Login-outline">
+            <div className = "LoginPage-title">
+              Campfire
+            </div>
+            <div className = "about-container">
+              <div className = "about-paragraph">
+              <h2>
+                a web app where you can collectively experience music with others
+              </h2>
+              <p >
+              As you listen to a song, record your thoughts and emotions during your favorite parts. Emotions are reflected
+              as colors in the campfire. 
+              Your comments and feelings will appear for others as they reach that point in the track. 
+              Watch as comments appear on the screen and the fire changes colors to learn about 
+              how others experience the song. 
+              Users listening to the same song can see each other's comments in red. 
+              </p>
+              </div>
+              <button className = "LoginPage-button LoginPage-position" onClick={this.handleLogin}>Login with Spotify</button>
+            </div>
+          </div>
+        <div className = "fire-pos">
+            <FireAnimation login = {true}/>
+          </div>
         </div>
       );
     }

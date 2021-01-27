@@ -42,7 +42,6 @@ class Emotions extends Component {
   componentDidUpdate () {
     if (this.props.songId !== this.state.colorId){
       get('/api/colors', { songId: this.props.songId }).then((colors) => {
-        console.log('these are the colors: '+colors);
         this.setState({
           // colorTimers: [],
           colorId: this.props.songId,

@@ -7,6 +7,12 @@
     /* margin-top: -50px;
     margin-left: -100px; */
 }
+.FireAnimation-login {
+    padding: 20vh;
+    width: 40vw;
+    height: 40vh;
+    margin-left: (--l);
+}
 #flame2, #flame4, #flame5{
     animation-name: flames;
     animation-duration: 8s;

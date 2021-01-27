@@ -1,9 +1,19 @@
 .Animation-textContainer{
-    left: 28%;
-    top: 73%;
-    width: 40vw;
-    position: fixed;
+    /* left: 28%;
+    top: 73%;*/
+    width: 40vw; 
+    /* position: fixed; */
     text-align: center;
+}
+
+.Animation-textPreHome{
+    width: 30vw;
+    text-align: center;
+}
+.Animation-container {
+    display: flex;
+    flex-direction: column;
+    padding: 3vh 0vh;
 }
 .Animation-svg{
     width: 40vw;
@@ -15,6 +25,18 @@
     margin-left: -100px; */
 }
 
+.Animation-prehome {
+    width: 30vw;
+    height: 30vh;
+}
+
+.Animation-login {
+    width: 40vw;
+    height: 40vh;
+  
+    /* margin-right: (--l); */
+}
+
 .Animation-color{
     animation: changingColor 35s ease-in-out infinite;
 }
@@ -23,15 +45,34 @@
     animation: show1 35s ease-in-out infinite;
     display: inline;
 } */
-.Animation-fire{
-    left: 28%;
-    top: 73%;
-    width: 40vw;
-    position: fixed;
+.Animation-firePreHome{
+    /* left: 28%;
+    top: 73%; */
+    padding: 5% 0px;
+    width: 30vw;
+    color: #afe6ff;
+    /* mix-blend-mode: multiply; */
+    text-transform: lowercase;
+    /* position: fixed; */
     text-align: center;
+    /* margin-right: (--l); */
+    /* right: 0px; */
+}
+.Animation-fire{
+    /* left: 28%;
+    top: 73%; */
+    padding: 5% 0px;
+    width: 40vw;
+    color: #afe6ff;
+    /* mix-blend-mode: multiply; */
+    text-transform: lowercase;
+    /* position: fixed; */
+    text-align: center;
+    /* margin-right: (--l); */
+    right: 0px;
 }
 .Animation-fire::before{
-    content : "";
+    content : "campfire";
     animation: changeContent 35s ease-in-out infinite;
 }
 .Animation-joy{
@@ -159,56 +200,56 @@
 @keyframes changeContent{
     0%{
         opacity: 1;
-        content: "fired up";
+        content: "Fired Up 🔥";
     }
     7%{
         opacity: 0;
     }
     14%{
         opacity: 1;
-        content: "joy";
+        content: "Joy 😁";
     }
     21%{
         opacity: 0;
     }
     29%{
         opacity: 1;
-        content: "sad";
+        content: "Sad 😔";
     }
     36%{
         opacity: 0;
     }
     43%{
         opacity: 1;
-        content: "vibing";
+        content: "Vibing 😎";
     }
     50%{
         opacity: 0;
     }
     57%{
         opacity: 1;
-        content: "rocking out";
+        content: "Rocking Out 🤘";
     }
     64%{
         opacity: 0;
     }
     71%{
         opacity: 1;
-        content: "love";
+        content: "Love 💕";
     }
     78%{
         opacity: 0;
     }
     86%{
         opacity: 1;
-        content: "dancing";
+        content: "Dancing 🕺";
     }
     93%{
         opacity: 0;
     }
     100%{
         opacity: 1;
-        content: "fired up"
+        content: "fired up 🔥"
     }
 }
 
