@@ -5,6 +5,11 @@
     position: fixed;
     text-align: center;
 }
+.Animation-container {
+    display: flex;
+    flex-direction: column;
+    padding: 3vh 0vh;
+}
 .Animation-svg{
     width: 40vw;
     position: fixed;
@@ -13,6 +18,13 @@
     left: 28%;
     /* margin-top: -50px;
     margin-left: -100px; */
+}
+
+.Animation-login {
+    width: 40vw;
+    height: 40vh;
+  
+    /* margin-right: (--l); */
 }
 
 .Animation-color{
@@ -24,14 +36,20 @@
     display: inline;
 } */
 .Animation-fire{
-    left: 28%;
-    top: 73%;
+    /* left: 28%;
+    top: 73%; */
+    padding: 5% 0px;
     width: 40vw;
-    position: fixed;
+    color: #afe6ff;
+    /* mix-blend-mode: multiply; */
+    text-transform: lowercase;
+    /* position: fixed; */
     text-align: center;
+    /* margin-right: (--l); */
+    right: 0px;
 }
 .Animation-fire::before{
-    content : "";
+    content : "campfire";
     animation: changeContent 35s ease-in-out infinite;
 }
 .Animation-joy{
@@ -159,49 +177,49 @@
 @keyframes changeContent{
     0%{
         opacity: 1;
-        content: "Fired Up";
+        content: "Fired Up 🔥";
     }
     7%{
         opacity: 0;
     }
     14%{
         opacity: 1;
-        content: "Joy";
+        content: "Joy 😁";
     }
     21%{
         opacity: 0;
     }
     29%{
         opacity: 1;
-        content: "Sad";
+        content: "Sad 😔";
     }
     36%{
         opacity: 0;
     }
     43%{
         opacity: 1;
-        content: "Vibing";
+        content: "Vibing 😎";
     }
     50%{
         opacity: 0;
     }
     57%{
         opacity: 1;
-        content: "Rocking Out";
+        content: "Rocking Out 🤘";
     }
     64%{
         opacity: 0;
     }
     71%{
         opacity: 1;
-        content: "Love";
+        content: "Love 💕";
     }
     78%{
         opacity: 0;
     }
     86%{
         opacity: 1;
-        content: "Party";
+        content: "Dancing 🕺";
     }
 }
 @keyframes show1{

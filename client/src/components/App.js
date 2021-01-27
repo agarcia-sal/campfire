@@ -4,8 +4,8 @@ import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
 import Login from "./pages/LoginPage.js";
 import Home from "./pages/Home.js";
-import PopularSongs from "./pages/PopularSongs.js";
-import PreHome from "./pages/PreHome.js";
+// import PopularSongs from "./pages/PopularSongs.js";
+// import PreHome from "./pages/PreHome.js";
 
 import "../utilities.css";
 
@@ -89,5 +89,3 @@ class PrivateRoute extends React.Component {
 }
 
 export default App;
-
-

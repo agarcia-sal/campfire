@@ -2,7 +2,7 @@ import React from 'react';
 import "./FireAnimation.css";
 
 const FireAnimation = (props) => {
-    const {useDefault, currColor} = props;
+    const {useDefault, currColor, login} = props;
     let one =  null;
     let two = null;
     let three = null;
@@ -106,8 +106,9 @@ const FireAnimation = (props) => {
 //gradient for whatever color we pass in
 //we also need a prop that will tell us if we should use default or not
 //and should instead use the color passed in.
+    let firePos = "FireAnimation-svg";
    return (
-       <svg className="FireAnimation-svg"
+       <svg className={firePos}
        xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 528.4 685.71">
            <defs>
                <radialGradient id="radial-gradient-1" cx="1034.65" cy="546.62" r="42.91" gradientTransform="translate(0 -1223.87) scale(1 3.24)" gradientUnits="userSpaceOnUse">

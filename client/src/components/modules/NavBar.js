@@ -79,7 +79,6 @@ class NavBar extends Component {
                     <Link className = "home-link" to="/" >CAMPFIRE</Link>
                 </div>
                 <Link className = "NavBar-otherLinks" to="/popularSongs">popular songs</Link>
-                <Link className = "NavBar-otherLinks" to = "/mySongs">my songs</Link> 
             </nav>
             <div className={searchPosition}>
                 {searchBar}
