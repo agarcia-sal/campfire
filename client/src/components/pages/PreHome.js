@@ -99,7 +99,7 @@ class Home extends Component {
               <NavBar addTrack={this.addTrack}/>
             </div>
             <div className="Home-content">
-                hey
+                
             </div>
           </div>
         </>

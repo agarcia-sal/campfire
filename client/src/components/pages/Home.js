@@ -110,17 +110,19 @@ class Home extends Component {
     // if (state.track.uri !== this.state.song_id && state.track.uri !== ''){
     //   this.setState({songId : state.track.uri});
     // }
+
     if (state.isPlaying && state.progressMs === 0){
       console.log('starting to play')
       this.setState({start: true})
-    }else if (!state.isPlaying && state.progressMs !== 0){
+
+    } else if (!state.isPlaying && state.progressMs !== 0){
       console.log('pausing');
       this.setState({pause: true, songProgress: null})
     }
     else if (state.isPlaying && state.progressMs !== 0){
       console.log("resuming the song")
       this.setState({songProgress: state.progressMs, pause: false})
-    } 
+    }
   }
 
   setResumeFalse = () => {
