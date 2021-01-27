@@ -70,7 +70,7 @@ class CommentsBlock extends Component {
   };
 
   componentDidMount() {
-    // console.log('mounting');
+    console.log('mounting');
     get("/api/comments", { songId: this.props.songId }).then((comments) => {
       this.setState({
         isPaused: false,
@@ -84,6 +84,7 @@ class CommentsBlock extends Component {
   };
 
   componentDidUpdate() {
+    console.log('updating')
     if (this.state.commentId !== this.props.songId) {
       get("/api/comments", { songId: this.props.songId }).then((comments) => {
         this.setState({
@@ -176,9 +177,15 @@ class CommentsBlock extends Component {
     }, this.props.setResumeFalse )
   } //how do i do this without calling didupdate multiple times
   render() {
-    console.log('paused ' + this.state.paused)
+    console.log(this.state.comments)
+    console.log('isPaused: ' + this.state.isPaused)
+    // console.log('paused ' + this.state.paused)
     // console.log('commentDisplay: ' + this.state.commentsDisplay)
     console.log('the song id for commentblock is:'+this.props.songId);
+    if (this.state.isPaused === null) {
+      console.log('hi');
+      return <></>
+    } else {
     return (
       <div className="Card-commentSection">
         <div className="story-comments">
@@ -214,7 +221,7 @@ class CommentsBlock extends Component {
             <NewComment songId={this.props.songId} addNewComment={this.addNewComment} userId = {this.props.userId}/>
         </div>
       </div>
-    );
+    );}
   }
 }
 

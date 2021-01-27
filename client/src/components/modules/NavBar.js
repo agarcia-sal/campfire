@@ -52,7 +52,6 @@ class NavBar extends Component {
         let startDiv = "NavBar-start";
             if(!this.props.start){
                 searchPosition = "NavBar-center";
-                // startDiv = "";
             }
         const searchBar = (<AsyncSelect 
           styles = {customStyles}
