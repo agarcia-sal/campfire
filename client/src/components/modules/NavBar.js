@@ -77,7 +77,7 @@ class NavBar extends Component {
                 <div className="NavBar-logo u-inlineBlock">
                     <Link className = "home-link" to="/" >CAMPFIRE</Link>
                 </div>
-                <Link className = "NavBar-otherLinks link-right" to="/popularSongs">popular songs</Link>
+                // <Link className = "NavBar-otherLinks link-right" to="/popularSongs">popular songs</Link>
                 <button 
                 onClick = {this.props.logout} 
                 className = "NavBar-otherLinks NavBar-logout">
