@@ -18,7 +18,7 @@ class NavBar extends Component {
         this.state = {
             value : '',
             songs : [
-                {label : 'tis the damn season - Taylor Swift', value : 'spotify:track:6sQckd3Z8NPxVVKUnavY1F'},
+                {label : "'tis the damn season - Taylor Swift", value : 'spotify:track:6sQckd3Z8NPxVVKUnavY1F'},
                 {label : 'bellyache - Billie Eilish', value : 'spotify:track:51NFxnQvaosfDDutk0tams'},
                 {label : 'The Louvre - Lorde', value : 'spotify:track:5q4BpnMrYEFzLO0dYODj6J'}, 
                 {label: 'Roddy - Djo', value  : 'spotify:track:20WSCvv9qfQHzYzTaLyXHH'},
