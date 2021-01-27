@@ -63,7 +63,7 @@ class App extends Component {
         <Router>
           {/* <Home path="/home/:popId" userId = {this.state.userId}/> */}
           {/* <PrivateRoute as={Home} path="/home" userId = {this.state.userId}/> */}
-          <PrivateRoute as={PreHome} path="/home" userId = {this.state.userId}/>
+          <PrivateRoute as={Home} path="/home" userId = {this.state.userId}/>
           <Login
             path="/"
             handleLogin={this.handleLogin}
@@ -71,8 +71,6 @@ class App extends Component {
             userId={this.state.userId}
           /> 
           
-          <Home path="/postHome/:popId" userId={this.state.userId}/>
-          <PopularSongs path='/popularSongs'/>
           <NotFound default />
         </Router>
       </div>
