@@ -5,7 +5,7 @@
 |
 | This file defines the routes for your server.
 |
-// */
+*/
 
 const express = require("express");
 
@@ -155,6 +155,8 @@ router.get("/comments", (req, res) => {
 });
 
 
+// router.post("/login", auth.login);
+
 router.get('/getMe', (req, res) => {
   const loggedInSpotifyApi = new SpotifyWebApi({
     clientId: process.env.SPOTIFY_API_ID,
@@ -283,7 +285,7 @@ router.get("/colors", async (req, res) => {
     const colors = await Color.find({ songId: req.query.songId });
     console.log('colors in api/colors are: '+colors);
     // res.send(colors)
-    
+
     res.status(200).send(colors);
   }catch(err){
     console.log("error caught in api/colors");

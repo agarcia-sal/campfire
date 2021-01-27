@@ -43,6 +43,21 @@ class Home extends Component {
       this.setState({
           userId: user.body.id
       }); 
+      // if(this.props.popId){
+      //   console.log('popId'+ this.props.popId)
+      //   get('/api/token', {userId: user.body.id}).then((data)=>{
+      //     console.log('this is the data i am aaejf:'+data);
+      //     this.setState({
+      //           playing : true,
+      //           // songId : this.props.popId,
+      //           accessToken: data.token,
+      //           pause : false,
+      //           resume : false,
+      //           start: false
+                
+      //       }, () => console.log('adding a new song'))
+      //   });
+      // }
     })
 
   }
@@ -79,7 +94,7 @@ class Home extends Component {
             
         }, () => console.log('accessToken'+data.token))
         // navigate(`/postHome/${info.songId}`);
-        console.log('adding song');
+        // console.log('adding song');
     });
   }
   // this gets called when the user pushes "Submit", so their
@@ -117,6 +132,7 @@ class Home extends Component {
     let player = null;
     let emotions = null;
     let comments = null;
+      
     if(this.state.playing) {
       player = <SpotifyPlayer 
       token={this.state.accessToken}
