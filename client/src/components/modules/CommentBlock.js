@@ -46,11 +46,12 @@ class CommentsBlock extends Component {
   addNewComment = (comment) => {
     console.log(comment);
       let newComments = this.state.newComments
+      let coords = this.getRandomNumber(0, this.state.winWidth, 0, this.state.winHeight);
       newComments = newComments.concat([{comment: comment, 
         progress: comment.progressMs, 
         userId: comment.spotifyId,
-        top: this.getRandomNumber(60, 600), 
-        left: this.getRandomNumber(100, this.state.winWidth-100)}])
+        top: coords.y_coord, 
+        left: coords.x_coord}])
       if (comment.spotifyId !== this.props.userId) {
         console.log('getting song progress')
         get("/api/currentState").then((state) => {
@@ -101,16 +102,38 @@ class CommentsBlock extends Component {
     } 
   };
 
-  getRandomNumber = (min, max) => {
-    return Math.random() * (max - min) + min;
+  getRandomNumber = (min_x, max_x, min_y, max_y) => {
+    let x_coord = Math.random() * (max_x - min_x) + min_x;
+    let y_coord = Math.random() * (max_y - min_y) + min_y;
+    // windowHeight * vh / 100.
+    let fire_left = this.state.winWidth * 0.28;
+    let fire_width = this.state.winWidth * 0.4;
+    let fire_height = this.state.winHeight * 0.4;
+    let fire_top = this.state.winHeight * 0.3;
+    console.log('fire_left ' + fire_left)
+    console.log('fire_width ' + fire_width)
+    console.log('fire_top ' + fire_top)
+    console.log('fire_height ' + fire_height)
+    console.log('x_coord ' + x_coord)
+    if ((fire_left) < x_coord && x_coord < (fire_left + fire_width)) { 
+      console.log('hi')
+      while ((fire_top + fire_height) > y_coord && y_coord > fire_top){
+        console.log('another loop')
+        y_coord = Math.random() * (max_y - min_y) + min_y;
+      }
+      return {x_coord: x_coord, y_coord: y_coord};
+    } else {
+      return {x_coord: x_coord, y_coord: y_coord};
+    }
   }
 
   showComment = (index) => {
     // console.log('showing comment')
     let copyArr = this.state.commentsDisplay;// [false, true, true]
+    let coords = this.getRandomNumber(0.1 * this.state.winWidth, 0.8 * this.state.winWidth, 0.08 * this.state.winHeight, 0.8 * this.state.winHeight);
     copyArr[index] = {display: true, 
-                      top: this.getRandomNumber(60, 600), 
-                      left: this.getRandomNumber(100, this.state.winWidth-100)}
+                      top: coords.y_coord, 
+                      left: coords.x_coord}
     // console.log('adding comment '+copyArr[index])
     this.setState({commentsDisplay : copyArr}, () => console.log(this.state.commentsDisplay))
   }

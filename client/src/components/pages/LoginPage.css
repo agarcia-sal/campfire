@@ -12,21 +12,17 @@
     text-align: center; */
   }
 
-  
-video {
-    width: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
-}
-h1 {
-    background-color: #fff;
-    mix-blend-mode: screen;
-    font-size: 15rem;
-    font-family: sans-serif;
-    text-transform: uppercase;
+.LoginPage-title {
+    background: -webkit-linear-gradient(#f56738, #f6b452, #f7dc60);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    top: 0px;
+    padding: 0px;
+    mix-blend-mode: hard-light;
     text-align: center;
+    font-size: 7rem;
+    font-family: "Open Sans";
+    text-transform: lowercase;
     word-break: break-all;
 }
+

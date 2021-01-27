@@ -43,17 +43,17 @@ class InputComment extends Component {
 
   render() {
     return (
-      <div className="u-flex">
+      <div className = "input-container">
         <input 
           type="text"
           placeholder={"add a comment"}
           value={this.state.value}
           onChange={this.handleChange}
-          className="NewPostInput-input"
+          // className="NewPostInput-input"
         />
         <button
           type="submit"
-          className="NewPostInput-button u-pointer"
+          // className="NewPostInput-button u-pointer"
           value="Submit"
           onClick={this.handleSubmit}
         >
@@ -88,13 +88,11 @@ class NewComment extends Component {
   
     render() {
       return (
-      <div className = "input-container">
-      <div className = "input-bar">
+      <div>
         <InputComment 
                 songId = {this.props.songId} 
                 addComment={this.addComment} 
           />
-      </div>
       </div>
       );
     }
