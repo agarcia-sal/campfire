@@ -115,9 +115,6 @@ router.get('/currentState', async(req, res) => {
 router.get('/songs', (req,res) => {
   Song.find({}).then((songs) => res.send(songs));
 });
-router.get('/sortedSongs', (req,res) => {
-  Song.find({}).sort({count: 'desc'}).then((songs)=>res.send(songs));
-})
 
 router.post("/comment", auth.ensureLoggedIn, async(req, res) => {
   try {
@@ -134,11 +131,6 @@ router.post("/comment", auth.ensureLoggedIn, async(req, res) => {
       content: req.body.content,
       spotifyId: req.body.userId, 
     });
-    const songId = req.body.songId;
-    const song = await Song.findOne({song_id: songId});
-    const prevCount = song.count;
-    await Song.updateOne({song_id: songId},{count: prevCount+1});
-    // Song.findOne({song_id: songId}).then(())
     // newComment.save().then((comment) => res.send(comment));
     await newComment.save();
     socket.getIo().emit("newComment", newComment );
@@ -225,20 +217,6 @@ router.get("/search", async (req, res) => {
 // });
 router.post("/song", auth.ensureLoggedIn, async (req, res) => {
   try {
-    const loggedInSpotifyApi = new SpotifyWebApi({
-      clientId: process.env.SPOTIFY_API_ID,
-      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-      redirectUri: process.env.CALLBACK_URI,
-    });
-    loggedInSpotifyApi.setAccessToken(req.user.accessToken);
-    const songId = req.body.songId;
-    const track = await Song.findOne({song_id: songId});
-    console.log(track);
-    let song = null;
-    if(track !== null){
-      song = track;
-      console.log('this track already exists.')
-    }else{
       const newSong = new Song ({
         name: req.body.name,
         song_id: req.body.songId,
