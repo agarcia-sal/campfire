@@ -44,7 +44,8 @@ class CommentsBlock extends Component {
   }
 
   addNewComment = (comment) => {
-    console.log(comment);
+    if (comment.songId === this.state.songId) {
+      console.log(comment);
       let newComments = this.state.newComments
       let coords = this.getRandomNumber(0, this.state.winWidth, 0, this.state.winHeight);
       newComments = newComments.concat([{comment: comment, 
@@ -67,6 +68,7 @@ class CommentsBlock extends Component {
           newComments: newComments
         });
       }
+    }
   };
 
   componentDidMount() {
