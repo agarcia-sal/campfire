@@ -33,9 +33,7 @@ class Home extends Component {
       songProgress : null
     };
 
-    if(!this.props.userId) {
-      navigate('/');
-    }
+    
   }
   
 
@@ -53,6 +51,13 @@ class Home extends Component {
           userId: user.body.id
       }); 
     })
+    if (this.props.popId){
+      this.setState({
+        songId: popId,
+        playing: true,
+      })
+    }
+
   }
 
   handleLogin = () => {
@@ -78,14 +83,14 @@ class Home extends Component {
     this.setState({color: color})
   }
   
-  addTrack = (songId) => {
-    const body = { songId: songId}
+  addTrack = (info) => {
+    const body = { songId: info.songId, name: info.name};
     post('/api/song', body).then((data) => {
         this.setState({
             songs: [data.song.song_id].concat(this.state.songs),
             songNotPlayed: false, 
             playing : true,
-            songId : songId,
+            songId : info.songId,
             accessToken: data.token,
             pause : false,
             resume : false,

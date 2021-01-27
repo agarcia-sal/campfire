@@ -41,8 +41,9 @@ class NavBar extends Component {
     handleChoice = (selectedOption) => {
         this.setState({value: selectedOption});
         const uri = selectedOption.value;
-        this.props.addTrack(uri);
-        console.log('handled choice')
+        const info = {songId: uri, name: selectedOption.label};
+        this.props.addTrack(info);
+        console.log('handled choice');
 
     }
     render () {
@@ -100,6 +101,9 @@ class NavBar extends Component {
             <nav className="NavBar-linkContainer">
                 <div className="NavBar-title NavBar-logo u-inlineBlock">
                     <Link className = "home-link" to="/" >CAMPFIRE</Link>
+                </div>
+                <div>
+                    <Link to="/popularSongs">Popular Songs</Link>
                 </div>
                 <div className="NavBar-searchBar u-inlineBlock">
                     <AsyncSelect 
