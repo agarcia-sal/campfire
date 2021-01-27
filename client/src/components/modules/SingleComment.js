@@ -57,8 +57,11 @@ class SingleComment extends Component {
               top: this.props.top + 'px',
             }}>
               <div className = {commentAnimation} >
+                <div className = "divided">
                 <div>{this.state.display && this.props.content}</div>
-                <div>{this.state.display && "this user is currently " + description}</div>
+                <span className = "divider"></span>
+                <div className = "live-comment">{this.state.display && description}</div>
+                </div>
               </div>
             </span>
           </div>

@@ -13,11 +13,12 @@
 .Home-player {
     width: 33%;
 }
-/* .Home-comments {
+.fire-search {
     position: absolute;
-    right: 100px;
-    top: 100px;
-  } */
+    
+    top: 5%;
+    left: 34%;
+}
 
 .Home-navbar {
     background-color: hsla(0, 0%, 100%, 0.091);

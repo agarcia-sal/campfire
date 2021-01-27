@@ -1,5 +1,20 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,600");
 
+.divided {
+  display: flex;
+  align-items: center;
+}
+
+.divider {
+  flex-grow: 1;
+  border-bottom: 1px solid black;
+  margin: 5px
+}
+
+.live-comment{
+  color: red;
+  font-size: small;
+}
 .SingleComment-comment{
     /* animation: slide 20s 1 forwards; */
     /* margin-left: 100vw; */
