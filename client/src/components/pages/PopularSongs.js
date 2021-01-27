@@ -56,7 +56,7 @@ class PopularSongs extends Component {
         let showSongs = null;
         if(this.state.songs){
             showSongs = this.state.songs.map((song)=>(
-                <button className="PopularSongs-button" onClick={()=>this.addSong(song)} >{song.name}</button>
+                <div  className="PopularSongs-song u-flex" >{song.name}</div>
                 // <Link key={song.song_id} to={{
                 //     pathname:'/home',
                 //     aboutProps:{
