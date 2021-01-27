@@ -70,7 +70,7 @@ class App extends Component {
             handleLogout={this.handleLogout}
             userId={this.state.userId}
           /> 
-          
+          <PopularSongs path="/popularSongs"/>
           <NotFound default />
         </Router>
       </div>
