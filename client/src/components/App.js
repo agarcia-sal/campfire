@@ -5,6 +5,7 @@ import Skeleton from "./pages/Skeleton.js";
 import Login from "./pages/LoginPage.js";
 import Home from "./pages/Home.js";
 import PopularSongs from "./pages/PopularSongs.js";
+import PreHome from "./pages/PreHome.js";
 
 import "../utilities.css";
 
@@ -62,15 +63,16 @@ class App extends Component {
         <Router>
           {/* <Home path="/home/:popId" userId = {this.state.userId}/> */}
           <PrivateRoute as={Home} path="/home" userId = {this.state.userId}/>
+          {/* <PrivateRoute as={PreHome} path="/home" userId = {this.state.userId}/> */}
           <Login
             path="/"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
           /> 
-          
-          
-          <PopularSongs path='/popularSongs'/>
+{/*           
+          <Home path="/postHome/:popId"/>
+          <PopularSongs path='/popularSongs'/> */}
           <NotFound default />
         </Router>
       </div>
