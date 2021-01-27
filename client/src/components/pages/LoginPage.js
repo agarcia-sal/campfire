@@ -61,8 +61,8 @@ class LoginPage extends Component {
           words words words words words words words words words
         </p>
         <button onClick={this.handleLogin}>Login with Spotify</button>
-        {/* <Fire useDefault={false} currColor="party"/> */}
-        <FireAnimation useDefault={false} currColor="pinkPurple"/>
+        <Fire useDefault={false} currColor="party"/>
+        {/* <FireAnimation useDefault={false} currColor="pinkPurple"/> */}
         </div>
       );
     }

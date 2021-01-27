@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "@reach/router";
 import { Route, Redirect } from '@reach/router';
 import SpotifyPlayer from 'react-spotify-web-playback';
-
 import "../../utilities.css";
 import "./Skeleton.css";
 

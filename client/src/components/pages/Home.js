@@ -25,7 +25,6 @@ class Home extends Component {
       songs: ['spotify:track:6sQckd3Z8NPxVVKUnavY1F'],
       // songId: 'spotify:track:6sQckd3Z8NPxVVKUnavY1F',
       songId : '',
-      songNotPlayed: false,
       playing : false,
       start: false,
       pause: false,
@@ -38,25 +37,30 @@ class Home extends Component {
   
 
   componentDidMount() {
-    get('/api/songs').then((songObjs) => {
-        songObjs.map((songObj) => {
-            this.setState({ songs: this.state.songs.concat([songObj]) });
-        });
-        console.log(songObjs);
-    });
 
     get('/api/getMe').then((user) => {
       console.log(user)
       this.setState({
           userId: user.body.id
       }); 
+      if(this.props.popId){
+        console.log('popId'+ this.props.popId)
+        get('/api/token', {userId: user.body.id}).then((data)=>{
+          console.log('this is the data i am aaejf:'+data);
+          this.setState({
+                playing : true,
+                // songId : this.props.popId,
+                accessToken: data.token,
+                pause : false,
+                resume : false,
+                start: false
+                
+            }, () => console.log('accessToken'+data.token))
+        });
+      
+      
+      }
     })
-    if (this.props.popId){
-      this.setState({
-        songId: popId,
-        playing: true,
-      })
-    }
 
   }
 
@@ -74,11 +78,7 @@ class Home extends Component {
 
     })
   }
-  playSong = () => {
-    get("/api/token").then((data) => {
-      this.setState({accessToken : data.accessToken, playing : true})
-    })
-  }
+
   displayColor = (color) => {
     this.setState({color: color})
   }
@@ -86,33 +86,24 @@ class Home extends Component {
   addTrack = (info) => {
     const body = { songId: info.songId, name: info.name};
     post('/api/song', body).then((data) => {
-        this.setState({
-            songs: [data.song.song_id].concat(this.state.songs),
-            songNotPlayed: false, 
-            playing : true,
-            songId : info.songId,
-            accessToken: data.token,
-            pause : false,
-            resume : false,
-            start: false
+        // this.setState({
+        //     playing : true,
+        //     songId : info.songId,
+        //     accessToken: data.token,
+        //     pause : false,
+        //     resume : false,
+        //     start: false
             
-        }, () => console.log('accessToken'+data.token))
+        // }, () => console.log('accessToken'+data.token))
+        navigate(`/postHome/${info.songId}`);
         console.log('adding song');
     });
   }
   // this gets called when the user pushes "Submit", so their
   // story gets added to the screen right away
-  addNewSong = (songObj) => {
-    this.setState({
-      songs: [songObj].concat(this.state.songs),
-    });
-  };
+ 
 
-  searchSongs = () => {
-    get("/api/search", {title:'love'}).then((data) => {
-      console.log(data.body);
-    });
-  }
+
   checkSongState = (state) => {
     console.log('state: ');
     console.log(state);
@@ -137,13 +128,29 @@ class Home extends Component {
   }
   render() {
     console.log('am rerendering');
-    // if (this.state.songNotPlayed){
-    //     this.addTrack(this.state.songId);
-    // }
     let player = null;
     let emotions = null;
     let comments = null;
-    if(this.state.playing) {
+    if(this.props.popId && this.state.playing){
+      player = <SpotifyPlayer 
+      token={this.state.accessToken}
+      autoplay = {true}
+      styles={{
+        activeColor: 'transparent',
+        bgColor: 'transparent',
+        color: '#045E8B',
+        loaderColor: '#045E8B',
+        sliderColor: 'transparent',
+        sliderTrackColor: 'transparent',
+        sliderHandleColor: 'transparent',
+        sliderHandleBorderRadius: 0 | 'transparent', 
+        trackArtistColor: '#219EBC',
+        trackNameColor: '#045E8B',
+      }}
+      uris={[this.props.popId]}
+      callback={(state) => this.checkSongState(state)}
+    />
+    } else if(this.state.playing) {
       player = <SpotifyPlayer 
       token={this.state.accessToken}
       autoplay = {true}
@@ -166,7 +173,8 @@ class Home extends Component {
     // commentsDisplay={this.state.commentsDisplay}
     if (this.state.start){
       comments = (<CommentsBlock className="Home-commentsBlock"
-      songId = {this.state.songId} 
+      // songId = {this.state.songId} 
+      songId={this.props.popId}
       userId = {this.state.userId}
       resume = {this.state.resume}
       startTimers = {this.state.start}
@@ -176,7 +184,8 @@ class Home extends Component {
     />);
       
       emotions = (<Emotions 
-        songId = {this.state.songId}
+        // songId = {this.state.songId}
+        songId={this.props.popId}
         songProgress={this.state.songProgress}
         pauseTimers={this.state.pause}
         setResumeFalse={this.setResumeFalse}/>);

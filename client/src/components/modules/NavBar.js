@@ -18,11 +18,11 @@ class NavBar extends Component {
         this.state = {
             value : '',
             songs : [
-                {label : 'abc', value : 1},
-                {label : 'abcdef', value : 2},
-                {label : 'abcdefg', value : 3}, 
-                {label: 'aefbef', value  : 4},
-                {label : 'aebfu', value : 5},
+                {label : 'tis the damn season - Taylor Swift', value : 'spotify:track:6sQckd3Z8NPxVVKUnavY1F'},
+                {label : 'bellyache - Billie Eilish', value : 'spotify:track:51NFxnQvaosfDDutk0tams'},
+                {label : 'The Louvre - Lorde', value : 'spotify:track:5q4BpnMrYEFzLO0dYODj6J'}, 
+                {label: 'Roddy - Djo', value  : 'spotify:track:20WSCvv9qfQHzYzTaLyXHH'},
+                {label : 'Wait a Minute! - WILLOW', value : 'spotify:track:0y60itmpH0aPKsFiGxmtnh'},
             ]
         }
     }
@@ -79,7 +79,6 @@ class NavBar extends Component {
                     <Link className = "home-link" to="/" >CAMPFIRE</Link>
                 </div>
                 <Link className = "NavBar-otherLinks" to="/popularSongs">popular songs</Link>
-                <Link className = "NavBar-otherLinks" to = "/mySongs">my songs</Link> 
             </nav>
             <div className={searchPosition}>
                 {searchBar}

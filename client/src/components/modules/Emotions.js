@@ -26,7 +26,7 @@ class Emotions extends Component {
 
   componentDidMount () {
     console.log('mounting')
-    get('api/colors', { songId: this.props.songId }).then((colors) => {
+    get('/api/colors', { songId: this.props.songId }).then((colors) => {
       console.log(this.props.songId)
       this.setState({
         isPaused: false,
@@ -41,7 +41,8 @@ class Emotions extends Component {
 
   componentDidUpdate () {
     if (this.props.songId !== this.state.colorId){
-      get('api/colors', { songId: this.props.songId }).then((colors) => {
+      get('/api/colors', { songId: this.props.songId }).then((colors) => {
+        console.log('these are the colors: '+colors);
         this.setState({
           // colorTimers: [],
           colorId: this.props.songId,
@@ -116,6 +117,7 @@ class Emotions extends Component {
   }
 
   render() {
+    console.log('the song id for emotion is: '+this.props.songId);
     let useDefault = true;
     if(this.state.currColor){
       useDefault = false

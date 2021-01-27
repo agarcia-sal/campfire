@@ -159,160 +159,60 @@
 @keyframes changeContent{
     0%{
         opacity: 1;
-        content: "Fired Up";
+        content: "fired up";
     }
     7%{
         opacity: 0;
     }
     14%{
         opacity: 1;
-        content: "Joy";
+        content: "joy";
     }
     21%{
         opacity: 0;
     }
     29%{
         opacity: 1;
-        content: "Sad";
+        content: "sad";
     }
     36%{
         opacity: 0;
     }
     43%{
         opacity: 1;
-        content: "Vibing";
+        content: "vibing";
     }
     50%{
         opacity: 0;
     }
     57%{
         opacity: 1;
-        content: "Rocking Out";
+        content: "rocking out";
     }
     64%{
         opacity: 0;
     }
     71%{
         opacity: 1;
-        content: "Love";
+        content: "love";
     }
     78%{
         opacity: 0;
     }
     86%{
         opacity: 1;
-        content: "Party";
+        content: "dancing";
     }
-}
-@keyframes show1{
-    13%{
-        opacity: 1;
-    }
-    14%{
+    93%{
         opacity: 0;
     }
     100%{
-        opacity: 0;
+        opacity: 1;
+        content: "fired up"
     }
+}
 
-}
-@keyframes show2{
-    11%{
-        opacity: 0;
-    }
-    14%{
-        opacity: 1;
-    }
-    28%{
-        opacity: 1;
-    }
-    29%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 0;
-    }
 
-}
-@keyframes show3{
-    28%{
-        opacity: 0;
-    }
-    29%{
-        opacity: 1;
-    }
-    42%{
-        opacity: 1;
-    }
-    43%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 0;
-    }
-}
-@keyframes show4{
-    42%{
-        opacity: 0;
-    }
-    43%{
-        opacity: 1;
-    }
-    56%{
-        opacity: 1;
-    }
-    57%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 0;
-    }
-}
-@keyframes show5{
-    56%{
-        opacity: 0;
-    }
-    57%{
-        opacity: 1;
-    }
-    70%{
-        opacity: 1;
-    }
-    71%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 0;
-    }
-}
-@keyframes show6{
-    70%{
-        opacity: 0;
-    }
-    71%{
-        opacity: 1;
-    }
-    85%{
-        opacity: 1;
-    }
-    86%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 0;
-    }
-}
-@keyframes show7{
-    85%{
-        opacity: 0;
-    }
-    86%{
-        opacity: 1;
-    }
-    100%{
-        opacity: 1;
-    }
-}
 
 
 @keyframes middle {

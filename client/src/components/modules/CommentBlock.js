@@ -178,6 +178,7 @@ class CommentsBlock extends Component {
   render() {
     console.log('paused ' + this.state.paused)
     // console.log('commentDisplay: ' + this.state.commentsDisplay)
+    console.log('the song id for commentblock is:'+this.props.songId);
     return (
       <div className="Card-commentSection">
         <div className="story-comments">
