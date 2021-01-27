@@ -75,7 +75,8 @@ class NavBar extends Component {
             <div className = {startDiv}>
             <nav className="NavBar-linkContainer">
                 <div className="NavBar-logo u-inlineBlock">
-                    <Link className = "home-link" to="/" >CAMPFIRE</Link>
+                    // <Link className = "home-link" to="/home" >CAMPFIRE</Link>
+                    CAMPFIRE
                 </div>
                 // <Link className = "NavBar-otherLinks link-right" to="/popularSongs">popular songs</Link>
                 <button 
