@@ -19,6 +19,7 @@
 .home-link {
     display: block;
     margin: 5px;
+    margin-left: 10px;
     left: 0px;
     font-size: 2em;
     color: #f56738;
@@ -41,6 +42,7 @@
 .NavBar-logout {
     background-color: #023047;
     margin-top: 11px;
+    margin-left: 20px;
     border-radius: 15px;
     border-style: solid;
     border-color: transparent;
