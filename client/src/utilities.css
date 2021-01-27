@@ -45,6 +45,9 @@ form {
 .u-flex {
   display: flex;
 }
+.u-grid{
+  display: grid;
+}
 
 .u-flexColumn {
   display: flex;

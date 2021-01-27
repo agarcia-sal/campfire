@@ -5,7 +5,7 @@
 |
 | This file defines the routes for your server.
 |
-*/
+// */
 
 const express = require("express");
 
@@ -27,6 +27,7 @@ const socket = require("./server-socket");
 
 
 const SpotifyWebApi = require('spotify-web-api-node');
+const { mongo } = require("mongoose");
 scopes = ['user-read-private', 'user-read-email', 'playlist-modify-public', 'playlist-modify-private', 'user-read-recently-played', 'streaming', 'user-read-playback-state', 'user-modify-playback-state']
 
 require('dotenv').config();
@@ -71,14 +72,14 @@ router.get('/callback', async (req, res) => {
 //     res.redirect('/#/error/invalid token');
 //   }
 // });
-// router.get('/token', async (req, res) => {
-//   try {
-//     const token = spotifyApi.getAccessToken();
-//     res.status(200).send({accessToken: token});
-//   } catch (err) {
-//     res.status(400).send(err);
-//   }
-// });
+router.get('/token', async (req, res) => {
+  try {
+    console.log('accessToken is here:' + req.user.accessToken );
+    res.status(200).send({token:req.user.accessToken});
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
 router.get('/playlists', async (req, res) => {
   try {
     const loggedInSpotifyApi = new SpotifyWebApi({
@@ -111,16 +112,12 @@ router.get('/currentState', async(req, res) => {
   }
 });
 
-// router.post("/song", auth.ensureLoggedIn, (req, res) => {
-//   const newSong = new Song ({
-//     song_id: req.body.songId,
-//   });
-//   newSong.save().then((song) => res.send(song));
-// });
-
 router.get('/songs', (req,res) => {
   Song.find({}).then((songs) => res.send(songs));
 });
+router.get('/sortedSongs', (req,res) => {
+  Song.find({}).sort({count: 'desc'}).then((songs)=>res.send(songs));
+})
 
 router.post("/comment", auth.ensureLoggedIn, async(req, res) => {
   try {
@@ -137,6 +134,11 @@ router.post("/comment", auth.ensureLoggedIn, async(req, res) => {
       content: req.body.content,
       spotifyId: req.body.userId, 
     });
+    const songId = req.body.songId;
+    const song = await Song.findOne({song_id: songId});
+    const prevCount = song.count;
+    await Song.updateOne({song_id: songId},{count: prevCount+1});
+    // Song.findOne({song_id: songId}).then(())
     // newComment.save().then((comment) => res.send(comment));
     await newComment.save();
     socket.getIo().emit("newComment", newComment );
@@ -152,8 +154,6 @@ router.get("/comments", (req, res) => {
   });
 });
 
-
-// router.post("/login", auth.login);
 
 router.get('/getMe', (req, res) => {
   const loggedInSpotifyApi = new SpotifyWebApi({
@@ -225,10 +225,28 @@ router.get("/search", async (req, res) => {
 // });
 router.post("/song", auth.ensureLoggedIn, async (req, res) => {
   try {
-    const newSong = new Song ({
-      song_id: req.body.songId,
+    const loggedInSpotifyApi = new SpotifyWebApi({
+      clientId: process.env.SPOTIFY_API_ID,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      redirectUri: process.env.CALLBACK_URI,
     });
-    const song = await newSong.save();
+    loggedInSpotifyApi.setAccessToken(req.user.accessToken);
+    const songId = req.body.songId;
+    const track = await Song.findOne({song_id: songId});
+    console.log(track);
+    let song = null;
+    if(track !== null){
+      song = track;
+      console.log('this track already exists.')
+    }else{
+      const newSong = new Song ({
+        name: req.body.name,
+        song_id: req.body.songId,
+        count: 0,
+      });
+      song = await newSong.save();
+      console.log('adding new song');
+    }    
     const token = req.user.accessToken;
     res.status(200).send({song: song, token: token})
   }
@@ -259,10 +277,19 @@ router.post("/color", auth.ensureLoggedIn, async(req, res) => {
   
 });
 
-router.get("/colors", (req, res) => {
-  Color.find({ songId: req.query.songId }).then((colors) => {
+router.get("/colors", async (req, res) => {
+  try{
+    // Color.find({ songId: req.query.songId }).then((colors)=>res.status(200).send(colors))
+    const colors = await Color.find({ songId: req.query.songId });
+    console.log('colors in api/colors are: '+colors);
+    // res.send(colors)
+    
     res.status(200).send(colors);
-  });
+  }catch(err){
+    console.log("error caught in api/colors");
+    res.status(400).send("error  caught in api colors");
+    
+  }
 });
 
 

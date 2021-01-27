@@ -116,6 +116,7 @@ class Emotions extends Component {
   }
 
   render() {
+    console.log('the song id for emotion is: '+this.props.songId);
     let useDefault = true;
     if(this.state.currColor){
       useDefault = false

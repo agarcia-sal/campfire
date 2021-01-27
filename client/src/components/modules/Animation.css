@@ -1,8 +1,13 @@
 .Animation-textContainer{
-    left: 28%;
-    top: 73%;
-    width: 40vw;
-    position: fixed;
+    /* left: 28%;
+    top: 73%;*/
+    width: 40vw; 
+    /* position: fixed; */
+    text-align: center;
+}
+
+.Animation-textPreHome{
+    width: 30vw;
     text-align: center;
 }
 .Animation-container {
@@ -20,6 +25,11 @@
     margin-left: -100px; */
 }
 
+.Animation-prehome {
+    width: 30vw;
+    height: 30vh;
+}
+
 .Animation-login {
     width: 40vw;
     height: 40vh;
@@ -35,6 +45,19 @@
     animation: show1 35s ease-in-out infinite;
     display: inline;
 } */
+.Animation-firePreHome{
+    /* left: 28%;
+    top: 73%; */
+    padding: 5% 0px;
+    width: 30vw;
+    color: #afe6ff;
+    /* mix-blend-mode: multiply; */
+    text-transform: lowercase;
+    /* position: fixed; */
+    text-align: center;
+    /* margin-right: (--l); */
+    /* right: 0px; */
+}
 .Animation-fire{
     /* left: 28%;
     top: 73%; */
@@ -221,116 +244,16 @@
         opacity: 1;
         content: "Dancing 🕺";
     }
-}
-@keyframes show1{
-    13%{
-        opacity: 1;
-    }
-    14%{
+    93%{
         opacity: 0;
     }
     100%{
-        opacity: 0;
+        opacity: 1;
+        content: "fired up 🔥"
     }
+}
 
-}
-@keyframes show2{
-    11%{
-        opacity: 0;
-    }
-    14%{
-        opacity: 1;
-    }
-    28%{
-        opacity: 1;
-    }
-    29%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 0;
-    }
 
-}
-@keyframes show3{
-    28%{
-        opacity: 0;
-    }
-    29%{
-        opacity: 1;
-    }
-    42%{
-        opacity: 1;
-    }
-    43%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 0;
-    }
-}
-@keyframes show4{
-    42%{
-        opacity: 0;
-    }
-    43%{
-        opacity: 1;
-    }
-    56%{
-        opacity: 1;
-    }
-    57%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 0;
-    }
-}
-@keyframes show5{
-    56%{
-        opacity: 0;
-    }
-    57%{
-        opacity: 1;
-    }
-    70%{
-        opacity: 1;
-    }
-    71%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 0;
-    }
-}
-@keyframes show6{
-    70%{
-        opacity: 0;
-    }
-    71%{
-        opacity: 1;
-    }
-    85%{
-        opacity: 1;
-    }
-    86%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 0;
-    }
-}
-@keyframes show7{
-    85%{
-        opacity: 0;
-    }
-    86%{
-        opacity: 1;
-    }
-    100%{
-        opacity: 1;
-    }
-}
 
 
 @keyframes middle {

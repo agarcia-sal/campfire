@@ -27,13 +27,21 @@ const FireAnimation = (props) => {
         six = "#2b4da8";
         seven = "#133a94";
     } else if(currColor === "pinkPurple"){
-        one = "#f3c4fb";
-        two = "#ecbcfd";
-        three = "#deaaff";
+        // one = "#f3c4fb";
+        // two = "#ecbcfd";
+        // three = "#deaaff";
+        // four = "#d8bbff";
+        // five = "#d0d1ff";
+        // six = "#c8e7ff";
+        // seven = "#c0fdff";
+
+        one = "#c0fdff";
+        two = "#c8e7ff";
+        three = "#d0d1ff";
         four = "#d8bbff";
-        five = "#d0d1ff";
-        six = "#c8e7ff";
-        seven = "#c0fdff";
+        five = "#deaaff";
+        six = "#ecbcfd";
+        seven = "#f3c4fb";
     } else if(currColor === "purple"){
         one = "#dc97ff";
         two = "#bd68ee";

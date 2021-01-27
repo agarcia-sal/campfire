@@ -5,8 +5,12 @@ import "../../utilities.css";
 const Fire = (props) => {
    const {useDefault, currColor, login} = props;
    let firePos = "Animation-svg";
+   let textPos = "Animation-fire";
    if (login === true) {
         firePos = "Animation-login";
+    } else if  (login  === 'prehome'){
+        firePos = "Animation-prehome";
+        textPos = "Animation-firePreHome";
     }
    return (
        <>
@@ -250,7 +254,7 @@ const Fire = (props) => {
                 </g>
         </svg>
         {/* <div className="Animation-textContainer u-flex"> */}
-            <span className="Animation-fire"></span>
+            <span className={textPos}></span>
         {/* </div> */}
         </div>
         </>
