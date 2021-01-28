@@ -49,7 +49,7 @@ class CommentsBlock extends Component {
     if (comment.songId === this.props.songId) {
       console.log(comment);
       let newComments = this.state.newComments
-      let coords = this.getRandomNumber(0, this.state.winWidth, 0, this.state.winHeight);
+      let coords = this.getRandomNumber(0.1 * this.state.winWidth, 0.8 * this.state.winWidth, 0.08 * this.state.winHeight, 0.8 * this.state.winHeight);
       newComments = newComments.concat([{comment: comment, 
         progress: comment.progressMs, 
         userId: comment.spotifyId,
