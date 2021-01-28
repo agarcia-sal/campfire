@@ -45,6 +45,7 @@ class CommentsBlock extends Component {
 
   addNewComment = (comment) => {
     console.log(comment);
+    console.log(this.props.songId);
     if (comment.songId === this.props.songId) {
       console.log(comment);
       let newComments = this.state.newComments
