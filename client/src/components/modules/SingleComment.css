@@ -1,0 +1,143 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,600");
+
+.divided {
+  display: flex;
+  align-items: center;
+}
+
+.divider {
+  flex-grow: 1;
+  border-bottom: 1px solid black;
+  margin: 5px
+}
+
+.live-comment{
+  color: red;
+  font-size: small;
+}
+.SingleComment-comment{
+    /* animation: slide 20s 1 forwards; */
+    /* margin-left: 100vw; */
+    /* transition: margin-left 5s ease-in-out; */
+    animation: slidein 20s ease-in 1 both running;
+}
+
+@keyframes slidein {
+    0%{
+        display: none;
+        margin-left: 100vw;
+    }
+    1%{
+        display: block;
+    }
+    100%{
+        margin-left: -100vw;
+        display: none;
+    }
+}
+
+.Card-commentSection {
+    /* padding: var(--m) var(--l); */
+    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    color: rgb(255, 241, 241);
+    text-shadow: 3px 4px 7px rgba(81,67,21,0.8);
+  }
+.Card-comments {
+  position: absolute;
+  left: 200.39054194880825px;
+  top: 583.9292957105956px;
+}
+.input-container {
+  border-style: solid;
+  border-color:  #afe6ff;
+  border-radius: 15px;
+  border-width: 1px;
+  width: 33%;
+  display: flex;
+  position: absolute;
+  right: 2%;
+  bottom: 2%;
+}
+input[type=text] {
+  font-family: "Open Sans";
+  font-size: medium;
+  background-color: transparent;
+  border-color:  transparent;
+  color: #afe6ff;
+  width: 70%;
+  padding: 0px 0px 0px 10px;
+  height: 40px;
+
+}
+::placeholder {
+  color: #afe6ff;
+}
+input:focus {
+  outline: transparent;
+}
+
+button[type = submit] {
+  font-size: medium;
+  background-color: #023047;
+  font-family: "Open Sans";
+  border-style: solid;
+  color:  #afe6ff;
+  border-color:  transparent transparent transparent #afe6ff;
+  border-radius: 0px 15px 15px 0px;
+  border-width: 1px;
+  width: 30%;
+  padding: 0px 15px;
+  height: 40px;
+}
+button:focus {
+  outline-color: #afe6ff;
+}
+
+.slide-right {
+	-webkit-animation: slide-right 10s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+          animation: slide-right 10s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+.slide-right.pause{
+  animation-play-state: paused;
+}
+.paused {
+  animation-play-state: paused;
+}
+.running {
+  animation-play-state: running;
+}
+
+ @-webkit-keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    -webkit-filter: blur(0.1);
+            filter: blur(0.1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(5%);
+            transform: translateX(5%);
+    -webkit-filter: blur(1px);
+            filter: blur(1px);
+    opacity: 0;
+  }
+}
+@keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    -webkit-filter: blur(0.1);
+            filter: blur(0.1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(5%);
+            transform: translateX(5%);
+    -webkit-filter: blur(1px);
+            filter: blur(1px);
+    opacity: 0;
+  }
+}

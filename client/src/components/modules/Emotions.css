@@ -1,0 +1,61 @@
+.button {
+    /* background-color: 'transparent'; */
+    border-color: #afe6ff;
+    border-style: solid;
+    border-radius: 100%;
+    height: 70px;
+    width: 70px;
+    margin: 5%;
+    text-align: center;
+    font-size: 40px;
+    display: inline-block;
+    cursor: pointer;
+  }
+.joy {
+    background-color: #ffe76dbf;
+
+}
+.sad {
+    background-color: #0070b68a;
+
+}
+.vibe {
+    background-color: #deaaff87;
+
+}
+.rock {
+    background-color: rgba(128, 0, 128, 0.509);
+
+}
+.love {
+    background-color: #ef476ea8;
+
+}
+.party {
+    background-image: linear-gradient(rgba(205, 0, 102, 0.954), rgba(128, 0, 128, 0.845), rgba(0, 0, 255, 0.865));
+
+}
+.fire {
+    background-color: rgba(255, 166, 0, 0.803);
+
+}
+.Emotions-emojis {
+    /* display: flex; */
+    /* flex-direction: column; */
+    position: fixed;
+    /* background-color: #0343634d; */
+    /* bottom: 20px; */
+    width: 90px;
+    top: 10%;
+    /* height: 80px; */
+    margin: 10px 10px;
+
+}
+
+.fire-position {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+  }

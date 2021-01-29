@@ -1,0 +1,298 @@
+.Animation-textContainer{
+    /* left: 28%;
+    top: 73%;*/
+    width: 40vw; 
+    /* position: fixed; */
+    text-align: center;
+}
+
+.Animation-textPreHome{
+    width: 30vw;
+    text-align: center;
+}
+.Animation-container {
+    display: flex;
+    flex-direction: column;
+    padding: 3vh 0vh;
+}
+.Animation-svg{
+    width: 40vw;
+    position: fixed;
+    height: 40vh;
+    top: 30%;
+    left: 28%;
+    /* margin-top: -50px;
+    margin-left: -100px; */
+}
+
+.Animation-prehome {
+    width: 30vw;
+    height: 30vh;
+}
+
+.Animation-login {
+    width: 40vw;
+    height: 40vh;
+  
+    /* margin-right: (--l); */
+}
+
+.Animation-color{
+    animation: changingColor 35s ease-in-out infinite;
+}
+
+/* .Animation-fire{
+    animation: show1 35s ease-in-out infinite;
+    display: inline;
+} */
+.Animation-firePreHome{
+    /* left: 28%;
+    top: 73%; */
+    padding: 5% 0px;
+    width: 30vw;
+    color: #afe6ff;
+    /* mix-blend-mode: multiply; */
+    text-transform: lowercase;
+    /* position: fixed; */
+    text-align: center;
+    /* margin-right: (--l); */
+    /* right: 0px; */
+}
+.Animation-fire{
+    /* left: 28%;
+    top: 73%; */
+    padding: 5% 0px;
+    width: 40vw;
+    color: #afe6ff;
+    /* mix-blend-mode: multiply; */
+    text-transform: lowercase;
+    /* position: fixed; */
+    text-align: center;
+    /* margin-right: (--l); */
+    right: 0px;
+}
+.Animation-fire::before{
+    content : "campfire";
+    animation: changeContent 35s ease-in-out infinite;
+}
+.Animation-joy{
+    animation: show2 35s ease-in-out infinite;
+    opacity: 0;
+}
+.Animation-sad{
+    animation: show3 35s ease-in-out infinite;
+    opacity: 0;
+}
+.Animation-vibe{
+    animation: show4 35s ease-in-out infinite;
+    opacity: 0;
+}
+.Animation-rock{
+    animation: show5 35s ease-in-out infinite;
+    opacity: 0;
+}
+.Animation-love{
+    animation: show6 35s ease-in-out infinite;
+    opacity: 0;
+}
+.Animation-party{
+    animation: show7 35s ease-in-out infinite;
+    opacity: 0;
+}
+
+#flame2, #flame4, #flame5{
+    animation-name: flames;
+    animation-duration: 8s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    opacity: 0;
+}
+#flame1, #flame3{
+    animation: fade 8s ease-in-out infinite;
+    opacity: 0;
+}
+#flame1{
+    animation-delay: 2s;
+}
+#flame2{
+    animation-delay: 0.2s;
+    transform-origin: 26% 20%;
+}
+#flame3{
+    animation-delay: 4s;
+    /* transform-origin: 50% 20%; */
+}
+#flame4{
+    /*is the second highest*/
+    animation-delay: 3s;
+    transform-origin: 60% 10%;
+}
+#flame5{
+    /* is the highest*/
+    animation-delay: 1s;
+    transform-origin: 40% 5%;
+}
+#middle{
+    animation: middle 5s ease-in-out 1s infinite;
+    transform-origin: 50% bottom;
+    opacity: 1;
+}
+#front1, #front3{
+    animation: rotating1 5s ease-in-out 1s infinite;
+    opacity: 1;
+}
+#front2, #front4{
+    animation: rotating2 5s ease-in-out infinite;
+    opacity: 1;
+}
+#front1{
+    transform-origin: 30% 80%;
+}
+#front2{
+    animation-delay: 1s;
+    transform-origin: 40% 50%;
+}
+#front3{
+    animation-delay: 2s;
+    transform-origin: 40% 80%;
+}
+#front4{
+    animation-delay: 3s;
+    transform-origin: 60% 90%;
+}
+#background1{
+    animation: rotating1 5s ease-in-out infinite;
+    transform-origin: 40% bottom;
+}
+#background2{
+    animation: rotating1 5s ease-in-out infinite;
+    transform-origin: 20% 80%;
+}
+#background3{
+    animation: rotating2 5s ease-in-out infinite;
+    transform-origin: 70% 50%;
+    animation-delay: 1s;
+}
+#background4{
+    animation: rotating2 5s ease-in-out infinite;
+    transform-origin: 80% 70%;
+}
+@keyframes changingColor{
+    14%{
+        fill: url(#yellow)
+    }
+    29%{
+        fill: url(#blue)
+    }
+    43%{
+        fill: url(#pinkPurple)
+    }
+    57%{
+        fill: url(#purple)
+    }
+    71%{
+        fill: url(#pink)
+    }
+    86%{
+        fill: url(#party)
+    }
+}
+@keyframes changeContent{
+    0%{
+        opacity: 1;
+        content: "Fired Up 🔥";
+    }
+    7%{
+        opacity: 0;
+    }
+    14%{
+        opacity: 1;
+        content: "Joy 😁";
+    }
+    21%{
+        opacity: 0;
+    }
+    29%{
+        opacity: 1;
+        content: "Sad 😔";
+    }
+    36%{
+        opacity: 0;
+    }
+    43%{
+        opacity: 1;
+        content: "Vibing 😎";
+    }
+    50%{
+        opacity: 0;
+    }
+    57%{
+        opacity: 1;
+        content: "Rocking Out 🤘";
+    }
+    64%{
+        opacity: 0;
+    }
+    71%{
+        opacity: 1;
+        content: "Love 💕";
+    }
+    78%{
+        opacity: 0;
+    }
+    86%{
+        opacity: 1;
+        content: "Dancing 🕺";
+    }
+    93%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+        content: "fired up 🔥"
+    }
+}
+
+
+
+
+@keyframes middle {
+    50%{
+        transform: rotate(3deg);
+    }
+}
+@keyframes flames{
+    0%{
+        transform: translate(0) rotate(180deg);
+    }  
+    50%{
+        opacity: 1;
+    }
+    100%{
+        transform: translate(-10px, -40px) rotate(180deg);
+        opacity: 0;
+    }
+}
+@keyframes fade{
+    0%{
+        transform: translate(0);
+    }  
+    50%{
+        opacity: 1;
+    }
+    100%{
+        transform: translate(-10px, -40px);
+        opacity: 0;
+    }
+}
+@keyframes rotating1{
+    50%{
+        transform: rotate(5deg);
+    }
+}
+
+@keyframes rotating2{
+    50%{
+        transform: rotate(-5deg);
+    }
+}

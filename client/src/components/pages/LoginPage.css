@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+.Login-gradient {
+    background-image: linear-gradient(#8ECAE6, #219EBC, #023047);
+    /* background-color: #219EBC; */
+    min-height: 100%;
+    min-width: 100%;
+    position: fixed;
+    background-size: cover;
+    background-position: center;
+  }
+
+.about-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  position: absolute;
+  /* left: 10vw; */
+  top: 20vh;
+  margin: 10vh 0vh;
+  width: 60%;
+}
+
+.about-paragraph {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  margin-left: var(--l);
+
+}
+.LoginButton-pos {
+  
+  bottom: 10%;
+}
+
+.LoginPage-button {
+ 
+  /* left: 40%; */
+  margin-left: var(--l);
+  bottom: 10%;
+  border-color: transparent;
+  background-color: #023047;
+  color: white;
+  width: 20%;
+  border-radius: 40px;
+  font-family: "Helvetica", "Arial", sans-serif;
+  padding: 15px 5px;
+  font-size: large;
+  font-weight: bold;
+  letter-spacing: 1px;
+  position: fixed;
+  bottom: 10%;
+}
+
+button:focus{
+  outline: transparent;
+}
+.fire-pos{
+  position: fixed;
+  top: 25%;
+  left: 55%;
+}
+.Login-outline {
+  background-color: #bcd4e6;
+  /* background-image: linear-gradient(#8ECAE6, #219EBC, #023047); */
+  width: 45vw;
+  height: 90vh;
+  margin: 5vh 5vw;
+  border-radius: 15px;
+  /* left: 10%; */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-style: solid;
+  border-color:transparent;
+  
+}
+.LoginPage-title {
+    color: #E07800;
+    /* color: #f56738; */
+    /* mix-blend-mode: multiply; */
+    top: 5%;
+    position: absolute;
+    margin-top: 0;
+    font-weight: 550; 
+    letter-spacing: 1px;
+    margin-left: var(--l);
+    text-align: center;
+    font-size: 7rem;
+    font-family: "Open Sans";
+    text-transform: lowercase;
+}
+h2 {
+  font-family: "Open Sans" sans-serif;
+  letter-spacing: 1px;
+  font-weight: bold;
+  width: 40vw;
+  color:#8F4C00;
+  mix-blend-mode: hard-light;
+}
+p {
+  width: 80%;
+  line-height: 30px;
+  font-family: "Open Sans" sans-serif;
+  /* letter-spacing: 1px; */
+  font-size: 1.3em; 
+  color: #013b55;
+  font-weight: lighter;
+  mix-blend-mode: hard-light;
+}
+
+h2>span {
+  background: -webkit-linear-gradient(orange, gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* mix-blend-mode: hard-light; */
+}
